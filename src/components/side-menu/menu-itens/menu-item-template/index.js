@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -42,7 +43,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
         <ListItemIcon sx={{ color: "white", opacity: 0.7, minWidth: 30 }}>
           {icon}
         </ListItemIcon>
-        <ListItemText sx={{ opacity: 0.75 }} secondary={title} />
+        <ListItemText sx={{ opacity: 0.75 }} primary={title} />
         {open ? (
           <ExpandLess sx={{ opacity: 0.7, fontSize: 20 }} />
         ) : (
@@ -52,7 +53,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
 
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemButton
+          <ListItemButton component={Link} to="/calibration"
             sx={[
               {
                 margin: "auto",
@@ -75,8 +76,15 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
             {submenus.map((submenu) => {
               return (
                 <>
-                  <ListItemIcon sx={{ color: "white", opacity: 0.7, minWidth: 30 }}>{submenu.icon}</ListItemIcon>
-                  <ListItemText sx={{ opacity: 0.75 }} secondary={submenu.title} />
+                  <ListItemIcon
+                    sx={{ color: "white", opacity: 0.7, minWidth: 30 }}
+                  >
+                    {submenu.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{ opacity: 0.75 }}
+                    primary={submenu.title}
+                  />
                 </>
               );
             })}

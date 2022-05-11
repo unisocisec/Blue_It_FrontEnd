@@ -13,17 +13,16 @@ const theme = createTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#11192A",
+      main: "#3f51b5",
     },
     secondary: {
       main: "#f50057",
     },
     text: {
-      primary: "#11192A",
-      secondary: "rgba(255,255,255,0.87)",
+      primary: "rgba(255,255,255,0.87)",
     },
     background: {
-      paper: "#11192A",//#010216
+      paper: "#11192A", //#010216
     },
   },
   props: {
