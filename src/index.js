@@ -5,18 +5,18 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CalibrationPage from "./pages/calibration";
-import LoginPage from "./pages/login";
-import LayoutPage from "./pages/layout";
 import CssBaseline from '@mui/material/CssBaseline';
 import App from "./app";
+import { MyContext } from "./providers/MyContext";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CssBaseline />
-    <App />
+    <MyContext>
+      <CssBaseline />
+      <App />
+    </MyContext>
   </React.StrictMode>
 );
 

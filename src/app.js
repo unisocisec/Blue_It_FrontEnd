@@ -3,8 +3,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CalibrationPage from "./pages/calibration";
 import LoginPage from "./pages/login";
+import Loading from "./components/loading/index";
+import ErrorMessage from "./components/errorMessage/index";
 import LayoutPage from "./pages/layout";
 import CssBaseline from "@mui/material/CssBaseline";
+
 
 const theme = createTheme({
   palette: {
@@ -38,6 +41,8 @@ const theme = createTheme({
 const App = () => {
   return (
     <>
+      <Loading />
+      {/* <ErrorMessage /> */}
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <BrowserRouter>
@@ -45,7 +50,7 @@ const App = () => {
             <Route element={<LayoutPage />}>
               <Route path="calibration" element={<CalibrationPage />} />
             </Route>
-            <Route path="login" element={<LoginPage />} />
+            <Route path="" element={<LoginPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
