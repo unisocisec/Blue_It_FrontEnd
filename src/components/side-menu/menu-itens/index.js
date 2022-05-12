@@ -9,6 +9,7 @@ import ExtensionIcon from "@mui/icons-material/Extension";
 import PersonIcon from "@mui/icons-material/Person";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import HistoryIcon from "@mui/icons-material/History";
+import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 import { Typography } from "@mui/material";
 import MenuItemTemplate from "./menu-item-template";
 
@@ -85,7 +86,8 @@ const MenuItens = () => {
           title="Calibração"
           icon={<ScaleIcon sx={{ fontSize: 17 }} />}
           submenus={[
-            { title: "Histórico", icon: <HistoryIcon sx={{ fontSize: 17 }} /> },
+            { title: "Instrumentos", path:"calibracao/instrumentos", icon: <DeviceHubIcon sx={{ fontSize: 17 }} /> },
+            { title: "Histórico", path:"calibracao/historico", icon: <HistoryIcon sx={{ fontSize: 17 }} /> }
           ]}
         />
         <MenuItemTemplate

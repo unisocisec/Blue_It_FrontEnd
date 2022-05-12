@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 
-const CalibrationCardMeasureBox = ({ isLeft, title }) => {
+const MeasureBox = ({ isLeft, title, value }) => {
   return (
     <Box
       sx={{
@@ -22,11 +22,11 @@ const CalibrationCardMeasureBox = ({ isLeft, title }) => {
           {title}
         </Typography>
         <Typography variant="h6" sx={{ color: "#212EFF", fontSize: 14, marginRight: 2, fontWeight: 'bold' }}>
-          132 L/min
+          {value}
         </Typography>
       </Box>
     </Box>
   );
 };
 
-export default CalibrationCardMeasureBox;
+export default MeasureBox;

@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 
-const CalibrationCardHeader = () => {
+const DeviceCardHeader = ({title}) => {
   return (
     <Box
       sx={{
@@ -18,10 +18,10 @@ const CalibrationCardHeader = () => {
       }}
     >
       <Typography variant="h6" sx={{ color: "#11192A", fontSize: 17 }}>
-        Pitaco
+        {title}
       </Typography>
     </Box>
   );
 };
 
-export default CalibrationCardHeader;
+export default DeviceCardHeader;
