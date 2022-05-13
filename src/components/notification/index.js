@@ -37,7 +37,7 @@ const Notification = () => {
         display: 'flex',
         justifyContent: 'flex-end',
       }}>
-        <Stack sx={{ width: '30%' }} spacing={1}>
+        <Stack sx={{ width: '30%', minWidth: 380 }} spacing={1}>
           {notification.map((elem, index) => (
             <Alert key={index} variant="filled" severity={elem.type}>
               {elem.message}
