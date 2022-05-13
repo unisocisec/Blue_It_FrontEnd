@@ -42,7 +42,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
         <ListItemIcon sx={{ color: "white", opacity: 0.7, minWidth: 30 }}>
           {icon}
         </ListItemIcon>
-        <ListItemText sx={{ opacity: 0.75 }} primary={title} />
+        <ListItemText sx={{ opacity: 0.75 }} secondary={title} />
         {open ? (
           <ExpandLess sx={{ opacity: 0.7, fontSize: 20 }} />
         ) : (
@@ -76,7 +76,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
               return (
                 <>
                   <ListItemIcon sx={{ color: "white", opacity: 0.7, minWidth: 30 }}>{submenu.icon}</ListItemIcon>
-                  <ListItemText sx={{ opacity: 0.75 }} primary={submenu.title} />
+                  <ListItemText sx={{ opacity: 0.75 }} secondary={submenu.title} />
                 </>
               );
             })}
