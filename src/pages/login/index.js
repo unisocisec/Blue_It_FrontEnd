@@ -15,6 +15,24 @@ import GraphicsImages from '../../images/graphicsImages.svg';
 import { isAuthenticated } from '../../providers/sessionStorage';
 
 
+// const theme = createTheme({
+//   palette: {
+//     type: "light",
+//     primary: {
+//       main: "#11192A",
+//     },
+//     secondary: {
+//       main: "#f50057",
+//     },
+//     text: {
+//       main: "#11192A",
+//       primary: "rgba(255,255,255,0.87)",
+//       secondary: "#010216",
+//     },
+//   },
+// });
+
+
 const LoginPage = () => {
   const context = useMyContext();
   const navigate = useNavigate();
@@ -48,7 +66,7 @@ const LoginPage = () => {
           />
         </Box>
 
-        <Typography component="h1" variant="h5" color="primary" >
+        <Typography component="h1" variant="h5" color="primary">
           Bem-vindo ao I BLUE IT Analytics!
         </Typography>
 
