@@ -7,8 +7,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import HistoryIcon from "@mui/icons-material/History";
-import ScaleIcon from "@mui/icons-material/Scale";
 
 const MenuItemTemplate = ({ title, icon, submenus }) => {
   const [open, setOpen] = React.useState(false);
@@ -27,13 +25,10 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
             width: 230,
             height: 50,
             backgroundColor: "#11192A",
-            //color: '#6B707A'
           },
 
           {
             "&:hover": {
-              //color: "red",
-              //backgroundColor: "rgba(160,183,251,0.10)",
               backgroundColor: "rgba(195,195,195,0.45)",
             },
           },
@@ -65,13 +60,10 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
                     width: 200,
                     height: 35,
                     backgroundColor: "#11192A",
-                    //color: '#6B707A'
                   },
 
                   {
                     "&:hover": {
-                      //color: "red",
-                      //backgroundColor: "rgba(160,183,251,0.10)",
                       backgroundColor: "rgba(195,195,195,0.45)",
                     },
                   },

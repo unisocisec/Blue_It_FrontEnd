@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import DeviceCard from "../../components/device-card";
-import { fetchHistoryCalibration } from "../../services/api/calibration";
+import { fetchDevices } from "../../services/api/calibration";
 
 const DevicesPage = () => {
   const [historiesCalibrations, setHistoriesCalibrations] = useState([]);
@@ -11,7 +11,7 @@ const DevicesPage = () => {
   }, []);
 
   const getHistoryCalibration = async () => {
-    const result = await fetchHistoryCalibration();
+    const result = await fetchDevices();
     setHistoriesCalibrations(result);
   };
 
@@ -24,7 +24,7 @@ const DevicesPage = () => {
       }}
     >
       <Typography variant="h2" sx={{ fontSize: 20 }}>
-        Histórico de calibrações
+        Instrumentos calibrados
       </Typography>
       <Box
         sx={{

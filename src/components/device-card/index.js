@@ -12,14 +12,9 @@ const DeviceCard = ({historyCalibration}) => {
       sx={{
         flex: 'auto',
         boxSizing: 'border-box',
-        //flex: 1,
         minWidth: 0,
-        //,
-        //width: "100%",
         maxWidth: 600,
-        //minWidth: 700,
         backgroundColor: "white",
-        //height: 300,
         color: "black",
         marginBottom: 5,
       }}

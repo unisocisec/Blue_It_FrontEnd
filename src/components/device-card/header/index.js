@@ -13,7 +13,6 @@ const DeviceCardHeader = ({title}) => {
         alignItems: "center",
         border: "none",
         borderBottom: "1px solid #E9EAED",
-        //width: "100%",
         height: 50,
       }}
     >

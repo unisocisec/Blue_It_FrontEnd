@@ -3,12 +3,12 @@ import axios from "axios";
 const url = "https://iblueit.azurewebsites.net/api/pacients";
 const mockedPacientId = "626d8e0f192fcf413027dda9";
 
-const fetchHistoryCalibration = async (pacientId = mockedPacientId) => {
+const fetchDevices = async (pacientId = mockedPacientId) => {
   try {
     const result = await axios.get(`${url}/${pacientId}`, {
       headers: { gameToken: "0a377edf-9e39-427b-9426-ef87afb7287f" },
     });
-    
+
     return [
       {
         name: "Pitaco",
@@ -28,4 +28,33 @@ const fetchHistoryCalibration = async (pacientId = mockedPacientId) => {
   }
 };
 
-export { fetchHistoryCalibration };
+const fetchHistory = (device, exercise) => {
+  return [
+    {
+      name: "",
+      value: 0,
+    },
+    {
+      name: "01/05/2022",
+      value: 1000,
+    },
+    {
+      name: "02/05/2022",
+      value: 5000,
+    },
+    {
+      name: "02/05/2022",
+      value: 3500,
+    },
+    {
+      name: "03/05/2022",
+      value: 2000,
+    },
+    {
+      name: "03/05/2055",
+      value: 2780,
+    },
+  ];
+};
+
+export { fetchDevices, fetchHistory };

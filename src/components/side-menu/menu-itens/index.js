@@ -29,8 +29,6 @@ const divider = (
 const MenuItens = () => {
   return (
     <>
-      {/* <Toolbar />
-      <Divider /> */}
       <List sx={{ marginTop: 2 }}>
         <Box>
           <Avatar
