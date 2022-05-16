@@ -1,21 +1,30 @@
 import React from 'react';
 
-import CalibrationPage from "../pages/calibration";
 import LoginPage from "../pages/login";
 import Layout from "../pages/layout";
+import CalibrationHistoryPage from '../pages/calibration-history';
+import DevicesPage from '../pages/devices';
 
 const routes = [
 	{
 		path: '/',
 		title: 'Entrar',
-		component: () => (<LoginPage />),
+		component: <LoginPage />,
 		privated: false,
-	}, {
-		path: 'calibration',
-		title: 'CalibrationPage',
-		component: () => (<CalibrationPage />),
+	},
+	{
+		path: 'calibracao/historico',
+		title: 'Historico de calibracao',
+		component: <CalibrationHistoryPage />,
 		privated: true,
-	}, {
+	},
+	{
+		path: 'calibracao/instrumentos',
+		title: 'Dispositivos calibrados',
+		component: <DevicesPage />,
+		privated: true,
+	},
+	{
 		path: 'layout',
 		title: 'Layout',
 		component: () => (<Layout />),
