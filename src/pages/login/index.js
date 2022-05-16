@@ -44,7 +44,7 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       await postAuthentication(context, user, password);
-      if (isAuthenticated()) navigate("/layout")
+      if (isAuthenticated()) navigate("/calibracao/historico")
     } catch (error) { }
   };
 

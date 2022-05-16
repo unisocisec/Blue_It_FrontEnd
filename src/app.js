@@ -1,12 +1,10 @@
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import routes from "./providers/Routes.jsx";
+import { BrowserRouter } from "react-router-dom";
 import Loading from "./components/loading/index";
 import Notification from "./components/notification/index";
 import CssBaseline from "@mui/material/CssBaseline";
-import ValidateRoutes from "./components/validateRoutes/index";
-import _config from "./providers/_config.js";
+import MyRoutes from "./myroutes.js";
 
 
 const theme = createTheme({
@@ -41,20 +39,12 @@ const theme = createTheme({
 const App = () => {
   return (
     <>
-      <Loading />
+      {/* <Loading /> */}
       <Notification />
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Routes>
-            {routes.map(route => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={<ValidateRoutes {...route} />}
-              />
-            ))}
-          </Routes>
+          <MyRoutes />
         </BrowserRouter>
       </ThemeProvider>
     </>
