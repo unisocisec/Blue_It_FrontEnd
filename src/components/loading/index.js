@@ -32,8 +32,7 @@ const Loading = () => {
       </div >
     );
   }
-  return
-
+  return '';
 }
 
 export default Loading;

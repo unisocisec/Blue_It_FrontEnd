@@ -14,25 +14,6 @@ import Copyright from '../../components/copyright';
 import GraphicsImages from '../../images/graphicsImages.svg';
 import { isAuthenticated } from '../../providers/sessionStorage';
 
-
-// const theme = createTheme({
-//   palette: {
-//     type: "light",
-//     primary: {
-//       main: "#11192A",
-//     },
-//     secondary: {
-//       main: "#f50057",
-//     },
-//     text: {
-//       main: "#11192A",
-//       primary: "rgba(255,255,255,0.87)",
-//       secondary: "#010216",
-//     },
-//   },
-// });
-
-
 const LoginPage = () => {
   const context = useMyContext();
   const navigate = useNavigate();

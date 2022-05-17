@@ -1,11 +1,10 @@
 import axios from "axios";
 
-const url = "https://iblueit.azurewebsites.net/api/pacients";
 const mockedPacientId = "626d8e0f192fcf413027dda9";
 
 const fetchDevices = async (pacientId = mockedPacientId) => {
   try {
-    const result = await axios.get(`${url}/${pacientId}`, {
+    const result = await axios.get(`${window.BaseUrl}/pacients/${pacientId}`, {
       headers: { gameToken: "0a377edf-9e39-427b-9426-ef87afb7287f" },
     });
 
