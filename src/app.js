@@ -2,9 +2,10 @@ import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
 import Loading from "./components/loading/index";
-import Notification from "./components/notification/index";
+import Notification from "./components/notification";
 import CssBaseline from "@mui/material/CssBaseline";
-import MyRoutes from "./myroutes.js";
+import AssemblyOfRoutes from "./components/AssemblyOfRoutes";
+import _config from "./providers/_config.js";
 
 
 const theme = createTheme({
@@ -39,12 +40,12 @@ const theme = createTheme({
 const App = () => {
   return (
     <>
-      {/* <Loading /> */}
+      <Loading />
       <Notification />
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <MyRoutes />
+          <AssemblyOfRoutes />
         </BrowserRouter>
       </ThemeProvider>
     </>
