@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import { fetchAll } from "../../../../services/api/patient";
+import {useMyContext} from "../../../../providers/MyContext";
 
 const useStyles = makeStyles((theme) => ({
   select: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SelectPatient = () => {
+  const context = useMyContext();
   const classes = useStyles();
   const [patientId, setPatientId] = useState('');
 
@@ -38,7 +40,12 @@ const SelectPatient = () => {
   const fetchAllPatients = async () => {
     const result = await fetchAll()
     setPatients(result)
-    console.log(result)
+  }
+
+  const handlePatientChange = (event) => {
+    const patientId = event.target.value
+    setPatientId(patientId)
+    context.setPatientId(patientId)
   }
 
   return (
@@ -48,7 +55,7 @@ const SelectPatient = () => {
           className={classes.select}
           size="small"
           value={patientId}
-          onChange={(event) => setPatientId(event.target.value)}
+          onChange={handlePatientChange}
           displayEmpty
           inputProps={{ "aria-label": "Without label" }}
         >

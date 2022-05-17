@@ -5,6 +5,7 @@ import SelectComponent from "../../components/select";
 import DateInterval from "../../components/date-interval";
 import { makeStyles } from "@mui/styles";
 import { fetchHistory } from "../../services/api/calibration";
+import {useMyContext} from "../../providers/MyContext";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -29,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CalibrationHistoryPage = () => {
+  const context = useMyContext();
+
   const classes = useStyles();
 
   const [history, setHistory] = useState([]);
@@ -41,6 +44,8 @@ const CalibrationHistoryPage = () => {
   useEffect(() => {
     const result = fetchHistory(device, exercise);
     setHistory(result);
+    console.log('patientid ---------------')
+    console.log(context.patientId)
   }, []);
 
   const handleFilterButton = () => {

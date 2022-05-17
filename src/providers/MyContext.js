@@ -8,6 +8,7 @@ export const MyContext = (props) => {
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState();
   const [notificationIndex, setNotificationIndex] = useState(0);
+  const [patientId, setPatientId] = useState([]);
 
   useEffect(() => {
     if (notificationIndex) {
@@ -32,6 +33,7 @@ export const MyContext = (props) => {
       value={{
         loading, setLoading,
         notification, addNotification,
+        patientId, setPatientId
       }}
     >
       {props.children}
