@@ -1,4 +1,5 @@
 import React from "react";
+import SelectComponent from "../../select"
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -12,6 +13,7 @@ import HistoryIcon from "@mui/icons-material/History";
 import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 import { Typography } from "@mui/material";
 import MenuItemTemplate from "./menu-item-template";
+import SelectPatient from "./select-patient";
 
 const divider = (
   <Divider
@@ -34,15 +36,10 @@ const MenuItens = () => {
           <Avatar
             sx={{ width: 65, height: 65, margin: "auto", marginBottom: 1 }}
           />
-          <Typography
-            variant="subtitle1"
-            sx={{ textAlign: "center", fontWeight: "bold", fontSize: 15,  color:'text.inverted_primary' }}
-          >
-            Alexandre Back
-          </Typography>
+          <SelectPatient />
           <Typography
             variant="body2"
-            sx={{ textAlign: "center", opacity: 0.7, color:'text.inverted_secondary' }}
+            sx={{ textAlign: "center", color: "white", opacity: 0.7 }}
           >
             Paciente
           </Typography>
@@ -57,7 +54,6 @@ const MenuItens = () => {
             fontSize: 14,
             opacity: 0.25,
             fontWeight: "bold",
-            color:'text.inverted_primary'
           }}
         >
           Dashboard
@@ -77,7 +73,6 @@ const MenuItens = () => {
             fontSize: 14,
             opacity: 0.25,
             fontWeight: "bold",
-            color:'text.inverted_primary'
           }}
         >
           Gráficos
@@ -112,7 +107,6 @@ const MenuItens = () => {
             fontSize: 14,
             opacity: 0.25,
             fontWeight: "bold",
-            color:'text.inverted_primary'
           }}
         >
           Sistema
