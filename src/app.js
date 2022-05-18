@@ -15,16 +15,18 @@ const theme = createTheme({
     //   main: "#3f51b5",
     // },
     primary: {
-      main: "#11192A",
+      main: "#3f51b5",
+      //main: "#11192A",
     },
     secondary: {
       main: "#f50057",
     },
     text: {
-      primary: "#000",
-      secondary: "#000",
-      inverted_primary: "rgba(255,255,255,0.87)",
-      inverted_secondary: "#fff",
+      primary: "rgba(255,255,255,0.87)",
+      // primary: "#000",
+      // secondary: "#000",
+      // inverted_primary: "rgba(255,255,255,0.87)",
+      // inverted_secondary: "#fff",
     },
     background: {
       paper: "#11192A", //#010216
