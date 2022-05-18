@@ -5,14 +5,18 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
 
-export const extractMessage = (erro, displayMessage) => {
-  const message = (erro && erro.response && erro.response.data && erro.response.data.message);
-  if (!message) {
+export const extractMessage = (result, displayMessage) => {
+  const messageErro = (result && result.response && result.response.data && result.response.data.message);
+  const message = (result && result.data && result.data.message);
+
+  if (!messageErro && !message) {
     return 'Impossível fazer conexão com o servidor por favor tente novamente mais tarde';
   } else if (displayMessage) {
     return displayMessage;
+  } else if (message) {
+    return message;
   }
-  return message;
+  return messageErro;
 }
 
 const Notification = () => {
@@ -29,15 +33,17 @@ const Notification = () => {
   return (
     <div style={{
       position: 'fixed',
+      marginTop: '1vh',
+      zIndex: '9998',
       right: '0',
       left: '0',
-      top: '1',
+      top: '0',
     }}>
       < Box sx={{
         display: 'flex',
         justifyContent: 'flex-end',
       }}>
-        <Stack sx={{ width: '30%', minWidth: 380 }} spacing={1}>
+        <Stack sx={{ width: '30%', minWidth: 390 }} spacing={1}>
           {notification.map((elem, index) => (
             <Alert key={index} variant="filled" severity={elem.type}>
               {elem.message}
