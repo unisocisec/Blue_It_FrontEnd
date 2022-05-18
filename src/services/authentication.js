@@ -4,6 +4,7 @@ import axios from 'axios';
 import { saveAuthenticationData } from '../providers/sessionStorage';
 import { extractMessage } from '../components/notification';
 
+
 const postAuthentication = async (context, username, password) => {
   context.setLoading(true);
   try {
@@ -17,7 +18,6 @@ const postAuthentication = async (context, username, password) => {
   }
 }
 
-
 export {
   postAuthentication,
-}
+};

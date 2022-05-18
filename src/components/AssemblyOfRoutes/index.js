@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
-import routes from "../../providers/Routes.jsx";
+import routes, { pathRoutes } from "../../providers/Routes.jsx";
 import { isAuthenticated } from "../../providers/sessionStorage";
 import LayoutPage from "../../pages/layout/index";
 
@@ -14,14 +14,14 @@ const ValidateRoutes = (route) => {
       return (route.component());
     }
     document.title = `I Blue It - Historico de calibracao`;
-    return <Navigate to="/calibracao/historico" />;
+    return <Navigate to={pathRoutes.HISTORICAL_CALIBRATION} />;
   } else {
     if (authenticated) {
       document.title = `I Blue It - ${route.title}`;
       return (route.component());
     }
     document.title = `I Blue It - Entrar`;
-    return <Navigate to="/" />;
+    return <Navigate to={pathRoutes.LOGIN} />;
   }
 }
 

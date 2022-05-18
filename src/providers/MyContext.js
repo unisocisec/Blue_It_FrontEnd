@@ -14,11 +14,12 @@ export const MyContext = (props) => {
       let copyNotification = { ...notification }
       delete (copyNotification[notificationIndex]);
       setNotification({ ...copyNotification })
+      if(!Object.keys(copyNotification).length) setNotificationIndex(0);
     }
   }, [notificationIndex]);
 
   const addNotification = (type, message) => {
-    let lastIndex = 0;
+    let lastIndex = notificationIndex;
     for (const key in notification) if (key => lastIndex) lastIndex = key
     lastIndex = parseInt(lastIndex) + 1;
 

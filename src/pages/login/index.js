@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+import MaterialLink from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import { useMyContext } from "../../providers/MyContext";
+import { pathRoutes } from "../../providers/Routes.jsx";
 import { postAuthentication } from "../../services/authentication";
 import Copyright from '../../components/copyright';
 import GraphicsImages from '../../images/graphicsImages.svg';
@@ -25,7 +26,7 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       await postAuthentication(context, user, password);
-      if (isAuthenticated()) navigate("/calibracao/historico")
+      if (isAuthenticated()) navigate(pathRoutes.HISTORICAL_CALIBRATION)
     } catch (error) { }
   };
 
@@ -54,7 +55,7 @@ const LoginPage = () => {
         <Box
           sx={{ marginTop: 5 }}
           component="form"
-          onSubmit={(e) => handleSubmit(e)}>
+          onSubmit={handleSubmit}>
           <TextField
             margin="normal"
             required
@@ -90,9 +91,9 @@ const LoginPage = () => {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="#" variant="body2">
+              <MaterialLink to={pathRoutes.SIGN_UP} variant="body2" component={Link}>
                 {"Criar Conta I BLUE IT!"}
-              </Link>
+              </MaterialLink>
             </Grid>
           </Grid>
         </Box>

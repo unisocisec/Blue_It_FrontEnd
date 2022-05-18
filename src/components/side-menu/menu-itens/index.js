@@ -36,13 +36,13 @@ const MenuItens = () => {
           />
           <Typography
             variant="subtitle1"
-            sx={{ textAlign: "center", fontWeight: "bold", fontSize: 15 }}
+            sx={{ textAlign: "center", fontWeight: "bold", fontSize: 15,  color:'text.inverted_primary' }}
           >
             Alexandre Back
           </Typography>
           <Typography
             variant="body2"
-            sx={{ textAlign: "center", color: "white", opacity: 0.7 }}
+            sx={{ textAlign: "center", opacity: 0.7, color:'text.inverted_secondary' }}
           >
             Paciente
           </Typography>
@@ -57,6 +57,7 @@ const MenuItens = () => {
             fontSize: 14,
             opacity: 0.25,
             fontWeight: "bold",
+            color:'text.inverted_primary'
           }}
         >
           Dashboard
@@ -76,6 +77,7 @@ const MenuItens = () => {
             fontSize: 14,
             opacity: 0.25,
             fontWeight: "bold",
+            color:'text.inverted_primary'
           }}
         >
           Gráficos
@@ -110,6 +112,7 @@ const MenuItens = () => {
             fontSize: 14,
             opacity: 0.25,
             fontWeight: "bold",
+            color:'text.inverted_primary'
           }}
         >
           Sistema
