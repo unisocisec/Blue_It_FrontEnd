@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
   AreaChart,
   Area,
@@ -9,11 +9,17 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+const CalibrationGraph = ({exercise, data}) => {
+    const [labelY, setLabelY] = useState('')
 
-const demoUrl = "https://codesandbox.io/s/simple-area-chart-4ujxw";
+    useEffect(() => {
+        if (!exercise) setLabelY('')
+        if(exercise === 'ExpiratoryDuration' || exercise === 'InspiratoryDuration') setLabelY('Segundos')
+        if(exercise === 'ExpiratoryPeak' || exercise === 'InspiratoryPeak') setLabelY('Litros por minuto')
+        if(exercise === 'RespiratoryFrequency') setLabelY('RPM')
+    })
 
-const CalibrationGraph = ({unitMeasure, data}) => {
-  return (
+    return (
     <Box sx={{ height: 500, overflow: "hidden" }}>
       <ResponsiveContainer>
         <AreaChart
@@ -24,10 +30,9 @@ const CalibrationGraph = ({unitMeasure, data}) => {
             left: 0,
             bottom: 0,
           }}
-          //style={{backgroundColor: 'white'}}
         >
-          <XAxis dataKey="name" />
-          <YAxis tickLine={false} />
+          <XAxis dataKey="date" />
+          <YAxis label={{ value: `${labelY}`, angle: -90, position: 'insideLeft', fill: 'black', opacity: 0.5 }} tickLine={false}/>
           <Tooltip />
           <Area type="monotone" dataKey="value" stroke="#11192A" fill="#11192A" />
         </AreaChart>

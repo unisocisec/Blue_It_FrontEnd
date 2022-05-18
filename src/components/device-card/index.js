@@ -5,8 +5,6 @@ import DeviceCardHeader from "./header";
 import MeasureBox from "./measure-box";
 
 const DeviceCard = ({historyCalibration}) => {
-  console.log(historyCalibration)
-
   return (
     <Paper
       sx={{

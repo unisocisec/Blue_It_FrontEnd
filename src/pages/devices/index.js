@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import DeviceCard from "../../components/device-card";
 import { fetchDevices } from "../../services/api/calibration";
+import {useMyContext} from "../../providers/MyContext";
 
 const DevicesPage = () => {
+  const contex = useMyContext()
   const [historiesCalibrations, setHistoriesCalibrations] = useState([]);
 
   useEffect(() => {
@@ -11,9 +13,15 @@ const DevicesPage = () => {
   }, []);
 
   const getHistoryCalibration = async () => {
-    const result = await fetchDevices();
+    contex.setLoading(true);
+    const result = await fetchDevices(contex.patientId);
     setHistoriesCalibrations(result);
+    contex.setLoading(false);
   };
+
+  if(!contex.patientId) {
+      return (<Typography variant="h2" sx={{fontSize: 20}}>Um paciente precisa ser selecionado!</Typography>);
+  }
 
   return (
     <Box

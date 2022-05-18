@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 
 export const Context = React.createContext({});
 
-
-
 export const MyContext = (props) => {
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState();
   const [notificationIndex, setNotificationIndex] = useState(0);
-  const [patientId, setPatientId] = useState([]);
+  const [patientId, setPatientId] = useState();
+  const [gameToken, setGameToken] = useState();
 
   useEffect(() => {
     if (notificationIndex) {
@@ -33,7 +32,8 @@ export const MyContext = (props) => {
       value={{
         loading, setLoading,
         notification, addNotification,
-        patientId, setPatientId
+        patientId, setPatientId,
+        gameToken, setGameToken
       }}
     >
       {props.children}

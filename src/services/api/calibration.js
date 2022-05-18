@@ -1,11 +1,12 @@
 import axios from "axios";
+import moment from "moment";
 
-const mockedPacientId = "626d8e0f192fcf413027dda9";
+const fetchDevices = async (pacientId) => {
+  const gameToken = JSON.parse(window.sessionStorage.getItem("userCredentials") || '{}').gameToken;
 
-const fetchDevices = async (pacientId = mockedPacientId) => {
   try {
     const result = await axios.get(`${window.BaseUrl}/pacients/${pacientId}`, {
-      headers: { gameToken: "0a377edf-9e39-427b-9426-ef87afb7287f" },
+      headers: { gameToken },
     });
 
     return [
@@ -24,36 +25,29 @@ const fetchDevices = async (pacientId = mockedPacientId) => {
     ];
   } catch (error) {
     console.log(error);
+    return []
   }
 };
 
-const fetchHistory = (device, exercise) => {
-  return [
-    {
-      name: "",
+const fetchHistory = async (device, exercise, patientId) => {
+  const gameToken = JSON.parse(window.sessionStorage.getItem("userCredentials") || '{}').gameToken;
+
+  try {
+    const result = await axios.get(`${window.BaseUrl}/pacients/${patientId}/calibrations?sort=asc&gameDevice=${device}&calibrationExercise=${exercise}`, {
+      headers: { gameToken }
+    })
+
+    const zeroPoint = [{
+      date: "",
       value: 0,
-    },
-    {
-      name: "01/05/2022",
-      value: 1000,
-    },
-    {
-      name: "02/05/2022",
-      value: 5000,
-    },
-    {
-      name: "02/05/2022",
-      value: 3500,
-    },
-    {
-      name: "03/05/2022",
-      value: 2000,
-    },
-    {
-      name: "03/05/2055",
-      value: 2780,
-    },
-  ];
+    }]
+    const normalizedPoints = result.data.data.map(point => {return {date: moment(point.created_at).format("DD/MM/YY"), value: point.calibrationValue}})
+
+    return [...zeroPoint, ...normalizedPoints]
+  } catch (error) {
+    console.log(error);
+    return []
+  }
 };
 
 export { fetchDevices, fetchHistory };

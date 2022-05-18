@@ -1,7 +1,8 @@
-const saveAuthenticationData = (dataOfRequest) => {
+const saveAuthenticationData = (dataOfRequest, context) => {
   const dataToSave = (dataOfRequest.data && dataOfRequest.data.data)
     ? JSON.stringify(dataOfRequest.data.data)
     : '';
+  context.setGameToken(dataToSave.gameToken)
   sessionStorage.setItem('userCredentials', dataToSave);
 }
 

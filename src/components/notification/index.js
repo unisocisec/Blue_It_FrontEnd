@@ -32,6 +32,7 @@ const Notification = () => {
 
   return (
     <div style={{
+      zIndex: '1',
       position: 'fixed',
       marginTop: '1vh',
       zIndex: '9998',
