@@ -6,6 +6,7 @@ import DateInterval from "../../components/date-interval";
 import { makeStyles } from "@mui/styles";
 import { fetchHistory } from "../../services/api/calibration";
 import {useMyContext} from "../../providers/MyContext";
+import DeviceSelect from "../../components/device-select";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -67,18 +68,7 @@ const CalibrationHistoryPage = () => {
         Histórico de calibrações
       </Typography>
       <Box className={classes.container}>
-        <Box sx={{ width: 200, marginRight: 2 }}>
-          <SelectComponent
-            handleChangeCallBack={setDevice}
-            title="Dispositivo"
-            items={[
-              { key: "Pitaco", value: "Pitaco" },
-              { key: "Mano", value: "Manovacuômetro" },
-              { key: "Cinta", value: "Cinta" },
-            ]}
-            initialKey={device}
-          />
-        </Box>
+        <DeviceSelect device={device} setDevice={setDevice}/>
         <Box sx={{ width: 200, marginRight: 2 }}>
           <SelectComponent
             handleChangeCallBack={setExercise}
