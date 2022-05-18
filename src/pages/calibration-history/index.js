@@ -5,6 +5,7 @@ import SelectComponent from "../../components/select";
 import DateInterval from "../../components/date-interval";
 import { makeStyles } from "@mui/styles";
 import { fetchHistory } from "../../services/api/calibration";
+import {useMyContext} from "../../providers/MyContext";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,26 +29,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const NO_HISTORY_MESSAGE = 'Não existe histórico para os filtros selecionados.'
+
 const CalibrationHistoryPage = () => {
+  const context = useMyContext();
+
   const classes = useStyles();
 
   const [history, setHistory] = useState([]);
 
   const [device, setDevice] = useState("Pitaco");
-  const [exercise, setExercise] = useState("Frequência Respiratória");
+  const [exercise, setExercise] = useState("RespiratoryFrequency");
+  const [exerciseAfterRequest, setExerciseAfterRequest] = useState("RespiratoryFrequency");
   const [startDate, setStartDate] = useState();
   const [finalDate, setFinalDate] = useState();
 
-  useEffect(() => {
-    const result = fetchHistory(device, exercise);
+  const handleFilterButton = async () => {
+    context.setLoading(true)
+    const result = await fetchHistory(device, exercise, context.patientId);
     setHistory(result);
-  }, []);
-
-  const handleFilterButton = () => {
-    console.log(device);
-    console.log(exercise);
-    console.log(startDate);
-    console.log(finalDate);
+    if(result && result.length <= 1) {
+      context.addNotification('error', NO_HISTORY_MESSAGE)
+    }
+    setExerciseAfterRequest(exercise);
+    context.setLoading(false)
   };
 
   return (
@@ -68,7 +73,7 @@ const CalibrationHistoryPage = () => {
             title="Dispositivo"
             items={[
               { key: "Pitaco", value: "Pitaco" },
-              { key: "Manovacuômetro", value: "Manovacuômetro" },
+              { key: "Mano", value: "Manovacuômetro" },
               { key: "Cinta", value: "Cinta" },
             ]}
             initialKey={device}
@@ -80,13 +85,13 @@ const CalibrationHistoryPage = () => {
             title="Exercício"
             items={[
               {
-                key: "Frequência Respiratória",
+                key: "RespiratoryFrequency",
                 value: "Frequência Respiratória",
               },
-              { key: "Pico Expiratório", value: "Pico Expiratório" },
-              { key: "Duração Expiratória", value: "Duração Expiratória" },
-              { key: "Pico Inspiratório", value: "Pico Inspiratório" },
-              { key: "Duração Inspiratória", value: "Duração Inspiratória" }
+              { key: "ExpiratoryPeak", value: "Pico Expiratório" },
+              { key: "ExpiratoryDuration", value: "Duração Expiratória" },
+              { key: "InspiratoryPeak", value: "Pico Inspiratório" },
+              { key: "InspiratoryDuration", value: "Duração Inspiratória" }
             ]}
             initialKey={exercise}
           />
@@ -107,7 +112,9 @@ const CalibrationHistoryPage = () => {
           Filtrar
         </Button>
       </Box>
-      <CalibrationGraph data={history} unitMeasure="L/min" />
+      {(history.length === 0 && <Typography sx={{opacity: 0.5}} variant="subtitle1">Selecione os filtros desejados.</Typography>)
+          || (history.length > 1 && <CalibrationGraph data={history} exercise={exerciseAfterRequest} />)
+          || <Typography sx={{opacity: 0.5}} variant="subtitle1">{NO_HISTORY_MESSAGE}</Typography>}
     </Box>
   );
 };
