@@ -15,8 +15,10 @@ const CalibrationGraph = ({exercise, data}) => {
     useEffect(() => {
         if (!exercise) setLabelY('')
         if(exercise === 'ExpiratoryDuration' || exercise === 'InspiratoryDuration') setLabelY('Segundos')
-        if(exercise === 'ExpiratoryPeak' || exercise === 'InspiratoryPeak') setLabelY('Litros por minuto')
+        if(exercise === 'ExpiratoryPeak' || exercise === 'InspiratoryPeak' || exercise === 'maxExpFlow') setLabelY('Litros por minuto')
         if(exercise === 'RespiratoryFrequency') setLabelY('RPM')
+        if(exercise === 'result') setLabelY('Pontos')
+        if(exercise === 'scoreRatio') setLabelY('Porcentagem (%)')
     })
 
     return (
