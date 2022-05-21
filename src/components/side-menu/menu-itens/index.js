@@ -14,6 +14,7 @@ import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 import { Typography } from "@mui/material";
 import MenuItemTemplate from "./menu-item-template";
 import SelectPatient from "./select-patient";
+import {pathRoutes} from "../../../providers/Routes";
 
 const divider = (
   <Divider
@@ -93,7 +94,10 @@ const MenuItens = () => {
         <MenuItemTemplate
           title="Plataforma"
           icon={<ExtensionIcon sx={{ fontSize: 17 }} />}
-          submenus={[]}
+          submenus={[
+              { title: "Resultados", path:`${pathRoutes.PLATFORM_RESULTS}`, icon: <DeviceHubIcon sx={{ fontSize: 17 }} /> },
+              { title: "Comparativo", path:`${pathRoutes.PLATFORM_COMPARATIVE}`, icon: <HistoryIcon sx={{ fontSize: 17 }} /> }
+          ]}
         />
 
         {divider}
