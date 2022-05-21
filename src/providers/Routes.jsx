@@ -5,7 +5,9 @@ import SignUp from "../pages/signUp";
 import Layout from "../pages/layout";
 import CalibrationHistoryPage from '../pages/calibration-history';
 import DevicesPage from '../pages/devices';
+import ShippingCode from '../pages/shippingCode';
 import PageNotFound from '../pages/pageNotFound';
+
 
 export const pathRoutes = {
 	LOGIN: '/',
@@ -13,8 +15,8 @@ export const pathRoutes = {
 	HISTORICAL_CALIBRATION: '/calibracao/historico',
 	CALIBRATION_INSTRUMENTS: '/calibracao/instrumentos',
 	LAYOUT: '/layout',
+	SHIPPING_CODE: '/shippingCode'
 }
-
 
 const routes = [{
 	path: pathRoutes.LOGIN,
@@ -42,12 +44,15 @@ const routes = [{
 	component: () => (<Layout />),
 	privated: true,
 }, {
+	path: pathRoutes.SHIPPING_CODE,
+	title: 'Código de Envio',
+	component: () => (<ShippingCode />),
+	privated: true,
+}, {
 	path: '*',
 	title: 'Pagina não encontrada',
 	component: () => (<PageNotFound />),
 	privated: true,
-}
-];
-
+}];
 
 export default routes;

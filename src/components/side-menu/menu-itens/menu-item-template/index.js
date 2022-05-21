@@ -24,8 +24,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
             borderRadius: 2,
             width: 230,
             height: 50,
-            backgroundColor: "background",
-            color: 'text.inverted_primary',
+            backgroundColor: "#11192A",
           },
 
           {
@@ -39,7 +38,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
         <ListItemIcon sx={{ color: "white", opacity: 0.7, minWidth: 30 }}>
           {icon}
         </ListItemIcon>
-        <ListItemText sx={{ opacity: 0.75, color:'text.inverted_primary' }} primary={title} />
+        <ListItemText sx={{ opacity: 0.75 }} primary={title} />
         {open ? (
           <ExpandLess sx={{ opacity: 0.7, fontSize: 20 }} />
         ) : (
@@ -60,8 +59,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
                     borderRadius: 2,
                     width: 200,
                     height: 35,
-                    backgroundColor: "background",
-                    color: 'text.inverted_primary'
+                    backgroundColor: "#11192A",
                   },
 
                   {
@@ -72,11 +70,11 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
                 ]}
               >
                 <ListItemIcon
-                  sx={{ color: "text.inverted_secondary", opacity: 0.7, minWidth: 30 }}
+                  sx={{ color: "white", opacity: 0.7, minWidth: 30 }}
                 >
                   {submenu.icon}
                 </ListItemIcon>
-                <ListItemText sx={{ opacity: 0.75, color:'text.inverted_primary' }} primary={submenu.title} />
+                <ListItemText sx={{ opacity: 0.75, }} primary={submenu.title} />
               </ListItemButton>
             );
           })}
