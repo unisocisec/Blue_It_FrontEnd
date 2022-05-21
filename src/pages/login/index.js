@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
+import { makeStyles } from "@mui/styles";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import MaterialLink from '@mui/material/Link';
@@ -7,6 +8,13 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
 
 import { useMyContext } from "../../providers/MyContext";
 import { pathRoutes } from "../../providers/Routes.jsx";
@@ -15,12 +23,30 @@ import Copyright from '../../components/copyright';
 import GraphicsImages from '../../images/graphicsImages.svg';
 import { isAuthenticated } from '../../providers/sessionStorage';
 
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    color: "#fff",
+    backgroundColor: "#11192A",
+    "&:hover": {
+      backgroundColor: "#11192A",
+      opacity: 0.7,
+      color: "white",
+    },
+  },
+  input: {
+    color: "#11192A",
+  }
+}));
+
 const LoginPage = () => {
+  const classes = useStyles();
   const context = useMyContext();
   const navigate = useNavigate();
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,7 +74,7 @@ const LoginPage = () => {
           />
         </Box>
 
-        <Typography component="h1" variant="h5" color="primary">
+        <Typography color='#11192A' component="h1" variant="h5" >
           Bem-vindo ao I BLUE IT Analytics!
         </Typography>
 
@@ -57,41 +83,63 @@ const LoginPage = () => {
           component="form"
           onSubmit={handleSubmit}>
           <TextField
-            margin="normal"
             required
             fullWidth
+            autoFocus
+            margin="normal"
             label="Usuário"
             type='user'
             name="user"
             id='user'
             autoComplete="user"
-            autoFocus
+            color="borderInput"
+            InputProps={{ classes: { input: classes.input } }}
             value={user}
             onChange={(e) => setUser(e.target.value)}
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Senha"
-            type='password'
-            name="password"
-            id='password'
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <FormControl sx={{ mt: 2 }} fullWidth variant="outlined">
+            <InputLabel
+              required
+              color="borderInput"
+              htmlFor="outlined-adornment-password"
+            >
+              Senha
+            </InputLabel>
+            <OutlinedInput
+              required
+              id="password"
+              type={passwordVisibility ? 'text' : 'password'}
+              color="borderInput"
+              className={classes.input}
+              label="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    aria-label="botão para ver a senha"
+                    onClick={() => setPasswordVisibility(!passwordVisibility)}
+                    onMouseDown={() => setPasswordVisibility(!passwordVisibility)}
+                  >
+                    {passwordVisibility ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            className={classes.button}
           >
             Entrar
           </Button>
           <Grid container>
             <Grid item>
-              <MaterialLink to={pathRoutes.SIGN_UP} variant="body2" component={Link}>
+              <MaterialLink color='#11192A' to={pathRoutes.SIGN_UP} variant="body2" component={Link}>
                 {"Criar Conta I BLUE IT!"}
               </MaterialLink>
             </Grid>

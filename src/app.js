@@ -18,6 +18,9 @@ const theme = createTheme({
     secondary: {
       main: "#f50057",
     },
+    borderInput: {
+      main: "#11192A",
+    },
     text: {
       primary: "rgba(255,255,255,0.87)",
     },
