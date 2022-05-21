@@ -1,4 +1,4 @@
-
+/* eslint-disable no-throw-literal */
 import axios from 'axios';
 
 import { extractMessage } from '../../components/notification';
