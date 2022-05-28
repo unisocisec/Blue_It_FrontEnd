@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import DeviceCardHeader from "./header";
 import MeasureBox from "./measure-box";
 
-const DeviceCard = ({historyCalibration}) => {
+const DeviceCard = ({ historyCalibration }) => {
   return (
     <Paper
       sx={{
@@ -18,13 +18,33 @@ const DeviceCard = ({historyCalibration}) => {
       }}
       elevation={24}
     >
-      <DeviceCardHeader title={historyCalibration.name}/>
-      <Box sx={{display: 'flex', flexFlow: 'wrap'}}>
-        <MeasureBox title='Pico expiratório' value={`${historyCalibration.expPeakFlow.toFixed(0)} L/min`} isLeft={true} />
-        <MeasureBox title='Duração Expiratória' value={`${historyCalibration.expFlowDuration.toFixed(0)} seg`} isLeft={false} />
-        <MeasureBox title='Pico Inspiratório:' value={`${historyCalibration.insPeakFlow.toFixed(0)} L/min`} isLeft={true} />
-        <MeasureBox title='Duração Inspiratória' value={`${historyCalibration.insFlowDuration.toFixed(0)} seg`} isLeft={false} />
-        <MeasureBox title='Frequência' value={`${historyCalibration.respiratoryRate.toFixed(2)} RPM`} isLeft={true} />
+      <DeviceCardHeader title={historyCalibration.name ? historyCalibration.name : 'Sem Nome'} />
+      <Box sx={{ display: 'flex', flexFlow: 'wrap' }}>
+        <MeasureBox
+          isLeft={true}
+          title='Pico expiratório'
+          value={`${historyCalibration.respiratoryRate ? historyCalibration.expPeakFlow.toFixed(0) : ''} L/min`}
+        />
+        <MeasureBox
+          isLeft={false}
+          title='Duração Expiratória'
+          value={`${historyCalibration.expFlowDuration ? historyCalibration.expFlowDuration.toFixed(0) : ''} seg`}
+        />
+        <MeasureBox
+          isLeft={true}
+          title='Pico Inspiratório:'
+          value={`${historyCalibration.insPeakFlow ? historyCalibration.insPeakFlow.toFixed(0) : ''} L/min`}
+        />
+        <MeasureBox
+          isLeft={false}
+          title='Duração Inspiratória'
+          value={`${historyCalibration.insFlowDuration ? historyCalibration.insFlowDuration.toFixed(0) : ''} seg`}
+        />
+        <MeasureBox
+          isLeft={true}
+          title='Frequência'
+          value={`${historyCalibration.respiratoryRate ? historyCalibration.respiratoryRate.toFixed(2) : ''} RPM`}
+        />
       </Box>
     </Paper>
   );

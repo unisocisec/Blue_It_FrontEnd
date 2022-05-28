@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CalibrationGraph from "../../components/calibration-graph";
 import SelectComponent from "../../components/select";
 import DateInterval from "../../components/date-interval";

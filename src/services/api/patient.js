@@ -1,22 +1,26 @@
-import axios from "axios";
+import axios from 'axios';
 
-const url = "https://iblueit.azurewebsites.net/api/pacients";
-const gameToken = "0a377edf-9e39-427b-9426-ef87afb7287f";
+import { BaseUrl } from '../../providers/_config';
+import { getTokenParameters } from '../../providers/sessionStorage';
 
-const fetchAll = async () => {
+import { extractMessage } from '../../components/notification';
+
+const fetchAll = async (context) => {
+  context.setLoading(true);
   try {
-    const result = await axios.get(`${url}?sort=asc`, {
-      headers: {
-        gameToken,
-      },
-    });
-
-    return result.data.data.map((patient) => {
-      return { id: patient._id, name: patient.name };
-    });
+      const GameToken = getTokenParameters('gameToken');
+      const result = await axios.get(`${BaseUrl}/pacients?sort=asc`, { headers: { GameToken } });
+      return result.data.data.map((patient) => {
+        return { id: patient._id, name: patient.name };
+      });
   } catch (error) {
-    console.log(error);
+    context.addNotification('error', extractMessage(error, ''));
+    throw 'erro';
+  } finally {
+    context.setLoading(false);
   }
-};
+}
 
-export { fetchAll };
+export {
+  fetchAll,
+};

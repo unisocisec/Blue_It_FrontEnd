@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import DeviceCard from "../../components/device-card";

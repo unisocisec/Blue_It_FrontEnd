@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import DeviceSelect from "../../../components/device-select";
 import DateInterval from "../../../components/date-interval";

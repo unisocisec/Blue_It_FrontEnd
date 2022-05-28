@@ -16,7 +16,7 @@ export const MyContext = (props) => {
       setNotification({ ...copyNotification })
       if(!Object.keys(copyNotification).length) setNotificationIndex(0);
     }
-  }, [notificationIndex]);
+  }, [notification, notificationIndex]);
 
   const addNotification = (type, message) => {
     let lastIndex = notificationIndex;

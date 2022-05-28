@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import SelectComponent from "../../select"
+// import SelectComponent from "../../select"
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
