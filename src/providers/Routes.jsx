@@ -24,6 +24,8 @@ export const pathRoutes = {
 	PLATFORM_COMPARATIVE: '/plataforma/comparativo',
 	SHIPPING_CODE: '/shippingCode',
 	PATIENT_ACCOUNT: '/patientAccount',
+	SUGGESTION:'/gameConfiguration/suggestion',
+	CREATE_IT_YOUR_WAY: '/gameConfiguration/createItYourWay',
 }
 
 const routes = [{
@@ -74,6 +76,16 @@ const routes = [{
 }, {
 	path: pathRoutes.PATIENT_ACCOUNT,
 	title: 'Conta do Paciente',
+	component: () => (<PatientAccount />),
+	privated: true,
+}, {
+	path: pathRoutes.SUGGESTION,
+	title: 'Sugestões',
+	component: () => (<PatientAccount />),
+	privated: true,
+}, {
+	path: pathRoutes.CREATE_IT_YOUR_WAY,
+	title: 'Crie do seu jeito',
 	component: () => (<PatientAccount />),
 	privated: true,
 }, {
