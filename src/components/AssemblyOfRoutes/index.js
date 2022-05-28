@@ -13,7 +13,7 @@ const ValidateRoutes = (route) => {
       document.title = `I Blue It - ${route.title}`;
       return (route.component());
     }
-    document.title = `I Blue It - Dashboard`;
+    document.title = `I Blue It - Painel de Informações`;
     return <Navigate to={pathRoutes.INFORMATION_PANEL} />;
   } else {
     if (authenticated) {
