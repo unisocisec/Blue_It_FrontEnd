@@ -13,8 +13,8 @@ const ValidateRoutes = (route) => {
       document.title = `I Blue It - ${route.title}`;
       return (route.component());
     }
-    document.title = `I Blue It - Historico de calibracao`;
-    return <Navigate to={pathRoutes.HISTORICAL_CALIBRATION} />;
+    document.title = `I Blue It - Dashboard`;
+    return <Navigate to={pathRoutes.INFORMATION_PANEL} />;
   } else {
     if (authenticated) {
       document.title = `I Blue It - ${route.title}`;

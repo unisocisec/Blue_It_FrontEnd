@@ -1,11 +1,14 @@
 import axios from "axios";
 import moment from "moment";
 
+import { BaseUrl } from '../../providers/_config';
+import { getTokenParameters } from '../../providers/sessionStorage';
+
 const fetchDevices = async (pacientId) => {
-  const gameToken = JSON.parse(window.sessionStorage.getItem("userCredentials") || '{}').gameToken;
+  const gameToken = getTokenParameters('gameToken');
 
   try {
-    const result = await axios.get(`${window.BaseUrl}/pacients/${pacientId}`, {
+    const result = await axios.get(`${BaseUrl}/pacients/${pacientId}`, {
       headers: { gameToken },
     });
 
@@ -30,10 +33,10 @@ const fetchDevices = async (pacientId) => {
 };
 
 const fetchHistory = async (device, exercise, patientId) => {
-  const gameToken = JSON.parse(window.sessionStorage.getItem("userCredentials") || '{}').gameToken;
+  const gameToken = getTokenParameters('gameToken');
 
   try {
-    const result = await axios.get(`${window.BaseUrl}/pacients/${patientId}/calibrations?sort=asc&gameDevice=${device}&calibrationExercise=${exercise}`, {
+    const result = await axios.get(`${BaseUrl}/pacients/${patientId}/calibrations?sort=asc&gameDevice=${device}&calibrationExercise=${exercise}`, {
       headers: { gameToken }
     })
 

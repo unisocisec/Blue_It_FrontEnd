@@ -28,6 +28,7 @@ const AccountMenu = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [loggedInUserName] = useState(getTokenParameters('fullname'));
+  const [permission] = useState(getTokenParameters('role') === "Administrator");
   const [anchorEl, setAnchorEl] = useState(null);
   const openAccountMenu = Boolean(anchorEl);
 
@@ -104,17 +105,19 @@ const AccountMenu = () => {
         }}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem
-          component={Link}
-          className={classes.menuItem}
-          to={pathRoutes.SHIPPING_CODE}
-          onClick={() => setAnchorEl(null)}
-        >
-          <ListItemIcon sx={{ color: "text.primary" }}>
-            <KeyIcon fontSize="small" />
-          </ListItemIcon>
-          Código de Envio
-        </MenuItem>
+        {permission && (
+          <MenuItem
+            component={Link}
+            className={classes.menuItem}
+            to={pathRoutes.SHIPPING_CODE}
+            onClick={() => setAnchorEl(null)}
+          >
+            <ListItemIcon sx={{ color: "text.primary" }}>
+              <KeyIcon fontSize="small" />
+            </ListItemIcon>
+            Código de Envio
+          </MenuItem>
+        )}
         <MenuItem className={classes.menuItem} onClick={methodOfLogout}>
           <ListItemIcon sx={{ color: "text.primary" }}>
             <Logout fontSize="small" />

@@ -1,1 +1,1 @@
-window.BaseUrl = "https://iblueit.azurewebsites.net/api";
+export const  BaseUrl = "https://iblueit.azurewebsites.net/api";

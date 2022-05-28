@@ -2,24 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import DeviceCard from "../../components/device-card";
 import { fetchDevices } from "../../services/api/calibration";
-import {useMyContext} from "../../providers/MyContext";
+import { useMyContext } from "../../providers/MyContext";
 
 const DevicesPage = () => {
-  const contex = useMyContext()
+  const context = useMyContext()
   const [historiesCalibrations, setHistoriesCalibrations] = useState([]);
 
   useEffect(() => {
-    getHistoryCalibration();
-  }, []);
+    if (context.patientId) getHistoryCalibration();
+  }, [context.patientId]);
 
   const getHistoryCalibration = async () => {
-    contex.setLoading(true);
-    const result = await fetchDevices(contex.patientId);
+    context.setLoading(true);
+    const result = await fetchDevices(context.patientId);
     setHistoriesCalibrations(result);
-    contex.setLoading(false);
+    context.setLoading(false);
   };
 
-  if(!contex.patientId) {
+  if(!context.patientId) {
       return (<Typography variant="h2" sx={{fontSize: 20}}>Um paciente precisa ser selecionado!</Typography>);
   }
 
@@ -43,8 +43,8 @@ const DevicesPage = () => {
           flexFlow: "wrap",
         }}
       >
-        {historiesCalibrations.map((historyCalibration) => (
-          <DeviceCard historyCalibration={historyCalibration} />
+        {historiesCalibrations.map((historyCalibration, index) => (
+          <DeviceCard historyCalibration={historyCalibration} key={`historyCalibration${index}`} />
         ))}
       </Box>
     </Box>

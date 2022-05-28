@@ -1,4 +1,4 @@
-const saveAuthenticationData = (dataOfRequest, context) => {
+const saveAuthenticationData = (dataOfRequest) => {
   const dataToSave = (dataOfRequest.data && dataOfRequest.data.data)
     ? JSON.stringify(dataOfRequest.data.data)
     : '';

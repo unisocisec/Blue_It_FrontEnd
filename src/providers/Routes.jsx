@@ -9,17 +9,21 @@ import ShippingCode from '../pages/shippingCode';
 import PageNotFound from '../pages/pageNotFound';
 import ResultPage from "../pages/platform/results";
 import ComparativePage from "../pages/platform/comparative";
+import PatientAccount from "../pages/patientAccount";
+import InformationPanel from "../pages/informationPanel";
 
 
 export const pathRoutes = {
 	LOGIN: '/',
 	SIGN_UP: '/signUp',
+	LAYOUT: '/layout',
+	INFORMATION_PANEL: '/dashboard',
 	HISTORICAL_CALIBRATION: '/calibracao/historico',
 	CALIBRATION_INSTRUMENTS: '/calibracao/instrumentos',
-	PLATFORM_RESULTS: 'plataforma/resultados',
-	PLATFORM_COMPARATIVE: 'plataforma/comparativo',
-	LAYOUT: '/layout',
-	SHIPPING_CODE: '/shippingCode'
+	PLATFORM_RESULTS: '/plataforma/resultados',
+	PLATFORM_COMPARATIVE: '/plataforma/comparativo',
+	SHIPPING_CODE: '/shippingCode',
+	PATIENT_ACCOUNT: '/patientAccount',
 }
 
 const routes = [{
@@ -38,20 +42,25 @@ const routes = [{
 	component: () => (<CalibrationHistoryPage />),
 	privated: true,
 }, {
+	path: pathRoutes.INFORMATION_PANEL,
+	title: 'Dashboard',
+	component: () => (<InformationPanel />),
+	privated: true,
+}, {
 	path: pathRoutes.CALIBRATION_INSTRUMENTS,
 	title: 'Dispositivos calibrados',
 	component: () => (<DevicesPage />),
 	privated: true,
-},{
-    path: pathRoutes.PLATFORM_RESULTS,
-    title: 'Resultados da plataforma',
-    component: () => (<ResultPage />),
-    privated: true,
-},{
-    path: pathRoutes.PLATFORM_COMPARATIVE,
-    title: 'Comparativos da plataforma',
-    component: () => (<ComparativePage />),
-    privated: true,
+}, {
+	path: pathRoutes.PLATFORM_RESULTS,
+	title: 'Resultados da plataforma',
+	component: () => (<ResultPage />),
+	privated: true,
+}, {
+	path: pathRoutes.PLATFORM_COMPARATIVE,
+	title: 'Comparativos da plataforma',
+	component: () => (<ComparativePage />),
+	privated: true,
 }, {
 	path: pathRoutes.LAYOUT,
 	title: 'Layout',
@@ -61,6 +70,11 @@ const routes = [{
 	path: pathRoutes.SHIPPING_CODE,
 	title: 'Código de Envio',
 	component: () => (<ShippingCode />),
+	privated: true,
+}, {
+	path: pathRoutes.PATIENT_ACCOUNT,
+	title: 'Conta do Paciente',
+	component: () => (<PatientAccount />),
 	privated: true,
 }, {
 	path: '*',

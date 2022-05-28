@@ -6,7 +6,7 @@ import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import { fetchAll } from "../../../../services/api/patient";
-import {useMyContext} from "../../../../providers/MyContext";
+import { useMyContext } from "../../../../providers/MyContext";
 
 const useStyles = makeStyles((theme) => ({
   select: {
@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "#11192A",
       borderWidth: 2,
     },
+    "& .MuiSelect-icon": {
+      color: "white",
+    },
+
     color: "white",
     marginLeft: 20
   },
@@ -39,13 +43,18 @@ const SelectPatient = () => {
 
   const fetchAllPatients = async () => {
     const result = await fetchAll()
-    setPatients(result)
+    setPatients(result);
+    setPatientId(result[0].id || '');
+    context.setPatientId(result[0].id || '');
+    context.setPatientName(result[0].name || '');
   }
 
   const handlePatientChange = (event) => {
-    const patientId = event.target.value
+    const patientId = event.target.value;
     setPatientId(patientId)
     context.setPatientId(patientId)
+    const patient = patients.find(elem => elem.id === patientId);
+    context.setPatientName(patient.name);
   }
 
   return (
@@ -60,7 +69,10 @@ const SelectPatient = () => {
           inputProps={{ "aria-label": "Without label" }}
         >
           {patients.length && patients.map((patient) => (
-            <MenuItem value={patient.id}>
+            <MenuItem
+              key={`SelectPatient${patient.id}`}
+              value={patient.id}
+            >
               <Typography
                 variant="subtitle1"
                 sx={{ textAlign: "center", fontWeight: "bold", fontSize: 15 }}
