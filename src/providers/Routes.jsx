@@ -17,7 +17,7 @@ export const pathRoutes = {
 	LOGIN: '/',
 	SIGN_UP: '/signUp',
 	LAYOUT: '/layout',
-	INFORMATION_PANEL: '/dashboard',
+	INFORMATION_PANEL: '/dashboard/informationPanel',
 	HISTORICAL_CALIBRATION: '/calibracao/historico',
 	CALIBRATION_INSTRUMENTS: '/calibracao/instrumentos',
 	PLATFORM_RESULTS: '/plataforma/resultados',
@@ -43,7 +43,7 @@ const routes = [{
 	privated: true,
 }, {
 	path: pathRoutes.INFORMATION_PANEL,
-	title: 'Dashboard',
+	title: 'Painel de Informações',
 	component: () => (<InformationPanel />),
 	privated: true,
 }, {

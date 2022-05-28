@@ -3,16 +3,15 @@ import axios from 'axios';
 
 import { BaseUrl } from '../../providers/_config';
 import { getTokenParameters } from '../../providers/sessionStorage';
-
 import { extractMessage } from '../../components/notification';
 
 
-const getPatientAccount = async (context) => {
+const getPatientInformation = async (context) => {
   context.setLoading(true);
   try {
     const GameToken = getTokenParameters('gameToken');
     const result = await axios.get(`${BaseUrl}/pacients/${context.patientId}`, { headers: { GameToken } });
-
+    return result.data.data;
   } catch (error) {
     context.addNotification('error', extractMessage(error, ''));
     throw 'erro';
@@ -22,5 +21,5 @@ const getPatientAccount = async (context) => {
 }
 
 export {
-  getPatientAccount,
+  getPatientInformation,
 };
