@@ -2,7 +2,6 @@ const saveAuthenticationData = (dataOfRequest, context) => {
   const dataToSave = (dataOfRequest.data && dataOfRequest.data.data)
     ? JSON.stringify(dataOfRequest.data.data)
     : '';
-  //context.setGameToken(dataToSave.gameToken)
   sessionStorage.setItem('userCredentials', dataToSave);
 }
 
@@ -23,6 +22,19 @@ const validateUserCredentials = (userCredentials) => {
   return keysNeeded.every(elem => keys.indexOf(elem) >= 0);
 }
 
+const getTokenParameters = (Parameter = null) => {
+  if (Parameter) {
+    return JSON.parse(sessionStorage.getItem("userCredentials" || '{}'))[Parameter];
+  }
+  return JSON.parse(sessionStorage.getItem("userCredentials" || '{}'));
+}
+
+const updateAuthenticationData = (Parameter, valueParameter) => {
+  const data = getTokenParameters();
+  data[Parameter] = valueParameter;
+  sessionStorage.setItem('userCredentials', JSON.stringify(data));
+}
+
 const removerAuthenticationData = () => {
   sessionStorage.clear();
 }
@@ -30,5 +42,7 @@ const removerAuthenticationData = () => {
 export {
   saveAuthenticationData,
   removerAuthenticationData,
-  isAuthenticated
+  isAuthenticated,
+  getTokenParameters,
+  updateAuthenticationData,
 }

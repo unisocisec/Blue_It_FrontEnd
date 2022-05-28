@@ -4,6 +4,10 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
+import Box from '@mui/material/Box';
+
+import AccountMenu from '../accountMenu';
+
 
 const Header = ({offset, handleMenuButton}) => {
   return (
@@ -27,6 +31,8 @@ const Header = ({offset, handleMenuButton}) => {
         <Typography sx={{color: 'black'}} variant="h6" noWrap component="div">
           Colocar a logo no header
         </Typography>
+        <Box sx={{ flexGrow: 1 }} />
+        <AccountMenu />
       </Toolbar>
     </AppBar>
   );

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 const Copyright = (props) => {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography variant="body2" color="#11192A" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://unisocisec.cf/" target="_blank">
         ㄩ几丨丂ㄖ匚丨丂乇匚
