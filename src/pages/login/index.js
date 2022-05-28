@@ -52,7 +52,7 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       await postAuthentication(context, user, password);
-      if (isAuthenticated()) navigate(pathRoutes.HISTORICAL_CALIBRATION)
+      if (isAuthenticated()) navigate(pathRoutes.INFORMATION_PANEL)
     } catch (error) { }
   };
 

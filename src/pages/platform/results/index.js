@@ -63,15 +63,15 @@ const ResultPage = () => {
   ]);
 
   useEffect(() => {
-    fetchMicroCardsValues();
-  }, []);
+    if (context.patientId) fetchMicroCardsValues();
+  }, [context.patientId]);
 
   const fetchMicroCardsValues = async () => {
     context.setLoading(true);
-    const pointsAndLevelsAndPlaysApiResult = await fetchPointsAndLevelsAndPlays(
-      context.patientId
-    );
-    setMicroCardsValues(pointsAndLevelsAndPlaysApiResult);
+    console.log('aqui')
+    console.log(context.patientId)
+    const pointsAndLevelsAndPlaysApiResult = await fetchPointsAndLevelsAndPlays(context.patientId);
+    setMicroCardsValues(pointsAndLevelsAndPlaysApiResult || []);
     context.setLoading(false);
   };
 
@@ -96,8 +96,9 @@ const ResultPage = () => {
         Resultados na plataforma
       </Typography>
       <Box sx={{ marginTop: 4, display: "flex", flexWrap: "wrap" }}>
-        {microCardsValues.map((microCardValue) => (
+        {microCardsValues.map((microCardValue, index) => (
           <MicroCard
+            key={`ResultPage${index}`}
             title={microCardValue.title}
             value={microCardValue.value}
           />

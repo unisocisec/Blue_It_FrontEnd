@@ -52,13 +52,14 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
             return (
               <ListItemButton
                 component={Link}
-                to={`/${submenu.path}`}
+                to={submenu.path}
+                key={`submenus${submenu.path}`}
                 sx={[
                   {
                     margin: "auto",
                     borderRadius: 2,
                     width: 200,
-                    height: 35,
+                    height: 45,
                     backgroundColor: "#11192A",
                   },
 

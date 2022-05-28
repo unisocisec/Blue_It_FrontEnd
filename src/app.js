@@ -5,7 +5,6 @@ import Loading from "./components/loading/index";
 import Notification from "./components/notification";
 import CssBaseline from "@mui/material/CssBaseline";
 import AssemblyOfRoutes from "./components/AssemblyOfRoutes";
-import _config from "./providers/_config.js";
 
 
 const theme = createTheme({

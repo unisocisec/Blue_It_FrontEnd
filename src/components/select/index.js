@@ -50,7 +50,7 @@ const SelectComponent = ({
           inputProps={{ "aria-label": "Without label" }}
         >
           {items.map((item) => (
-            <MenuItem value={item.key}>{item.value}</MenuItem>
+            <MenuItem value={item.key} key={`SelectComponent${item.key}`}>{item.value}</MenuItem>
           ))}
         </Select>
       </FormControl>
