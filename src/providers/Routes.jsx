@@ -11,6 +11,7 @@ import ResultPage from "../pages/platform/results";
 import ComparativePage from "../pages/platform/comparative";
 import PatientAccount from "../pages/patientAccount";
 import InformationPanel from "../pages/informationPanel";
+import GameConfigurationCreatePage from "../pages/gameConfigurationCreate";
 
 
 export const pathRoutes = {
@@ -24,8 +25,7 @@ export const pathRoutes = {
 	PLATFORM_COMPARATIVE: '/plataforma/comparativo',
 	SHIPPING_CODE: '/shippingCode',
 	PATIENT_ACCOUNT: '/patientAccount',
-	SUGGESTION:'/gameConfiguration/suggestion',
-	CREATE_IT_YOUR_WAY: '/gameConfiguration/createItYourWay',
+	GAME_CONFIGURATION_CREATE:'/gameConfiguration/create',
 }
 
 const routes = [{
@@ -79,14 +79,9 @@ const routes = [{
 	component: () => (<PatientAccount />),
 	privated: true,
 }, {
-	path: pathRoutes.SUGGESTION,
-	title: 'Sugestões',
-	component: () => (<PatientAccount />),
-	privated: true,
-}, {
-	path: pathRoutes.CREATE_IT_YOUR_WAY,
-	title: 'Crie do seu jeito',
-	component: () => (<PatientAccount />),
+	path: pathRoutes.GAME_CONFIGURATION_CREATE,
+	title: 'Criar configurações de jogo',
+	component: () => (<GameConfigurationCreatePage />),
 	privated: true,
 }, {
 	path: '*',
