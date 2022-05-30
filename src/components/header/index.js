@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 
 import AccountMenu from '../accountMenu';
+import { pathRoutes } from "../../providers/Routes.jsx";
 
 
 const Header = ({offset, handleMenuButton}) => {
@@ -28,8 +30,14 @@ const Header = ({offset, handleMenuButton}) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography sx={{color: 'black'}} variant="h6" noWrap component="div">
-          Colocar a logo no header
+        <Typography
+          noWrap
+          variant="h6"
+          component={Link}
+          to={pathRoutes.INFORMATION_PANEL}
+          sx={{ color: 'black', textDecoration: 'none' }}
+        >
+          I Blue It (Colocar logo)
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <AccountMenu />

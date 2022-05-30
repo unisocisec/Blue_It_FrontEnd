@@ -113,7 +113,10 @@ const MenuItens = () => {
         <MenuItemTemplate
           title="Minigames"
           icon={<SportsEsportsIcon sx={{ fontSize: 17 }} />}
-          submenus={[]}
+          submenus={[
+            { title: "Resultados", path: pathRoutes.MINI_GAMES_RESULTS, icon: <DeviceHubIcon sx={{ fontSize: 17 }} /> },
+            { title: "Comparativo", path: pathRoutes.MINI_GAMES_COMPARATIVE, icon: <HistoryIcon sx={{ fontSize: 17 }} /> }
+          ]}
         />
         <MenuItemTemplate
           title="Plataforma"
