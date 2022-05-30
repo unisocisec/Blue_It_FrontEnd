@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 
-const MeasureBox = ({ isLeft, title, value, Idname=null }) => {
+const MeasureBox = ({ isLeft, title, value, Idname=null, widthBox = "50%", flexDirectionInnerBox="row" }) => {
   return (
     <Box
       sx={{
@@ -13,11 +13,11 @@ const MeasureBox = ({ isLeft, title, value, Idname=null }) => {
         border: "none",
         borderRight: isLeft ? "1px solid #E9EAED" : "none",
         borderBottom: "1px solid #E9EAED",
-        width: '50%',
+        width: widthBox,
         height: 100,
       }}
     >
-      <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Box sx={{ width: '100%', display: "flex", flexDirection: flexDirectionInnerBox, justifyContent: 'space-between' }}>
         <Typography variant="h6" sx={{ color: "#11192A", opacity: 0.8, fontSize: 14, fontWeight: 'bold' }}>
           {title}
         </Typography>

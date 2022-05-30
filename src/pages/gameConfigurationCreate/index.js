@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const GameConfigurationCreatePage = () => {
-  const context = useMyContext()
+  const pageContext = useMyContext()
   const [gameParameterNeighborInformations, setGameParameterNeighborInformations] = useState([]);
 
   const classes = useStyles();
@@ -40,36 +40,53 @@ const GameConfigurationCreatePage = () => {
   const [sizeIncrement, setSizeIncrement] = useState('');
   const [sizeUpThreshold, setSizeUpThreshold] = useState('');
   const [sizeDownThreshold, setSizeDownThreshold] = useState('');
+  const [gameScript, setGameScript] = useState('');
 
-  useEffect(() => { if (context.patientId) getGameParameterNeighbor(); }, [context.patientId]);
-  
-  if (!context.patientId) {
+  useEffect(() => {
+    const setInputsPacientGameParameter = (pacientGameParameter) => {
+      if (pacientGameParameter) {
+        var stringifyGameScript = translateGameScript(pacientGameParameter?.gameScript)
+        setPhase(pacientGameParameter?.phase || "");
+        setStageId(pacientGameParameter?.stageId || "");
+        setLevel(pacientGameParameter?.level || "");
+        setLoops(pacientGameParameter?.Loops || "");
+        setObjectSpeedFactor(pacientGameParameter?.ObjectSpeedFactor?.$numberDecimal || "");
+        setHeightIncrement(pacientGameParameter?.HeightIncrement?.$numberDecimal || "");
+        setHeightUpThreshold(pacientGameParameter?.HeightUpThreshold?.$numberDecimal || "");
+        setHeightDownThreshold(pacientGameParameter?.HeightDownThreshold?.$numberDecimal || "");
+        setSizeIncrement(pacientGameParameter?.SizeIncrement?.$numberDecimal || "");
+        setSizeUpThreshold(pacientGameParameter?.SizeUpThreshold?.$numberDecimal || "");
+        setSizeDownThreshold(pacientGameParameter?.SizeDownThreshold?.$numberDecimal || "");
+        setGameScript(stringifyGameScript || "");
+      }
+    }
+    async function getGameParameterNeighbor() {
+      pageContext.setLoading(true);
+      const pacientGameParameteResult = await getGameParameter(pageContext.patientId)
+      setInputsPacientGameParameter(pacientGameParameteResult.data.data[0])
+      const result = await fetchGameParameterNeighbor(pageContext.patientId);
+      setGameParameterNeighborInformations([...result.data.data]);
+      pageContext.setLoading(false);
+    };
+    if (pageContext.patientId) {
+      getGameParameterNeighbor();
+    }
+  }, [pageContext.patientId]);
+
+  if (!pageContext.patientId) {
     return (<Typography variant="h2" sx={{ fontSize: 20 }}>Um paciente precisa ser selecionado!</Typography>);
   }
 
-  const getGameParameterNeighbor = async () => {
-    context.setLoading(true);
-    const pacientGameParameteResult = await getGameParameter(context.patientId)
-    setInputsPacientGameParameter(pacientGameParameteResult.data.data[0])
-    const result = await fetchGameParameterNeighbor(context.patientId);
-    setGameParameterNeighborInformations([...result.data.data]);
-    context.setLoading(false);
-  };
-
-  const setInputsPacientGameParameter = (pacientGameParameter) => {
-    if(pacientGameParameter){
-      setPhase(pacientGameParameter?.phase || "");
-      setStageId(pacientGameParameter?.stageId || "");
-      setLevel(pacientGameParameter?.level || "");
-      setLoops(pacientGameParameter?.Loops || "");
-      setObjectSpeedFactor(pacientGameParameter?.ObjectSpeedFactor?.$numberDecimal || "");
-      setHeightIncrement(pacientGameParameter?.HeightIncrement?.$numberDecimal || "");
-      setHeightUpThreshold(pacientGameParameter?.HeightUpThreshold?.$numberDecimal || "");
-      setHeightDownThreshold(pacientGameParameter?.HeightDownThreshold?.$numberDecimal || "");
-      setSizeIncrement(pacientGameParameter?.SizeIncrement?.$numberDecimal || "");
-      setSizeUpThreshold(pacientGameParameter?.SizeUpThreshold?.$numberDecimal || "");
-      setSizeDownThreshold(pacientGameParameter?.SizeDownThreshold?.$numberDecimal || "");
-    }
+  const translateGameScript = (pacientGameParameter) => {
+    var stringifyGameScript = ""
+    pacientGameParameter?.forEach(function (attr, index) {
+      if (index + 1 === pacientGameParameter.length) {
+        stringifyGameScript += (attr.ObjectType + ";" + attr.DifficultyFactor + ";" + attr.PositionYFactor + ";" + attr.PositionXSpacing)
+      } else {
+        stringifyGameScript += (attr.ObjectType + ";" + attr.DifficultyFactor + ";" + attr.PositionYFactor + ";" + attr.PositionXSpacing + "\r\n")
+      }
+    })
+    return stringifyGameScript
   }
 
   const selectNeighborInformation = (index) => {
@@ -84,16 +101,25 @@ const GameConfigurationCreatePage = () => {
     setSizeIncrement(document.getElementById(`sizeIncrement${index}`).innerText);
     setSizeUpThreshold(document.getElementById(`sizeUpThreshold${index}`).innerText);
     setSizeDownThreshold(document.getElementById(`sizeDownThreshold${index}`).innerText);
+    setGameScript(document.getElementById(`gameScript${index}`)?.innerText?.replace(" ", "\n"));
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!context.patientId) {
-      context.addNotification('error', 'Nenhum paciente selecionados')
+    if (!pageContext.patientId) {
+      pageContext.addNotification('error', 'Nenhum paciente selecionados')
     } else {
       try {
+        const gameScriptEdit = document?.getElementById('gameScript')?.value?.split("\n")?.map(function (template) {
+          return {
+            "ObjectType": template.split(";")[0],
+            "DifficultyFactor": template.split(";")[1],
+            "PositionYFactor": template.split(";")[2],
+            "PositionXSpacing": template.split(";")[3]
+          }
+        })
         const gameParameter = {
-          pacientId: context.patientId,
+          pacientId: pageContext.patientId,
           "stageId": stageId,
           "phase": phase,
           "level": level,
@@ -104,10 +130,11 @@ const GameConfigurationCreatePage = () => {
           "SizeIncrement": sizeIncrement,
           "SizeUpThreshold": sizeUpThreshold,
           "SizeDownThreshold": sizeDownThreshold,
+          "gameScript": gameScriptEdit,
           "Loops": Loops,
         };
-        await createGameParameter(context, gameParameter)
-        context.addNotification('success', 'Salvo com Sucesso');
+        await createGameParameter(pageContext, gameParameter)
+        pageContext.addNotification('success', 'Salvo com Sucesso');
       } catch (error) { }
     };
   }
@@ -370,6 +397,24 @@ const GameConfigurationCreatePage = () => {
           }}
         >
           <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            paddingLeft: 2,
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            border: "none",
+            borderRight: "1px solid #E9EAED",
+            borderBottom: "1px solid #E9EAED",
+            width: '100%',
+            height: "100%",
+          }}
+        >
+          <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
+            <TextField multiline rows={3} sx={{ width: '100%' }} required label="Roteiro do Jogo" margin="normal" name="gameScript" id='gameScript' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={gameScript}
+              onChange={(e) => setGameScript(e.target.value)} />
           </Box>
         </Box>
         <Button

@@ -21,6 +21,19 @@ const useStyles = makeStyles((theme) => ({
 const GameParameterCard = ({ gameParameter, index=null, selectNeighborInformation=null }) => {
   const classes = useStyles();
 
+  const translateGameScript = (pacientGameParameter, index) => {
+    var stringifyGameScript = ""
+    pacientGameParameter?.forEach(function(attr, index) {
+      if(index + 1 === pacientGameParameter.length){
+        stringifyGameScript += (attr.ObjectType+";"+attr.DifficultyFactor+";"+attr.PositionYFactor+";"+attr.PositionXSpacing)
+      } else {
+        stringifyGameScript += (attr.ObjectType+";"+attr.DifficultyFactor+";"+attr.PositionYFactor+";"+attr.PositionXSpacing+"\r\n")
+      }
+      
+    })
+    return stringifyGameScript
+  }
+
   return (
     <Paper
       sx={{
@@ -106,6 +119,14 @@ const GameParameterCard = ({ gameParameter, index=null, selectNeighborInformatio
           title='Número de descida necessárias - Tamanho:'
           Idname = {`sizeDownThreshold${index}`}
           value={`${gameParameter.SizeDownThreshold ? gameParameter.SizeDownThreshold.toFixed(2) : ''}`}
+        />
+        <MeasureBox
+          isLeft={false}
+          widthBox='100%'
+          title='Roteiro do Jogo'
+          flexDirectionInnerBox = "column"
+          Idname = {`gameScript${index}`}
+          value={`${gameParameter.gameScript ? translateGameScript(gameParameter.gameScript, index) : ''}`}
         />
         <Button
           type="button"
