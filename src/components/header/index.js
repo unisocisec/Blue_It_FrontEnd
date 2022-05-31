@@ -29,7 +29,7 @@ const Header = ({offset, handleMenuButton}) => {
           <MenuIcon />
         </IconButton>
         <Typography sx={{color: 'black'}} variant="h6" noWrap component="div">
-          Colocar a logo no header
+          IblueIt - Sistema Terapêutico
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <AccountMenu />

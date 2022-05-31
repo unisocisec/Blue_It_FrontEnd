@@ -11,6 +11,7 @@ import ResultPage from "../pages/platform/results";
 import ComparativePage from "../pages/platform/comparative";
 import PatientAccount from "../pages/patientAccount";
 import InformationPanel from "../pages/informationPanel";
+import GameConfigurationCreatePage from "../pages/gameConfigurationCreate";
 
 
 export const pathRoutes = {
@@ -24,6 +25,7 @@ export const pathRoutes = {
 	PLATFORM_COMPARATIVE: '/plataforma/comparativo',
 	SHIPPING_CODE: '/shippingCode',
 	PATIENT_ACCOUNT: '/patientAccount',
+	GAME_CONFIGURATION_CREATE:'/gameConfiguration/create',
 }
 
 const routes = [{
@@ -75,6 +77,11 @@ const routes = [{
 	path: pathRoutes.PATIENT_ACCOUNT,
 	title: 'Conta do Paciente',
 	component: () => (<PatientAccount />),
+	privated: true,
+}, {
+	path: pathRoutes.GAME_CONFIGURATION_CREATE,
+	title: 'Criar configurações de jogo',
+	component: () => (<GameConfigurationCreatePage />),
 	privated: true,
 }, {
 	path: '*',
