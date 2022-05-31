@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import moment from "moment";
 import { Box, Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
@@ -8,6 +9,7 @@ import SelectComponent from "../../../components/select";
 import DateInterval from "../../../components/date-interval";
 import { useMyContext } from "../../../providers/MyContext";
 import { getGeneralStatisticsDataFromTheMiniGame } from "../../../services/api/miniGames";
+import MiniGamesGraph from "../../../components/miniGames-graph";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,17 +52,33 @@ const ResultPage = () => {
   const [finalDate, setFinalDate] = useState();
   const [miniGame, setMiniGame] = useState("CakeGame");
   const [historyCalibration, setHistoryCalibration] = useState("includeHistoryCalibration");
-  const [resultData, setResultData] = useState([]);
+  const [tableLegend_X, setTableLegend_X] = useState('Maior pico da sessão');
+  const [tableLegend_Y, setTableLegend_Y] = useState('Pico Expiratório L/min');
+  const [graphData, setGraphData] = useState([]);
 
   const handleFilterButton = async (event) => {
     event.preventDefault();
-    
-    const filters = {
-      devices: device,
-      minigameName: miniGame,
-    };
-    await getGeneralStatisticsDataFromTheMiniGame(context, filters, historyCalibration);
-
+    if (finalDate && startDate && moment(finalDate).isBefore(startDate)) {
+      context.addNotification('error', 'A data final não pode ser menor do que a data inicial!');
+    } else {
+      try {
+        const filters = {
+          devices: device,
+          minigameName: miniGame,
+          ...(finalDate && startDate) ? {
+            dataIni: moment(startDate).format('DD-MM-YYYY'),
+            dataFim: moment(finalDate).format('DD-MM-YYYY'),
+          } : {}
+        };
+        const typeGraph = !!(historyCalibration === 'includeHistoryCalibration');
+        const graphData = await getGeneralStatisticsDataFromTheMiniGame(context, filters, typeGraph);
+        setGraphData([...graphData]);
+        if (miniGame === 'WaterGame') setTableLegend_Y('Pico Inspiratório L/min');
+        else setTableLegend_Y('Pico Expiratório L/min');
+      } catch (error) {
+        setGraphData([...[]]);
+      }
+    }
   };
 
   return (
@@ -97,6 +115,7 @@ const ResultPage = () => {
 
         <Box sx={{ marginRight: 2 }}>
           <DateInterval
+            disabled
             handleStartDateChangeCallBack={setStartDate}
             handleFinalDateChangeCallBack={setFinalDate}
           />
@@ -111,16 +130,17 @@ const ResultPage = () => {
         </Button>
       </Box>
 
-      {(resultData.length === 0) ? (
+      {(graphData.length === 0) ? (
         <Typography sx={{ opacity: 0.5 }} variant="subtitle1">
           Selecione os filtros desejados.
         </Typography>
-      ) : (resultData.length) ? (
-        // <CalibrationGraph
-        //   data={resultData}
-        //   exercise={visualizationAfterRequest}
-        // />
-        <div></div>
+      ) : (graphData.length) ? (
+        <MiniGamesGraph
+          data={graphData}
+          tableLegend_Y={tableLegend_Y}
+          tableLegend_X={tableLegend_X}
+          typeGraph={!!(historyCalibration === 'includeHistoryCalibration')}
+        />
       ) : (
         <Typography sx={{ opacity: 0.5 }} variant="subtitle1">
           {noHistoryMessage}
