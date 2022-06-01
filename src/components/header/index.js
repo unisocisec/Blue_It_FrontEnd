@@ -37,7 +37,7 @@ const Header = ({ offset, handleMenuButton }) => {
           to={pathRoutes.INFORMATION_PANEL}
           sx={{ color: 'black', textDecoration: 'none' }}
         >
-          IblueIt - Sistema Terapêutico
+          I Blue It
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <AccountMenu />
