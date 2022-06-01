@@ -34,11 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ResultPage = () => {
+const MiniGamesResults = () => {
   const classes = useStyles();
   const context = useMyContext();
 
-  const [noHistoryMessage] = useState('Não existe histórico para os filtros selecionados.');
   const [listMiniGame] = useState([
     { key: "CakeGame", value: "Velas no Bolo" },
     { key: "WaterGame", value: "Copo D'Água" },
@@ -73,8 +72,12 @@ const ResultPage = () => {
         const typeGraph = !!(historyCalibration === 'includeHistoryCalibration');
         const graphData = await getGeneralStatisticsDataFromTheMiniGame(context, filters, typeGraph);
         setGraphData([...graphData]);
-        if (miniGame === 'WaterGame') setTableLegend_Y('Pico Inspiratório L/min');
-        else setTableLegend_Y('Pico Expiratório L/min');
+        if (!graphData.length) {
+          context.addNotification('error', ' Não existe histórico para os filtros selecionados.');
+        } else {
+          if (miniGame === 'WaterGame') setTableLegend_Y('Pico Inspiratório L/min');
+          else setTableLegend_Y('Pico Expiratório L/min');
+        }
       } catch (error) {
         setGraphData([...[]]);
       }
@@ -84,7 +87,7 @@ const ResultPage = () => {
   return (
     <>
       <Typography variant="h2" sx={{ fontSize: 20 }}>
-        Minigames - Estatísticas Gerais
+        MiniGames - Estatísticas Gerais
       </Typography>
 
       <Box
@@ -130,24 +133,20 @@ const ResultPage = () => {
         </Button>
       </Box>
 
-      {(graphData.length === 0) ? (
+      {!graphData.length ? (
         <Typography sx={{ opacity: 0.5 }} variant="subtitle1">
           Selecione os filtros desejados.
         </Typography>
-      ) : (graphData.length) ? (
+      ) : (
         <MiniGamesGraph
           data={graphData}
           tableLegend_Y={tableLegend_Y}
           tableLegend_X={tableLegend_X}
           typeGraph={!!(historyCalibration === 'includeHistoryCalibration')}
         />
-      ) : (
-        <Typography sx={{ opacity: 0.5 }} variant="subtitle1">
-          {noHistoryMessage}
-        </Typography>
       )}
     </>
   );
 };
 
-export default ResultPage;
+export default MiniGamesResults;

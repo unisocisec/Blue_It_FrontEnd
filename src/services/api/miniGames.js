@@ -66,7 +66,7 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
         } : {}
       })
     }
-    console.log(graphData)
+
     return graphData;
   } catch (error) {
     context.addNotification('error', extractMessage(error, ''));
