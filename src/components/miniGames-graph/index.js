@@ -9,12 +9,16 @@ const MiniGamesGraph = ({ data, tableLegend_X, tableLegend_Y, typeGraph }) => {
   const [calibration_25Hide, setCalibration_25Hide] = useState(false);
 
   useEffect(() => {
-    if (!document.getElementsByClassName('recharts-legend-item legend-item-1').length) {
-      setTimeout(() => setOnclickGraph(), 500);
-    } else {
+    if (typeGraph && !document.getElementsByClassName('recharts-legend-item legend-item-1').length) {
+      setTimeout(() => setOnclickGraph(), 1000);
+    } else if (typeGraph) {
       setOnclickGraph();
+    } else {
+      setCalibration_100Hide(false);
+      setCalibration_50Hide(false);
+      setCalibration_25Hide(false);
     }
-  }, [calibration_100Hide, calibration_50Hide, calibration_25Hide]);
+  }, [calibration_100Hide, calibration_50Hide, calibration_25Hide, typeGraph]);
 
   const setOnclickGraph = () => {
     if (document.getElementsByClassName('recharts-legend-item legend-item-1').length) {

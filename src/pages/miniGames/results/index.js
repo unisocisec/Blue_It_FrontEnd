@@ -53,6 +53,7 @@ const MiniGamesResults = () => {
   const [historyCalibration, setHistoryCalibration] = useState("includeHistoryCalibration");
   const [tableLegend_X, setTableLegend_X] = useState('Maior pico da sessão');
   const [tableLegend_Y, setTableLegend_Y] = useState('Pico Expiratório L/min');
+  const [typeGraph, setTypeGraph] = useState(true);
   const [graphData, setGraphData] = useState([]);
 
   const handleFilterButton = async (event) => {
@@ -72,6 +73,7 @@ const MiniGamesResults = () => {
         const typeGraph = !!(historyCalibration === 'includeHistoryCalibration');
         const graphData = await getGeneralStatisticsDataFromTheMiniGame(context, filters, typeGraph);
         setGraphData([...graphData]);
+        setTypeGraph(typeGraph)
         if (!graphData.length) {
           context.addNotification('error', ' Não existe histórico para os filtros selecionados.');
         } else {
@@ -80,6 +82,7 @@ const MiniGamesResults = () => {
         }
       } catch (error) {
         setGraphData([...[]]);
+        setTypeGraph(!!(historyCalibration === 'includeHistoryCalibration'));
       }
     }
   };
@@ -142,7 +145,7 @@ const MiniGamesResults = () => {
           data={graphData}
           tableLegend_Y={tableLegend_Y}
           tableLegend_X={tableLegend_X}
-          typeGraph={!!(historyCalibration === 'includeHistoryCalibration')}
+          typeGraph={typeGraph}
         />
       )}
     </>
