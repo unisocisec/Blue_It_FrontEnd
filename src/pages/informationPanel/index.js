@@ -99,7 +99,7 @@ const InformationPanel = () => {
             flexDirection: "column",
           }}>
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 500 }} aria-label="custom pagination table" >
+              <Table sx={{ minWidth: 300, width: '30vw' }} aria-label="custom pagination table" >
                 <TableBody>
                   {patientData.map(elem => (
                     <TableRow key={elem.fieldName} style={{ border: 'solid 3px #11192A' }}>

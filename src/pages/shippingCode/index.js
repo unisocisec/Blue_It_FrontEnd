@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	input: {
-		width: 400,
+		width: '20vw',
+		minWidth: 250,
 	}
 }));
 
@@ -88,8 +89,9 @@ const ShippingCode = () => {
 						padding: 2,
 						display: "flex",
 						alignItems: 'center',
-						flexDirection: "row",
+						flexDirection: "column",
 					}}>
+
 						<TextField
 							disabled
 							id="shippingCode"
@@ -97,6 +99,13 @@ const ShippingCode = () => {
 							InputProps={{ classes: { input: classes.input } }}
 							value={gameToken || 'Você não gerou um Código de Envio'}
 						/>
+					</Box>
+					<Box sx={{
+						paddingBottom: 1,
+						display: "flex",
+						alignItems: 'center',
+						flexDirection: "column",
+					}}>
 						<Button
 							size="large"
 							variant="contained"
