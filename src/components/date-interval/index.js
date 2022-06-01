@@ -5,6 +5,7 @@ import DateInput from "../date-input";
 const DateInterval = ({
   handleStartDateChangeCallBack,
   handleFinalDateChangeCallBack,
+  disabled = false
 }) => {
   return (
     <Box
@@ -19,11 +20,13 @@ const DateInterval = ({
         <DateInput
           handleDateChangeCallBack={handleStartDateChangeCallBack}
           title="Data inicial"
+          disabled={disabled}
         />
       </Box>
       <DateInput
         handleDateChangeCallBack={handleFinalDateChangeCallBack}
         title="Data final"
+        disabled={disabled}
       />
     </Box>
   );

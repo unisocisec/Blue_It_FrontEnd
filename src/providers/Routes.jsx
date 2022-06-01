@@ -11,6 +11,8 @@ import ResultPage from "../pages/platform/results";
 import ComparativePage from "../pages/platform/comparative";
 import PatientAccount from "../pages/patientAccount";
 import InformationPanel from "../pages/informationPanel";
+import MiniGamesResults from "../pages/miniGames/results";
+import MiniGamesComparative from "../pages/miniGames/comparative";
 import GameConfigurationCreatePage from "../pages/gameConfigurationCreate";
 
 
@@ -24,7 +26,9 @@ export const pathRoutes = {
 	PLATFORM_RESULTS: '/plataforma/resultados',
 	PLATFORM_COMPARATIVE: '/plataforma/comparativo',
 	SHIPPING_CODE: '/shippingCode',
-	PATIENT_ACCOUNT: '/patientAccount',
+	PATIENT_ACCOUNT: '/patient/patientAccount',
+	MINI_GAMES_RESULTS: '/miniGames/results',
+	MINI_GAMES_COMPARATIVE: '/miniGames/comparative',
 	GAME_CONFIGURATION_CREATE:'/gameConfiguration/create',
 }
 
@@ -79,6 +83,16 @@ const routes = [{
 	component: () => (<PatientAccount />),
 	privated: true,
 }, {
+	path: pathRoutes.MINI_GAMES_RESULTS,
+	title: 'Resultados do minigames',
+	component: () => (<MiniGamesResults />),
+	privated: true,
+}, {
+	path: pathRoutes.MINI_GAMES_COMPARATIVE,
+	title: 'Comparativos da minigames',
+	component: () => (<MiniGamesComparative />),
+	privated: true,
+},{
 	path: pathRoutes.GAME_CONFIGURATION_CREATE,
 	title: 'Criar configurações de jogo',
 	component: () => (<GameConfigurationCreatePage />),

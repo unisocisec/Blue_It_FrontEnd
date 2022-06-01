@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const DateInput = ({ title, handleDateChangeCallBack }) => {
+const DateInput = ({ title, handleDateChangeCallBack, disabled = false }) => {
   const classes = useStyles();
   const [date, setDate] = React.useState(new Date());
   return (
@@ -64,6 +64,7 @@ const DateInput = ({ title, handleDateChangeCallBack }) => {
         id="custom-css-standard-input"
         //label=""
         type="date"
+        disabled={disabled}
         onChange={(event) => {
           setDate(event.target.value);
           handleDateChangeCallBack(event.target.value);

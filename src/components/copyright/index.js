@@ -9,7 +9,8 @@ const Copyright = (props) => {
       {'Copyright © '}
       <Link color="inherit" href="https://unisocisec.cf/" target="_blank">
         ㄩ几丨丂ㄖ匚丨丂乇匚
-      </Link>{' '}
+      </Link>
+      {' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>

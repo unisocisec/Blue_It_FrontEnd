@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 
 export const Context = React.createContext({});
@@ -16,7 +17,7 @@ export const MyContext = (props) => {
       setNotification({ ...copyNotification })
       if(!Object.keys(copyNotification).length) setNotificationIndex(0);
     }
-  }, [notification, notificationIndex]);
+  }, [notificationIndex]);
 
   const addNotification = (type, message) => {
     let lastIndex = notificationIndex;

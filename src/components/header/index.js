@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,9 +8,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 
 import AccountMenu from '../accountMenu';
+import { pathRoutes } from "../../providers/Routes.jsx";
 
 
-const Header = ({offset, handleMenuButton}) => {
+const Header = ({ offset, handleMenuButton }) => {
   return (
     <AppBar
       position="fixed"
@@ -24,11 +26,17 @@ const Header = ({offset, handleMenuButton}) => {
           aria-label="open drawer"
           edge="start"
           onClick={handleMenuButton}
-          sx={{ mr: 2, display: { sm: "none" }, color:'#11192A' }}
+          sx={{ mr: 2, display: { sm: "none" }, color: '#11192A' }}
         >
           <MenuIcon />
         </IconButton>
-        <Typography sx={{color: 'black'}} variant="h6" noWrap component="div">
+        <Typography
+          noWrap
+          variant="h6"
+          component={Link}
+          to={pathRoutes.INFORMATION_PANEL}
+          sx={{ color: 'black', textDecoration: 'none' }}
+        >
           IblueIt - Sistema Terapêutico
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
