@@ -145,6 +145,13 @@ const MenuItens = () => {
               Sistema
             </Typography>
             <MenuItemTemplate
+              title="Config do Jogo"
+              icon={<SportsEsportsIcon sx={{ fontSize: 17 }} />}
+              submenus={[
+                { title: "Criar", path: pathRoutes.GAME_CONFIGURATION_CREATE, icon: <AddIcon sx={{ fontSize: 17 }} /> },
+              ]}
+            />
+            <MenuItemTemplate
               title="Paciente"
               icon={<PersonIcon sx={{ fontSize: 17 }} />}
               submenus={[

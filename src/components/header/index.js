@@ -11,7 +11,7 @@ import AccountMenu from '../accountMenu';
 import { pathRoutes } from "../../providers/Routes.jsx";
 
 
-const Header = ({offset, handleMenuButton}) => {
+const Header = ({ offset, handleMenuButton }) => {
   return (
     <AppBar
       position="fixed"
@@ -26,7 +26,7 @@ const Header = ({offset, handleMenuButton}) => {
           aria-label="open drawer"
           edge="start"
           onClick={handleMenuButton}
-          sx={{ mr: 2, display: { sm: "none" }, color:'#11192A' }}
+          sx={{ mr: 2, display: { sm: "none" }, color: '#11192A' }}
         >
           <MenuIcon />
         </IconButton>
@@ -37,7 +37,7 @@ const Header = ({offset, handleMenuButton}) => {
           to={pathRoutes.INFORMATION_PANEL}
           sx={{ color: 'black', textDecoration: 'none' }}
         >
-          I Blue It (Colocar logo)
+          IblueIt - Sistema Terapêutico
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <AccountMenu />

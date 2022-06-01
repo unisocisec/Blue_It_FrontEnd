@@ -13,6 +13,7 @@ import PatientAccount from "../pages/patientAccount";
 import InformationPanel from "../pages/informationPanel";
 import MiniGamesResults from "../pages/miniGames/results";
 import MiniGamesComparative from "../pages/miniGames/comparative";
+import GameConfigurationCreatePage from "../pages/gameConfigurationCreate";
 
 
 export const pathRoutes = {
@@ -28,6 +29,7 @@ export const pathRoutes = {
 	PATIENT_ACCOUNT: '/patient/patientAccount',
 	MINI_GAMES_RESULTS: '/miniGames/results',
 	MINI_GAMES_COMPARATIVE: '/miniGames/comparative',
+	GAME_CONFIGURATION_CREATE:'/gameConfiguration/create',
 }
 
 const routes = [{
@@ -91,6 +93,11 @@ const routes = [{
 	component: () => (<MiniGamesComparative />),
 	privated: true,
 },{
+	path: pathRoutes.GAME_CONFIGURATION_CREATE,
+	title: 'Criar configurações de jogo',
+	component: () => (<GameConfigurationCreatePage />),
+	privated: true,
+}, {
 	path: '*',
 	title: 'Pagina não encontrada',
 	component: () => (<PageNotFound />),
