@@ -28,9 +28,18 @@ export const MyContext = (props) => {
     setTimeout(() => { setNotificationIndex(lastIndex); }, 5000)
   }
 
+  const resetState = () => {
+    setLoading(false);
+    setNotification();
+    setNotificationIndex(0);
+    setPatientId();
+    setPatientName();
+  }
+
   return (
     <Context.Provider
       value={{
+        resetState,
         loading, setLoading,
         notification, addNotification,
         patientId, setPatientId,
