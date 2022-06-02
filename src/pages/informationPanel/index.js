@@ -20,7 +20,6 @@ const InformationPanel = () => {
   const context = useMyContext();
   const [patientData, setPatientData] = useState([]);
 
-
   useEffect(() => {
     if (context.patientId) setPatientInformation();
   }, [context.patientId]);

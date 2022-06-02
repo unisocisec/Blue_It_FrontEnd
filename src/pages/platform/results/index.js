@@ -13,7 +13,6 @@ import { useMyContext } from "../../../providers/MyContext";
 import CalibrationGraph from "../../../components/calibration-graph";
 import MicroCard from "../../../components/micro-card";
 
-const NO_HISTORY_MESSAGE = "Não existe histórico para os filtros selecionados.";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -41,6 +40,7 @@ const ResultPage = () => {
   const classes = useStyles();
   const context = useMyContext();
 
+  const [firstRun, setFirstRun] = useState(true);
   const [resultData, setResultData] = useState([]);
   const [device, setDevice] = useState("Pitaco");
   const [visualization, setVisualization] = useState("result");
@@ -64,13 +64,15 @@ const ResultPage = () => {
   ]);
 
   useEffect(() => {
-    if (context.patientId) fetchMicroCardsValues();
+    if (context.patientId && !firstRun) {
+      fetchMicroCardsValues();
+      handleFilterButton();
+    }
+    setFirstRun(false)
   }, [context.patientId]);
 
   const fetchMicroCardsValues = async () => {
     context.setLoading(true);
-    console.log('aqui')
-    console.log(context.patientId)
     const pointsAndLevelsAndPlaysApiResult = await fetchPointsAndLevelsAndPlays(context.patientId);
     setMicroCardsValues(pointsAndLevelsAndPlaysApiResult || []);
     context.setLoading(false);
@@ -83,10 +85,10 @@ const ResultPage = () => {
       device,
       visualization
     );
-    setResultData(apiResponse);
-    if (apiResponse && apiResponse.length <= 1) {
-      context.addNotification("error", NO_HISTORY_MESSAGE);
+    if (!apiResponse.length) {
+      context.addNotification("error", 'Não existe histórico para os filtros selecionados.');
     }
+    setResultData(apiResponse);
     setVisualizationAfterRequest(visualization);
     context.setLoading(false);
   };
@@ -139,21 +141,19 @@ const ResultPage = () => {
           Filtrar
         </Button>
       </Box>
-      {(resultData.length === 0 && (
-        <Typography sx={{ opacity: 0.5 }} variant="subtitle1">
+      {(!resultData.length) ? (
+        <Typography
+          sx={{ opacity: 0.5 }}
+          variant="subtitle1"
+        >
           Selecione os filtros desejados.
         </Typography>
-      )) ||
-        (resultData.length > 1 && (
-          <CalibrationGraph
-            data={resultData}
-            exercise={visualizationAfterRequest}
-          />
-        )) || (
-          <Typography sx={{ opacity: 0.5 }} variant="subtitle1">
-            {NO_HISTORY_MESSAGE}
-          </Typography>
-        )}
+      ) : (
+        <CalibrationGraph
+          data={resultData}
+          exercise={visualizationAfterRequest}
+        />
+      )}
     </>
   );
 };

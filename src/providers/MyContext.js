@@ -9,6 +9,7 @@ export const MyContext = (props) => {
   const [notificationIndex, setNotificationIndex] = useState(0);
   const [patientId, setPatientId] = useState();
   const [patientName, setPatientName] = useState();
+  const [patientBirthDate, setPatientBirthDate] = useState();
 
   useEffect(() => {
     if (notificationIndex) {
@@ -34,6 +35,7 @@ export const MyContext = (props) => {
     setNotificationIndex(0);
     setPatientId();
     setPatientName();
+    setPatientBirthDate();
   }
 
   return (
@@ -44,6 +46,7 @@ export const MyContext = (props) => {
         notification, addNotification,
         patientId, setPatientId,
         patientName, setPatientName,
+        patientBirthDate, setPatientBirthDate
       }}
     >
       {props.children}

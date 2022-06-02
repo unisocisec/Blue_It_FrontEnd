@@ -15,22 +15,13 @@ const fetchResults = async (patientId, device, visualization) => {
       }
     );
 
-    const zeroPoint = [
-      {
-        date: "",
-        value: 0,
-      },
-    ];
-    const normalizedResponse = response.data.data.map((patientResult) => {
-      return {
-        date: moment(patientResult.playFinish).format("DD/MM/YY"),
-        value: patientResult[visualization],
-      };
-    });
-
-    return [...zeroPoint, ...normalizedResponse];
+    return response.data.data.map((patientResult) => ({
+      date: moment(patientResult.playFinish).format("DD/MM/YY"),
+      value: patientResult[visualization],
+    }));
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 
