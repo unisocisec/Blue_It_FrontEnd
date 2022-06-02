@@ -1,12 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { makeStyles } from "@mui/styles";
+
 import CalibrationGraph from "../../components/calibration-graph";
 import SelectComponent from "../../components/select";
 import DateInterval from "../../components/date-interval";
-import { makeStyles } from "@mui/styles";
 import { fetchHistory } from "../../services/api/calibration";
-import {useMyContext} from "../../providers/MyContext";
+import { useMyContext } from "../../providers/MyContext";
 import DeviceSelect from "../../components/device-select";
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -30,15 +33,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NO_HISTORY_MESSAGE = 'Não existe histórico para os filtros selecionados.'
-
 const CalibrationHistoryPage = () => {
   const context = useMyContext();
-
   const classes = useStyles();
 
+  const [firstRun, setFirstRun] = useState(true);
   const [history, setHistory] = useState([]);
-
   const [device, setDevice] = useState("Pitaco");
   const [exercise, setExercise] = useState("RespiratoryFrequency");
   const [exerciseAfterRequest, setExerciseAfterRequest] = useState("RespiratoryFrequency");
@@ -48,13 +48,18 @@ const CalibrationHistoryPage = () => {
   const handleFilterButton = async () => {
     context.setLoading(true)
     const result = await fetchHistory(device, exercise, context.patientId);
-    setHistory(result);
-    if(result && result.length <= 1) {
-      context.addNotification('error', NO_HISTORY_MESSAGE)
+    if (!result.length) {
+      context.addNotification('error', 'Não existe histórico para os filtros selecionados.')
     }
+    setHistory(result);
     setExerciseAfterRequest(exercise);
     context.setLoading(false)
   };
+
+  useEffect(() => {
+    if (context.patientId && !firstRun) handleFilterButton();
+    setFirstRun(false);
+  }, [context.patientId]);
 
   return (
     <Box
@@ -68,7 +73,7 @@ const CalibrationHistoryPage = () => {
         Histórico de calibrações
       </Typography>
       <Box className={classes.container}>
-        <DeviceSelect device={device} setDevice={setDevice}/>
+        <DeviceSelect device={device} setDevice={setDevice} />
         <Box sx={{ width: 200, marginRight: 2 }}>
           <SelectComponent
             handleChangeCallBack={setExercise}
@@ -102,9 +107,19 @@ const CalibrationHistoryPage = () => {
           Filtrar
         </Button>
       </Box>
-      {(history.length === 0 && <Typography sx={{opacity: 0.5}} variant="subtitle1">Selecione os filtros desejados.</Typography>)
-          || (history.length > 1 && <CalibrationGraph data={history} exercise={exerciseAfterRequest} />)
-          || <Typography sx={{opacity: 0.5}} variant="subtitle1">{NO_HISTORY_MESSAGE}</Typography>}
+      {(!history.length) ? (
+        <Typography
+          sx={{ opacity: 0.5 }}
+          variant="subtitle1"
+        >
+          Selecione os filtros desejados.
+        </Typography>
+      ) : (
+        <CalibrationGraph
+          data={history}
+          exercise={exerciseAfterRequest}
+        />
+      )}
     </Box>
   );
 };

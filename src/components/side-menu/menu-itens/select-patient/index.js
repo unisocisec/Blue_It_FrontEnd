@@ -49,6 +49,7 @@ const SelectPatient = () => {
       setPatientId(result[0].id || '');
       context.setPatientId(result[0].id || '');
       context.setPatientName(result[0].name || '');
+      context.setPatientBirthDate(result[0].birthDate || '');
     } catch (error) { }
   }
 
@@ -58,6 +59,7 @@ const SelectPatient = () => {
     context.setPatientId(patientId)
     const patient = patients.find(elem => elem.id === patientId);
     context.setPatientName(patient.name);
+    context.setPatientBirthDate(patient.birthDate);
   }
 
   return (
