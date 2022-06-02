@@ -9,6 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import KeyIcon from '@mui/icons-material/Key';
 
+import { useMyContext } from "../../providers/MyContext";
 import {
   removerAuthenticationData, isAuthenticated,
   getTokenParameters
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AccountMenu = () => {
+  const context = useMyContext();
   const classes = useStyles();
   const navigate = useNavigate();
   const [loggedInUserName] = useState(getTokenParameters('fullname'));
@@ -34,10 +36,11 @@ const AccountMenu = () => {
 
   const methodOfLogout = () => {
     try {
-      removerAuthenticationData()
+      removerAuthenticationData();
       if (!isAuthenticated()) {
         setAnchorEl(null)
         navigate(pathRoutes.LOGIN)
+        context.resetState();
       }
     } catch (error) { }
   };
