@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Box, Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -46,6 +46,7 @@ const MiniGamesResults = () => {
     { key: "includeHistoryCalibration", value: "Apresentar" },
     { key: "excludeHistoryCalibration", value: "Não Apresentar" },
   ]);
+  const [warning, setWarning] = useState('Selecione os filtros desejados.');
   const [device, setDevice] = useState("Pitaco");
   const [startDate, setStartDate] = useState();
   const [finalDate, setFinalDate] = useState();
@@ -55,6 +56,20 @@ const MiniGamesResults = () => {
   const [tableLegend_Y, setTableLegend_Y] = useState('Pico Expiratório L/min');
   const [typeGraph, setTypeGraph] = useState(true);
   const [graphData, setGraphData] = useState([]);
+
+
+  const initialState = () => {
+    setWarning('Selecione os filtros desejados.')
+    setDevice("Pitaco");
+    setStartDate();
+    setFinalDate();
+    setMiniGame("CakeGame");
+    setHistoryCalibration("includeHistoryCalibration");
+    setTableLegend_X('Maior pico da sessão');
+    setTableLegend_Y('Pico Expiratório L/min');
+    setTypeGraph(true);
+    setGraphData([]);
+  }
 
   const handleFilterButton = async (event) => {
     event.preventDefault();
@@ -75,7 +90,8 @@ const MiniGamesResults = () => {
         setGraphData([...graphData]);
         setTypeGraph(typeGraph)
         if (!graphData.length) {
-          context.addNotification('error', ' Não existe histórico para os filtros selecionados.');
+          context.addNotification('error', 'Não existe histórico para os filtros selecionados.');
+          setWarning('Não existe histórico para os filtros selecionados.');
         } else {
           if (miniGame === 'WaterGame') setTableLegend_Y('Pico Inspiratório L/min');
           else setTableLegend_Y('Pico Expiratório L/min');
@@ -86,6 +102,10 @@ const MiniGamesResults = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (context.patientId) initialState();
+  }, [context.patientId]);
 
   return (
     <>
@@ -137,8 +157,11 @@ const MiniGamesResults = () => {
       </Box>
 
       {!graphData.length ? (
-        <Typography sx={{ opacity: 0.5 }} variant="subtitle1">
-          Selecione os filtros desejados.
+        <Typography
+          sx={{ opacity: 0.5 }}
+          variant="subtitle1"
+        >
+          {warning}
         </Typography>
       ) : (
         <MiniGamesGraph

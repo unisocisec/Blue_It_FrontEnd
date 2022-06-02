@@ -40,36 +40,28 @@ const ResultPage = () => {
   const classes = useStyles();
   const context = useMyContext();
 
-  const [firstRun, setFirstRun] = useState(true);
+  const [warning, setWarning] = useState('Selecione os filtros desejados.');
   const [resultData, setResultData] = useState([]);
   const [device, setDevice] = useState("Pitaco");
   const [visualization, setVisualization] = useState("result");
-  const [visualizationAfterRequest, setVisualizationAfterRequest] =
-    useState("result");
+  const [visualizationAfterRequest, setVisualizationAfterRequest] = useState("result");
   const [startDate, setStartDate] = useState();
   const [finalDate, setFinalDate] = useState();
   const [microCardsValues, setMicroCardsValues] = useState([
-    {
-      value: 0,
-      title: "Pontuação acumulada",
-    },
-    {
-      value: 0,
-      title: "Níveis desbloqueados",
-    },
-    {
-      value: 0,
-      title: "Seções jogadas",
-    },
+    { value: 0, title: "Pontuação acumulada" },
+    { value: 0, title: "Níveis desbloqueados" },
+    { value: 0, title: "Seções jogadas" },
   ]);
 
-  useEffect(() => {
-    if (context.patientId && !firstRun) {
-      fetchMicroCardsValues();
-      handleFilterButton();
-    }
-    setFirstRun(false)
-  }, [context.patientId]);
+  const initialState = () => {
+    setWarning('Selecione os filtros desejados.');
+    setResultData([]);
+    setDevice("Pitaco");
+    setVisualization("result");
+    setVisualizationAfterRequest("result");
+    setStartDate();
+    setFinalDate();
+  }
 
   const fetchMicroCardsValues = async () => {
     context.setLoading(true);
@@ -87,11 +79,19 @@ const ResultPage = () => {
     );
     if (!apiResponse.length) {
       context.addNotification("error", 'Não existe histórico para os filtros selecionados.');
+      setWarning('Não existe histórico para os filtros selecionados.');
     }
     setResultData(apiResponse);
     setVisualizationAfterRequest(visualization);
     context.setLoading(false);
   };
+
+  useEffect(() => {
+    if (context.patientId) {
+      fetchMicroCardsValues();
+      initialState();
+    }
+  }, [context.patientId]);
 
   return (
     <>
@@ -115,10 +115,7 @@ const ResultPage = () => {
             handleChangeCallBack={setVisualization}
             title="Visualização"
             items={[
-              {
-                key: "result",
-                value: "Pontuação",
-              },
+              { key: "result", value: "Pontuação" },
               { key: "maxExpFlow", value: "Pico Expiratório" },
               { key: "maxInsFlow", value: "Pico Inspiratório" },
               { key: "scoreRatio", value: "Razão" },
@@ -146,7 +143,7 @@ const ResultPage = () => {
           sx={{ opacity: 0.5 }}
           variant="subtitle1"
         >
-          Selecione os filtros desejados.
+          {warning}
         </Typography>
       ) : (
         <CalibrationGraph

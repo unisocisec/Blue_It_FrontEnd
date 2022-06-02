@@ -37,7 +37,7 @@ const CalibrationHistoryPage = () => {
   const context = useMyContext();
   const classes = useStyles();
 
-  const [firstRun, setFirstRun] = useState(true);
+  const [warning, setWarning] = useState('Selecione os filtros desejados.');
   const [history, setHistory] = useState([]);
   const [device, setDevice] = useState("Pitaco");
   const [exercise, setExercise] = useState("RespiratoryFrequency");
@@ -45,11 +45,22 @@ const CalibrationHistoryPage = () => {
   const [startDate, setStartDate] = useState();
   const [finalDate, setFinalDate] = useState();
 
+  const initialState = () => {
+    setWarning('Selecione os filtros desejados.')
+    setHistory([]);
+    setDevice("Pitaco");
+    setExercise("RespiratoryFrequency");
+    setExerciseAfterRequest("RespiratoryFrequency");
+    setStartDate();
+    setFinalDate();
+  }
+
   const handleFilterButton = async () => {
     context.setLoading(true)
     const result = await fetchHistory(device, exercise, context.patientId);
     if (!result.length) {
       context.addNotification('error', 'Não existe histórico para os filtros selecionados.')
+      setWarning('Não existe histórico para os filtros selecionados.')
     }
     setHistory(result);
     setExerciseAfterRequest(exercise);
@@ -57,8 +68,7 @@ const CalibrationHistoryPage = () => {
   };
 
   useEffect(() => {
-    if (context.patientId && !firstRun) handleFilterButton();
-    setFirstRun(false);
+    if (context.patientId) initialState();
   }, [context.patientId]);
 
   return (
@@ -112,7 +122,7 @@ const CalibrationHistoryPage = () => {
           sx={{ opacity: 0.5 }}
           variant="subtitle1"
         >
-          Selecione os filtros desejados.
+          {warning}
         </Typography>
       ) : (
         <CalibrationGraph
