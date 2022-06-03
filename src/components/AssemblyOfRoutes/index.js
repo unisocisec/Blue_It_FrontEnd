@@ -5,7 +5,7 @@ import routes, { pathRoutes } from "../../providers/Routes.jsx";
 import { isAuthenticated } from "../../providers/sessionStorage";
 import LayoutPage from "../../pages/layout/index";
 
-const ValidateRoutes = (route) => {
+const ValidateRoutes = ({ route, layoutPage = false }) => {
   const authenticated = isAuthenticated();
 
   if (!route.privated) {
@@ -17,6 +17,7 @@ const ValidateRoutes = (route) => {
     return <Navigate to={pathRoutes.INFORMATION_PANEL} />;
   } else {
     if (authenticated) {
+      if (layoutPage) return <LayoutPage />;
       document.title = `I Blue It - ${route.title}`;
       return (route.component());
     }
@@ -31,18 +32,19 @@ const AssemblyOfRoutes = () => (
       (route.privated) ? (
         <Route
           key={route.path}
-          element={<LayoutPage />}>
+          element={<ValidateRoutes route={route} layoutPage={true} />}
+        >
           <Route
             key={`subMenu${route.path}`}
             path={route.path}
-            element={<ValidateRoutes {...route} />}
+            element={<ValidateRoutes route={route} />}
           />
         </Route>
       ) : (
         <Route
           key={route.path}
           path={route.path}
-          element={<ValidateRoutes {...route} />}
+          element={<ValidateRoutes route={route} />}
         />
       )
     ))}
