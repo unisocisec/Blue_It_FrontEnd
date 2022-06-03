@@ -9,7 +9,7 @@ import SelectComponent from "../../../components/select";
 import DateInterval from "../../../components/date-interval";
 import { useMyContext } from "../../../providers/MyContext";
 import { getGeneralStatisticsDataFromTheMiniGame } from "../../../services/api/miniGames";
-import MiniGamesGraph from "../../../components/miniGames-graph";
+import MiniGamesGraphResults from "../../../components/miniGames-graph/results";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,6 +75,7 @@ const MiniGamesResults = () => {
     event.preventDefault();
     if (finalDate && startDate && moment(finalDate).isBefore(startDate)) {
       context.addNotification('error', 'A data final não pode ser menor do que a data inicial!');
+      setGraphData([...[]]);
     } else {
       try {
         const filters = {
@@ -164,7 +165,7 @@ const MiniGamesResults = () => {
           {warning}
         </Typography>
       ) : (
-        <MiniGamesGraph
+        <MiniGamesGraphResults
           data={graphData}
           tableLegend_Y={tableLegend_Y}
           tableLegend_X={tableLegend_X}
