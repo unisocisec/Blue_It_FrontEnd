@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import moment from "moment";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from '@mui/material/Typography';
@@ -20,37 +19,16 @@ const InformationPanel = () => {
   const context = useMyContext();
   const [patientData, setPatientData] = useState([]);
 
+  const setPatientInformation = async () => {
+    try {
+      const newPatientData = await getPatientInformation(context);
+      setPatientData([...newPatientData]);
+    } catch (error) { }
+  };
+
   useEffect(() => {
     if (context.patientId) setPatientInformation();
   }, [context.patientId]);
-
-
-  const setPatientInformation = async () => {
-    try {
-      const patientInformation = await getPatientInformation(context);
-      const newPatientData = [];
-      if (patientInformation) {
-        newPatientData.push({ fieldName: 'Nome', fieldValue: patientInformation.name })
-        newPatientData.push({ fieldName: 'Sexo', fieldValue: translateSex(patientInformation.sex) })
-        newPatientData.push({ fieldName: 'Condição', fieldValue: translateCondition(patientInformation.condition) })
-        newPatientData.push({ fieldName: 'Data de Nascimento', fieldValue: moment(patientInformation.birthday).format("l") })
-        newPatientData.push({ fieldName: 'Peso', fieldValue: `${patientInformation.weight} kg` })
-        newPatientData.push({ fieldName: 'Altura', fieldValue: `${patientInformation.height}  cm` })
-        newPatientData.push({ fieldName: 'Observações', fieldValue: patientInformation.observations === 'None' ? '-' : patientInformation.observations })
-      }
-      setPatientData([...newPatientData]);
-    } catch (error) { }
-  }
-
-  const translateSex = (condition) => {
-    if (condition === 'Male') return 'Masculino';
-    return 'Feminino';
-  }
-
-  const translateCondition = (condition) => {
-    if (condition === 'Obstructive') return 'Obstrutivo';
-    if (condition === 'Healthy') return 'Saudável';
-  }
 
   return (
     <Box
