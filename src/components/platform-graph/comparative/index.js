@@ -35,7 +35,6 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, vie
 
   const renderLegend = (props) => (
     <ul className="recharts-default-legend" style={{ padding: '0px', margin: '0px', display: 'flex', textAlign: 'center', justifyContent: 'center', }}>
-      {console.log(props)}
       {props.payload.map((entry, index) => (
         (entry.value !== setDataKey("expectedValues_B")) && (
           <li
@@ -60,22 +59,6 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, vie
     }
     return '';
   };
-
-  const displayChartArea = (displayVariable = false, variable) => {
-    if (viewType === 1 || viewType === 2) {
-      if (displayVariable) return variable;
-      return false;
-    }
-    return true;
-  };
-
-  const displayChartBar = () => {
-    if (viewType === 3 || viewType === 4) {
-      return false;
-    }
-    return true;
-  };
-
 
   return (
     <Box sx={{ height: 500, overflow: "hidden" }} >
@@ -104,7 +87,7 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, vie
                 fill="#FFF"
                 stroke="#68d2f2"
                 dataKey={setDataKey("expectedValues_B")}
-                hide={displayChartArea(true, expectedValuesHide)}
+                hide={expectedValuesHide}
               />
               <Area
                 stackId="1"
@@ -113,7 +96,7 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, vie
                 stroke="#68d2f2"
                 dataKey={setDataKey("expectedValues_A")}
                 name='Valores esperados considerando o filtro selecionado'
-                hide={displayChartArea(true, expectedValuesHide)}
+                hide={expectedValuesHide}
               />
               <Line
                 type="monotone"
@@ -121,17 +104,30 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, vie
                 activeDot={{ r: 8 }}
                 name={tableLegend_X}
                 dataKey={setDataKey("flowValue")}
-                hide={displayChartArea()}
               />
             </>
           ) : (
-            <Bar
-              dataKey="flowValue_Exp"
-              name={tableLegend_X}
-              barSize={20}
-              fill="#413ea0"
-              hide={false}
-            />
+            <>
+              <Bar
+                dataKey="flowValue_Bar"
+                name={tableLegend_X}
+                barSize={20}
+                fill="#0080ff"
+                hide={false}
+              />
+              <Bar
+                dataKey="scoreComp"
+                name='Razão Comum de Pacientes Selecionados'
+                barSize={20}
+                fill="#413ea0"
+              />
+              <Bar
+                dataKey="maxsCore"
+                name='Porcentagem máxima'
+                barSize={20}
+                fill="#ff0303"
+              />
+            </>
           )}
         </ComposedChart>
       </ResponsiveContainer>
@@ -149,6 +145,9 @@ const testData = [{
   expectedValues_B_Ins: Math.floor(Math.random() * (140 - 130 + 1)) + 130,
   flowValue_Exp: Math.floor(Math.random() * (280 - 270 + 1)) + 270,
   flowValue_Ins: Math.floor(Math.random() * (280 - 270 + 1)) + 270,
+  flowValue_Bar: 100,
+  scoreComp: 1,
+  maxsCore: 100,
 }, {
   xAxisPosition: '2',
   expectedValues_A_Exp: Math.floor(Math.random() * (270 - 260 + 1)) + 260,
@@ -173,6 +172,9 @@ const testData = [{
   expectedValues_B_Ins: Math.floor(Math.random() * (150 - 140 + 1)) + 140,
   flowValue_Exp: Math.floor(Math.random() * (210 - 200 + 1)) + 200,
   flowValue_Ins: Math.floor(Math.random() * (210 - 200 + 1)) + 200,
+  flowValue_Bar: 100,
+  scoreComp: 1,
+  maxsCore: 100,
 }, {
   xAxisPosition: '5',
   expectedValues_A_Exp: Math.floor(Math.random() * (280 - 270 + 1)) + 270,
@@ -205,6 +207,9 @@ const testData = [{
   expectedValues_B_Ins: Math.floor(Math.random() * (120 - 110 + 1)) + 110,
   flowValue_Exp: Math.floor(Math.random() * (220 - 210 + 1)) + 210,
   flowValue_Ins: Math.floor(Math.random() * (220 - 210 + 1)) + 210,
+  flowValue_Bar: 100,
+  scoreComp: 1,
+  maxsCore: 100,
 }, {
   xAxisPosition: '9',
   expectedValues_A_Exp: Math.floor(Math.random() * (260 - 250 + 1)) + 250,
@@ -221,4 +226,7 @@ const testData = [{
   expectedValues_B_Ins: Math.floor(Math.random() * (140 - 130 + 1)) + 130,
   flowValue_Exp: Math.floor(Math.random() * (150 - 140 + 1)) + 140,
   flowValue_Ins: Math.floor(Math.random() * (150 - 140 + 1)) + 140,
+  flowValue_Bar: 100,
+  scoreComp: 1,
+  maxsCore: 100,
 }];

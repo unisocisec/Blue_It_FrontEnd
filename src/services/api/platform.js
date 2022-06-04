@@ -248,12 +248,7 @@ const getPlatformComparative = async (context, filters, visualization) => {
     //     passoy: null,
     //     PosFlagY: 50,
     //   };
-    //   for (let i = 0; i < plotObj.values.length; i++) {
-    //     maxscoredatautil[i] = Max_Score_Plataforma[i];
-    //   }
-
-    //   plotObj.maxscoredata = maxscoredatautil;
-    //   break;
+    
 
     // case 'ratio':
     //   plotObj = {
@@ -318,3 +313,19 @@ function quartile(array, quartile) {
 export {
   getPlatformComparative
 };
+
+
+
+// series: [{
+//   name: plotObj.seriesLineName,
+//   data: plotObj.values,
+// },
+// {
+//   name: plotObj.pacientCompSerieName,
+//   data: plotObj.scorecomp,
+// },
+// {
+//   name: plotObj.namecompmax,
+//   data: plotObj.maxscoredata,
+//   color: '#ff0303'
+// }],
