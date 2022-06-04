@@ -434,7 +434,7 @@ const GameConfigurationCreatePage = () => {
           marginTop: 5,
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-around",
+          justifyContent: "center",
           flexFlow: "wrap",
         }}
       >

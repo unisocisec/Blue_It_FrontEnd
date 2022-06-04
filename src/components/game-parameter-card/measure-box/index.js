@@ -21,7 +21,7 @@ const MeasureBox = ({ isLeft, title, value, Idname=null, widthBox = "50%", flexD
         <Typography variant="h6" sx={{ color: "#11192A", opacity: 0.8, fontSize: 14, fontWeight: 'bold' }}>
           {title}
         </Typography>
-        <Typography variant="h6" id={Idname} sx={{ color: "#212EFF", fontSize: 14, marginRight: 2, fontWeight: 'bold' }}>
+        <Typography variant="h6" id={Idname} sx={{ color: "#11192A", opacity: 0.8,fontSize: 14, marginRight: 2, fontWeight: 'bold' }}>
           {value}
         </Typography>
       </Box>

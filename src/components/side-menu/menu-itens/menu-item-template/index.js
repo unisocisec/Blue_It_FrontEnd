@@ -22,7 +22,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
           {
             margin: "auto",
             borderRadius: 2,
-            width: 230,
+            width: 260,
             height: 50,
             backgroundColor: "#11192A",
           },

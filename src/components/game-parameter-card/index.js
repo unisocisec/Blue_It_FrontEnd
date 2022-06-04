@@ -29,7 +29,7 @@ const GameParameterCard = ({ gameParameter, index=null, selectNeighborInformatio
       } else {
         stringifyGameScript += (attr.ObjectType+";"+attr.DifficultyFactor+";"+attr.PositionYFactor+";"+attr.PositionXSpacing+"\r\n")
       }
-      
+
     })
     return stringifyGameScript
   }
@@ -44,6 +44,7 @@ const GameParameterCard = ({ gameParameter, index=null, selectNeighborInformatio
         backgroundColor: "white",
         color: "black",
         marginBottom: 5,
+        marginRight: 8
       }}
       elevation={24}
     >
