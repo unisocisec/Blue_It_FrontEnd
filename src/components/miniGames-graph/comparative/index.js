@@ -1,8 +1,85 @@
 import React, { useState } from 'react';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import { ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, Legend } from 'recharts';
-import './styles.css'
 import { Box } from "@mui/material";
+
+const MiniGamesGraphComparative = ({ tableLegend_Y, tableLegend_X, data }) => {
+  const [expectedValuesHide, setExpectedValuesHide] = useState(false);
+
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const values = [];
+      let messageFlowValue = '';
+      let messageExpectedValues = '';
+      for (const element of payload) {
+        if (element.name === 'expectedValues_B') {
+          values.push(element.value);
+        } else if (element.dataKey === "expectedValues_A") {
+          messageExpectedValues = element.name;
+          values.push(element.value);
+        } else {
+          messageFlowValue = `${element.name}: ${element.value}L/min`;
+        }
+      }
+      if (values.length) messageExpectedValues = `${messageExpectedValues}: ${values[0]}L/min - ${values[0] + values[1]}L/min`
+      return (
+        <div className="custom-tooltip" style={{ backgroundColor: '#F9FAFC', border: 'solid 1px #E9EAED' }}>
+          <p className="label" style={{ margin: '0 5px' }}>{label}</p>
+          <p className="intro" style={{ margin: '0 8px' }}>{messageFlowValue}</p>
+          <p className="intro" style={{ margin: '0 8px' }}>{messageExpectedValues}</p>
+        </div >
+      );
+    }
+    return null;
+  };
+
+  const renderLegend = (props) => (
+    <ul className="recharts-default-legend" style={{ padding: '0px', margin: '0px', display: 'flex', textAlign: 'center', justifyContent: 'center' }}>
+      {props.payload.map((entry, index) => (
+        (entry.value !== 'expectedValues_B') && (
+          <li
+            onClick={() => (entry.dataKey === 'expectedValues_A') ? setExpectedValuesHide(!expectedValuesHide) : {}}
+            className={`recharts-legend-item legend-item-${index}`}
+            style={{ display: 'flex', marginRight: '10px' }}
+            key={`item-${index}`}>
+            <LinearScaleIcon />
+            {entry.value}
+          </li>
+        )
+      ))}
+    </ul>
+  );
+
+  return (
+    <Box sx={{ height: 500, overflow: "hidden" }} >
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart
+          width={500}
+          height={400}
+          data={testData}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 20,
+            bottom: 20,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" stroke="#f5f5f5" />
+          <XAxis dataKey="xAxisPosition" />
+          <YAxis label={{ value: tableLegend_Y, angle: -90, position: 'insideLeft', fill: 'black', opacity: 0.5 }} tickLine={false} />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend content={renderLegend} />
+          <Area type="monotone" dataKey="expectedValues_B" stackId="1" stroke="#68d2f2" fill="#FFF" hide={expectedValuesHide} />
+          <Area type="monotone" dataKey="expectedValues_A" stackId="1" name='Valores esperados considerando o filtro selecionado' stroke="#68d2f2" fill="#68d2f2" hide={expectedValuesHide} />
+          <Line type="monotone" dataKey="flowValue" stroke="#0080ff" name={tableLegend_X} activeDot={{ r: 8 }} />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </Box>
+  );
+}
+
+export default MiniGamesGraphComparative;
 
 const testData = [{
   xAxisPosition: '1',
@@ -55,82 +132,3 @@ const testData = [{
   expectedValues_B: Math.floor(Math.random() * (140 - 130 + 1)) + 130,
   flowValue: Math.floor(Math.random() * (150 - 140 + 1)) + 140
 }];
-
-
-const MiniGamesGraphComparative = ({ tableLegend_Y, tableLegend_X, data }) => {
-  const [expectedValuesHide, setExpectedValuesHide] = useState(false);
-
-
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      const values = [];
-      let messageFlowValue = '';
-      let messageExpectedValues = '';
-      for (const element of payload) {
-        if (element.name === 'expectedValues_B') {
-          values.push(element.value);
-        } else if (element.dataKey === "expectedValues_A") {
-          messageExpectedValues = element.name;
-          values.push(element.value);
-        } else {
-          messageFlowValue = `${element.name}: ${element.value}L/min`;
-        } 
-      }
-      if (values.length) messageExpectedValues = `${messageExpectedValues}: ${values[0]}L/min - ${values[0] + values[1]}L/min`
-      return (
-        <div className="custom-tooltip" style={{ backgroundColor: '#F9FAFC', border: 'solid 1px #E9EAED' }}>
-          <p className="label" style={{ margin: '0 5px' }}>{label}</p>
-          <p className="intro" style={{ margin: '0 8px' }}>{messageFlowValue}</p>
-          <p className="intro" style={{ margin: '0 8px' }}>{messageExpectedValues}</p>
-        </div >
-      );
-    }
-    return null;
-  };
-
-  const renderLegend = (props) => (
-    <ul className="recharts-default-legend styleLegends" style={{ padding: '0px', margin: '0px', textAlign: 'center' }}>
-      {props.payload.map((entry, index) => (
-        (entry.value !== 'expectedValues_B') && (
-          <li
-            onClick={() => (entry.dataKey === 'expectedValues_A') ? setExpectedValuesHide(!expectedValuesHide) : {}}
-            className={`recharts-legend-item legend-item-${index} styleLegends`}
-            style={{ display: "flex", "margin-right": "10px", "justify-content": "center", "align-items": "center", "flex-direction": "row", gap: "5px", "flex-wrap": "nowrap", "align-content": "center" }}
-            key={`item-${index}`}>
-            <LinearScaleIcon />
-            {entry.value}
-          </li>
-        )
-      ))}
-    </ul>
-  );
-
-  return (
-    <Box sx={{ height: 500, overflow: "hidden" }} >
-      <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart
-          width={500}
-          height={400}
-          data={data}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 20,
-            bottom: 20,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" stroke="#f5f5f5" />
-          <XAxis dataKey="xAxisPosition" />
-          <YAxis label={{ value: tableLegend_Y, angle: -90, position: 'insideLeft', fill: 'black', opacity: 0.5 }} tickLine={false} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend content={renderLegend} />
-          <Area type="monotone" dataKey="expectedValues_B" stackId="1" stroke="#11192A" fill="#FFF" hide={expectedValuesHide} />
-          <Area type="monotone" dataKey="expectedValues_A" stackId="1" name='Valores esperados considerando o filtro selecionado' stroke="#11192A" fill="#68d2f2" hide={expectedValuesHide} />
-          <Line type="monotone" dataKey="flowValue" stroke="#11192A" name={tableLegend_X} activeDot={{ r: 8 }} />
-        </ComposedChart>
-      </ResponsiveContainer>
-    </Box>
-  );
-}
-
-export default MiniGamesGraphComparative;
