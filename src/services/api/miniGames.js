@@ -10,10 +10,12 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
   context.setLoading(true);
   try {
     const GameToken = getTokenParameters('gameToken');
-    const resultMiniGames = await axios.get(`${BaseUrl}/pacients/${context.patientId}/minigames`,
+    const result = await axios.get(`${BaseUrl}/pacients/${context.patientId}/minigames`,
       { params: { sort: 'asc', ...filters }, headers: { GameToken } }
     );
-    const sessionData = resultMiniGames.data.data.sort((first, second) => second.created_at - first.created_at);
+
+    const resultMiniGames = (result.data.data) ? result.data.data : [];
+    const sessionData = resultMiniGames.sort((first, second) => second.created_at - first.created_at);
     const tempGraphData = {};
     const graphData = [];
 
@@ -32,7 +34,7 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
       const resultCalibrations = await axios.get(`${BaseUrl}/pacients/${context.patientId}/calibrations`,
         { params: { sort: 'asc', ...filters }, headers: { GameToken } }
       );
-      const calibrationsData = resultCalibrations.data.data;
+      const calibrationsData = (resultCalibrations.data.data) ? resultCalibrations.data.data : [];
       const typeFilter = (filters.minigameName === 'CakeGame') ? 'ExpiratoryPeak' : 'InspiratoryPeak';
       const tempCalibrationsData = calibrationsData.filter(elem => elem.calibrationExercise === typeFilter);
       tempCalibrationsData.sort((first, second) => first.calibrationValue - second.calibrationValue);
@@ -70,7 +72,6 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
     return graphData;
   } catch (error) {
     context.addNotification('error', extractMessage(error, ''));
-    throw 'erro';
   } finally {
     context.setLoading(false);
   }
@@ -85,7 +86,7 @@ const getMiniGameComparative = async (context, filters) => {
     );
 
     //##################################################
-    const comparativeMiniGames = result.data.data;
+    const comparativeMiniGames = (result.data.data) ? result.data.data : [];
     const flowDataSelectedPatient = [];
     const flowDataPatients = [];
 
