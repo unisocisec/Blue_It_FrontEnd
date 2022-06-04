@@ -43,12 +43,12 @@ const MiniGamesGraphResults = ({ data, tableLegend_X, tableLegend_Y, typeGraph }
           <YAxis label={{ value: tableLegend_Y, angle: -90, position: 'insideLeft', fill: 'black', opacity: 0.5 }} tickLine={false} />
           <Tooltip />
           <Legend onClick={enableAndDisable} />
-          <Line type="monotone" dataKey="flowValue" name={tableLegend_X} stroke="#11192A" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="flowValue" name={tableLegend_X} stroke="#0080ff" activeDot={{ r: 8 }} />
           {typeGraph && (
             <>
-              <Line type="monotone" dataKey="calibration_100" name='100% da calibração' stroke="rgb(64 75 217)" activeDot={{ r: 8 }} hide={calibration_100Hide} />
-              <Line type="monotone" dataKey="calibration_50" name='75% da calibração' stroke="rgb(56 137 96)" activeDot={{ r: 8 }} hide={calibration_50Hide} />
-              <Line type="monotone" dataKey="calibration_25" name='50% da calibração' stroke="rgb(169 15 15)" activeDot={{ r: 8 }} hide={calibration_25Hide} />
+              <Line type="monotone" dataKey="calibration_100" name='100% da calibração' stroke="#5FFA01" activeDot={{ r: 8 }} hide={calibration_100Hide} />
+              <Line type="monotone" dataKey="calibration_50" name='75% da calibração' stroke="#FADA00" activeDot={{ r: 8 }} hide={calibration_50Hide} />
+              <Line type="monotone" dataKey="calibration_25" name='50% da calibração' stroke="#FA9D00" activeDot={{ r: 8 }} hide={calibration_25Hide} />
             </>
           )}
         </LineChart>

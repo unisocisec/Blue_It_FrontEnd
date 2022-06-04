@@ -47,19 +47,19 @@ const SelectPatient = () => {
       const result = await fetchAll(context)
       setPatients([...result]);
       setPatientId(result[0].id || '');
-      context.setPatientId(result[0].id || '');
       context.setPatientName(result[0].name || '');
       context.setPatientBirthDate(result[0].birthDate || '');
+      context.setPatientId(result[0].id || '');
     } catch (error) { }
   }
 
   const handlePatientChange = (event) => {
     const patientId = event.target.value;
     setPatientId(patientId)
-    context.setPatientId(patientId)
     const patient = patients.find(elem => elem.id === patientId);
     context.setPatientName(patient.name);
     context.setPatientBirthDate(patient.birthDate);
+    context.setPatientId(patientId)
   }
 
   return (

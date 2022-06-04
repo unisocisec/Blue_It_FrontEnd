@@ -49,10 +49,10 @@ const PlatformComparative = () => {
 		{ key: "Female", value: "Feminino" },
 	]);
 	const [listVisualization] = useState([
-		{ key: "expiratory_peak", value: "Pico Expiratório" },
-		{ key: "inspiratory_peak", value: "Pico Inspiratório" },
-		{ key: "score", value: "Pontuação" },
-		{ key: "ratio", value: "Razão" },
+		{ key: "expiratory_peak", value: "Pico Expiratório" },  // viewType 1
+		{ key: "inspiratory_peak", value: "Pico Inspiratório" }, // viewType 2
+		{ key: "score", value: "Pontuação" }, // viewType 3
+		{ key: "ratio", value: "Razão" }, // viewType 4
 	]);
 
 
@@ -62,10 +62,13 @@ const PlatformComparative = () => {
 	const [initialAge, setInitialAge] = useState(context.patientBirthDate ? moment().diff(context.patientBirthDate, 'years') - 3 : 1);
 	const [finalAge, setFinalAge] = useState(context.patientBirthDate ? moment().diff(context.patientBirthDate, 'years') + 3 : 1);
 	const [visualization, setVisualization] = useState("expiratory_peak");
+	const [viewType, setViewType] = useState(1);
 	const [device, setDevice] = useState("Pitaco");
-	// const [tableLegend_X, setTableLegend_X] = useState('Maior pico da sessão');
-	// const [tableLegend_Y, setTableLegend_Y] = useState('Pico Expiratório L/min');
+	const [tableLegend_X, setTableLegend_X] = useState('Picos Expiratórios do paciente selecionado');
+	const [tableLegend_Y, setTableLegend_Y] = useState('Pico Expiratório L/min');
+	const [unitOfMeasurement, setUnitOfMeasurement] = useState('L/min');
 	const [graphData, setGraphData] = useState([]);
+
 
 	const initialState = () => {
 		setWarning('Selecione os filtros desejados.')
@@ -74,7 +77,11 @@ const PlatformComparative = () => {
 		setInitialAge(context.patientBirthDate ? moment().diff(context.patientBirthDate, 'years') - 3 : 1);
 		setFinalAge(context.patientBirthDate ? moment().diff(context.patientBirthDate, 'years') + 3 : 1);
 		setVisualization("expiratory_peak");
+		setViewType(1);
 		setDevice("Pitaco");
+		setTableLegend_X('Picos Expiratórios do paciente selecionado');
+		setTableLegend_Y('Pico Expiratório L/min');
+		setUnitOfMeasurement('L/min')
 		setGraphData([]);
 	}
 
@@ -83,6 +90,17 @@ const PlatformComparative = () => {
 			updateMethod(value)
 		} else if (!value) {
 			updateMethod(1)
+		}
+	}
+
+	const validateTheTypeOfUnitOfMeasure = () => {
+		//VERIFICAR UNIDADES CORRETAS
+		if (device === 'Pitaco') {
+			setUnitOfMeasurement('L/min');
+		} else if (device === 'Mano') {
+			setUnitOfMeasurement('L/m³');
+		} else if (device === 'Cinta') {
+			setUnitOfMeasurement('cm');
 		}
 	}
 
@@ -101,6 +119,28 @@ const PlatformComparative = () => {
 			if (!graphData.length) {
 				context.addNotification('error', 'Não existe histórico para os filtros selecionados.');
 				setWarning('Não existe histórico para os filtros selecionados.');
+			} else {
+				if (visualization === 'expiratory_peak') {
+					setTableLegend_X('Picos Expiratórios do paciente selecionado');
+					validateTheTypeOfUnitOfMeasure();
+					setTableLegend_Y(`Pico Expiratório (${unitOfMeasurement})`);
+					setViewType(1);
+				} else if (visualization === 'inspiratory_peak') {
+					setTableLegend_X('Picos Inspiratórios do paciente selecionado');
+					validateTheTypeOfUnitOfMeasure();
+					setTableLegend_Y(`Pico Inspiratórios (${unitOfMeasurement})`);
+					setViewType(2);
+				} else if (visualization === 'score') {
+					setTableLegend_Y(context.patientName);
+					setTableLegend_Y('Pontuação');
+					setUnitOfMeasurement('Pontos');
+					setViewType(4);
+				} else if (visualization === 'ratio') {
+					setTableLegend_X(context.patientName);
+					setTableLegend_Y('Porcentagem (%)');
+					setUnitOfMeasurement('%');
+					setViewType(4);
+				}
 			}
 		} catch (error) {
 			setGraphData([...[]])
@@ -194,7 +234,13 @@ const PlatformComparative = () => {
 					{warning}
 				</Typography>
 			) : (
-				<PlatformGraphComparative />
+				<PlatformGraphComparative
+					graphData={graphData}
+					viewType={viewType}
+					tableLegend_X={tableLegend_X}
+					tableLegend_Y={tableLegend_Y}
+					unitOfMeasurement={unitOfMeasurement}
+				/>
 			)}
 		</>
 	);
