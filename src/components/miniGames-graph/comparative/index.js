@@ -4,7 +4,7 @@ import { ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveCo
 
 import { Box } from "@mui/material";
 
-const data = [{
+const testData = [{
   xAxisPosition: '1',
   expectedValues_A: Math.floor(Math.random() * (280 - 270 + 1)) + 270,
   expectedValues_B: Math.floor(Math.random() * (140 - 130 + 1)) + 130,
@@ -57,7 +57,7 @@ const data = [{
 }];
 
 
-const MiniGamesGraphComparative = ({ tableLegend_Y, tableLegend_X }) => {
+const MiniGamesGraphComparative = ({ tableLegend_Y, tableLegend_X, data }) => {
   const [expectedValuesHide, setExpectedValuesHide] = useState(false);
 
 

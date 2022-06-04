@@ -80,82 +80,93 @@ const getMiniGameComparative = async (context, filters) => {
   context.setLoading(true);
   try {
     const GameToken = getTokenParameters('gameToken');
-    const comparativeMiniGames = await axios.get(`${BaseUrl}/minigames/statistics`,
+    const result = await axios.get(`${BaseUrl}/minigames/statistics`,
       { params: { ...filters }, headers: { GameToken } }
     );
 
-    // let flowData = { flows: {} };
-    // let flowDataSelectedPacient = d.data.filter(x => x.pacientId == getCurrentPacient("_id"));
-    // flowDataSelectedPacient[0].maxFlows.sort((a, b) => (a.sessionNumber > b.sessionNumber) ? 1 : ((b.sessionNumber > a.sessionNumber) ? -1 : 0))
+    //##################################################
+    const comparativeMiniGames = result.data.data;
+    const flowDataSelectedPatient = [];
+    const flowDataPatients = [];
 
-    // let currentPacientId = getCurrentPacient("_id");
-    // let flowDataPacients = d.data.filter(x => x.pacientId != currentPacientId);
+    for (const element of comparativeMiniGames) {
+      if (element.pacientId === context.patientId) {
+        element.maxFlows.sort((first, second) => (first.sessionNumber > second.sessionNumber));
+        flowDataSelectedPatient.push(element);
+      } else {
+        element.maxFlows.sort((first, second) => (first.sessionNumber >= second.sessionNumber) ? 1 : -1);
+        flowDataPatients.push(element);
+      }
+    }
+    // ajustar lógica de montagem dos dados
+    //##################################################
+    const flowData = { flows: {} };
+    let flowDataPac = { sessoes: flowDataSelectedPatient[0].maxFlows.length, flows: [] };
+    flowDataPatients.map(function (element) {
+      for (let index = 0; index < element.maxFlows.length; index++) {
+        if (flowData.flows[index]) {
+          flowData.flows[index] = [element.maxFlows[index].flow];
+        } else {
+          flowData.flows[index] = [flowData.flows[index], element.maxFlows[index].flow];
+        }
+      }
+    });
+    for (let index = 0; index < flowDataSelectedPatient[0].maxFlows.length; index++) {
+      flowDataPac.flows.push(flowDataSelectedPatient[0].maxFlows[index].flow);
+    }
+    let quartilSuperiorExp = [];
+    let quartilInferiorExp = [];
+    for (const [key, value] of Object.entries(flowData.flows)) {
+      value.sort(function (a, b) { return a - b; });
+      quartilSuperiorExp.push(quantile(value, .75));
+      quartilInferiorExp.push(quantile(value, .25));
+    }
+    for (let i = 1; i < quartilSuperiorExp.length - 1; i++) {
+      if (quartilSuperiorExp[i] == undefined && quartilSuperiorExp[i - 1] != undefined && quartilSuperiorExp[i + 1] != undefined) {
+        quartilSuperiorExp[i] = quartilSuperiorExp[i - 1] + quartilSuperiorExp[i + 1];
+      };
+    };
+    for (let i = 1; i < quartilInferiorExp.length - 1; i++) {
+      if (quartilInferiorExp[i] == undefined && quartilInferiorExp[i - 1] != undefined && quartilInferiorExp[i + 1] != undefined) {
+        quartilInferiorExp[i] = quartilInferiorExp[i - 1] + quartilInferiorExp[i + 1];
+      };
+    };
 
-    // flowDataPacients.forEach(element => {
-    //   element.maxFlows.sort((a, b) => (a.sessionNumber > b.sessionNumber) ? 1 : ((b.sessionNumber > a.sessionNumber) ? -1 : 0));
-    // });
+    let teste = [];
+    for (let i = 0; i < flowDataPac.sessoes; i++) {
+      teste.push({
+        xAxisPosition: i + 1,
+        expectedValues_A: quartilInferiorExp[i] || 0,
+        expectedValues_B: quartilInferiorExp[i] || 0,
+        flowValue: flowDataPac.flows[i] || 0,
+      })
+    }
+    //##################################################
+    console.log('##############################')
+    console.log(teste)
+    console.log('##############################')
 
-    // let flowDataPac = { sessoes: flowDataSelectedPacient[0].maxFlows.length, flows: [] };
-
-    // flowDataPacients.map(function (element) {
-    //   for (let index = 0; index < element.maxFlows.length; index++) {
-    //     if (flowData.flows[index] == undefined)
-    //       flowData.flows[index] = [];
-
-    //     flowData.flows[index].push(element.maxFlows[index].flow);
-    //   }
-    // });
-
-    // for (let index = 0; index < flowDataSelectedPacient[0].maxFlows.length; index++) {
-    //   flowDataPac.flows.push(flowDataSelectedPacient[0].maxFlows[index].flow);
-    // }
-
-    // let quartilSuperiorExp = [];
-    // let quartilInferiorExp = [];
-
-    // for (const [key, value] of Object.entries(flowData.flows)) {
-    //   value.sort(function (a, b) { return a - b; });
-    //   quartilSuperiorExp.push(quantile(value, .75));
-    //   quartilInferiorExp.push(quantile(value, .25));
-    // }
-
-    // for (let i = 1; i < quartilSuperiorExp.length - 1; i++) {
-    //   if (quartilSuperiorExp[i] == undefined && quartilSuperiorExp[i - 1] != undefined && quartilSuperiorExp[i + 1] != undefined) {
-    //     quartilSuperiorExp[i] = quartilSuperiorExp[i - 1] + quartilSuperiorExp[i + 1];
-    //   };
-    // };
-    // for (let i = 1; i < quartilInferiorExp.length - 1; i++) {
-    //   if (quartilInferiorExp[i] == undefined && quartilInferiorExp[i - 1] != undefined && quartilInferiorExp[i + 1] != undefined) {
-    //     quartilInferiorExp[i] = quartilInferiorExp[i - 1] + quartilInferiorExp[i + 1];
-    //   };
-    // };
-
-    // let areaRangeValues = [];
-    // for (let i = 0; i < flowDataPac.sessoes; i++) {
-    //   areaRangeValues[i] = [i + 1, quartilInferiorExp[i], quartilSuperiorExp[i]];
-    // }
-
-    // let playerLineValues = [];
-    // for (let i = 0; i < flowDataPac.sessoes; i++) {
-    //   playerLineValues[i] = [i + 1, flowDataPac.flows[i]];
-    // }
-
-    // let plotObj = {
-    //   title: `Dados Comparativos - Minigame [${$("#minigame-name").val() === "CakeGame" ? "Velas no Bolo" : "Copo D'Água"}]`,
-    //   yAxisTitleText: $("#minigame-name").val() === "CakeGame" ? "Pico Expiratório (L/min)" : "Pico Inspiratório (L/min)",
-    //   seriesLineName: 'Picos Expiratórios do paciente selecionado',
-    //   areaRange: areaRangeValues,
-    //   lineData: playerLineValues
-    // }
-
-    return [];
+    return teste;
   } catch (error) {
+    console.log(error)
     context.addNotification('error', extractMessage(error, ''));
     throw 'erro';
   } finally {
     context.setLoading(false);
   }
 }
+//##################################################
+function quantile(array, quartile) {
+  const pos = (array.length - 1) * quartile;
+  const base = Math.floor(pos);
+  const rest = pos - base;
+  if (array[base + 1] !== undefined) {
+    return array[base] + rest * (array[base + 1] - array[base]);
+  } else {
+    return array[base];
+  }
+};
+//##################################################
 
 export {
   getGeneralStatisticsDataFromTheMiniGame,

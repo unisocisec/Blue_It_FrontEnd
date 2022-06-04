@@ -62,7 +62,7 @@ const MiniGamesComparative = () => {
 
   const [tableLegend_X, setTableLegend_X] = useState('Picos Expiratórios do paciente selecionado');
   const [tableLegend_Y, setTableLegend_Y] = useState('Pico Expiratório (L/min)');
-  const [graphData, setGraphData] = useState([{}]);
+  const [graphData, setGraphData] = useState([]);
 
   const initialState = () => {
     setWarning('Selecione os filtros desejados.')
@@ -74,7 +74,7 @@ const MiniGamesComparative = () => {
     setDevice("Pitaco");
     setTableLegend_X('Picos Expiratórios do paciente selecionado');
     setTableLegend_Y('Pico Expiratório (L/min)');
-    // setGraphData([]);
+    setGraphData([]);
   }
 
   const validateAgeField = (updateMethod, value) => {
