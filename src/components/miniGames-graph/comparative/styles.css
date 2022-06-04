@@ -1,0 +1,10 @@
+.styleLegends {
+    display: flex;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: nowrap;
+    align-content: center;
+}

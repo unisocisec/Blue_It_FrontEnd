@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import { ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, Legend } from 'recharts';
+import './styles.css'
 import { Box } from "@mui/material";
 
 const data = [{
@@ -87,13 +88,12 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X }) => {
   };
 
   const renderLegend = (props) => (
-    <ul className="recharts-default-legend" style={{ padding: '0px', margin: '0px', textAlign: 'center' }}>
+    <ul className="recharts-default-legend styleLegends" style={{ padding: '0px', margin: '0px', textAlign: 'center' }}>
       {props.payload.map((entry, index) => (
         (entry.value !== 'doNotDisplay') && (
           <li
             onClick={() => (entry.dataKey !== 'flowValue') ? setExpectedValuesHide(!expectedValuesHide) : {}}
-            className={`recharts-legend-item legend-item-${index}`}
-            style={{ display: 'inline-block', marginRight: '10px' }}
+            className={`recharts-legend-item legend-item-${index} styleLegends`}
             key={`item-${index}`}>
               <LinearScaleIcon />
               {entry.value}

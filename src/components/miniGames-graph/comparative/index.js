@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import { ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, Legend } from 'recharts';
-
+import './styles.css'
 import { Box } from "@mui/material";
 
 const testData = [{
@@ -89,13 +89,13 @@ const MiniGamesGraphComparative = ({ tableLegend_Y, tableLegend_X, data }) => {
   };
 
   const renderLegend = (props) => (
-    <ul className="recharts-default-legend" style={{ padding: '0px', margin: '0px', textAlign: 'center' }}>
+    <ul className="recharts-default-legend styleLegends" style={{ padding: '0px', margin: '0px', textAlign: 'center' }}>
       {props.payload.map((entry, index) => (
         (entry.value !== 'expectedValues_B') && (
           <li
             onClick={() => (entry.dataKey === 'expectedValues_A') ? setExpectedValuesHide(!expectedValuesHide) : {}}
-            className={`recharts-legend-item legend-item-${index}`}
-            style={{ display: 'inline-block', marginRight: '10px' }}
+            className={`recharts-legend-item legend-item-${index} styleLegends`}
+            style={{ display: "flex", "margin-right": "10px", "justify-content": "center", "align-items": "center", "flex-direction": "row", gap: "5px", "flex-wrap": "nowrap", "align-content": "center" }}
             key={`item-${index}`}>
             <LinearScaleIcon />
             {entry.value}
