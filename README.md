@@ -9,7 +9,7 @@ Este repositório trata-se de um fork/estudo do projeto **[UDESC-LARVA/IBLUEIT](
 - [@welingtonlarsen](https://github.com/welingtonlarsen) 
 
 ## Sobre
-Este Repositório trata-se da aplicação *web* foi desenvolvida baseando-se na arquitetura SPA (Single-Page Application) utilizando algumas bibliotecas auxiliares.
+Este Repositório trata-se da aplicação *WEB/FrontEnd* foi desenvolvida baseando-se na arquitetura SPA (Single-Page Application) utilizando algumas bibliotecas auxiliares.
 
 ## Tecnologias e Bibliotecas Utilizadas:
 - React v...
