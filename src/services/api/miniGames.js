@@ -10,10 +10,12 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
   context.setLoading(true);
   try {
     const GameToken = getTokenParameters('gameToken');
-    const resultMiniGames = await axios.get(`${BaseUrl}/pacients/${context.patientId}/minigames`,
+    const result = await axios.get(`${BaseUrl}/pacients/${context.patientId}/minigames`,
       { params: { sort: 'asc', ...filters }, headers: { GameToken } }
     );
-    const sessionData = resultMiniGames.data.data.sort((first, second) => second.created_at - first.created_at);
+
+    const resultMiniGames = (result.data.data) ? result.data.data : [];
+    const sessionData = resultMiniGames.sort((first, second) => second.created_at - first.created_at);
     const tempGraphData = {};
     const graphData = [];
 
@@ -32,7 +34,7 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
       const resultCalibrations = await axios.get(`${BaseUrl}/pacients/${context.patientId}/calibrations`,
         { params: { sort: 'asc', ...filters }, headers: { GameToken } }
       );
-      const calibrationsData = resultCalibrations.data.data;
+      const calibrationsData = (resultCalibrations.data.data) ? resultCalibrations.data.data : [];
       const typeFilter = (filters.minigameName === 'CakeGame') ? 'ExpiratoryPeak' : 'InspiratoryPeak';
       const tempCalibrationsData = calibrationsData.filter(elem => elem.calibrationExercise === typeFilter);
       tempCalibrationsData.sort((first, second) => first.calibrationValue - second.calibrationValue);
@@ -70,12 +72,104 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
     return graphData;
   } catch (error) {
     context.addNotification('error', extractMessage(error, ''));
-    throw 'erro';
   } finally {
     context.setLoading(false);
   }
 }
 
+const getMiniGameComparative = async (context, filters) => {
+  context.setLoading(true);
+  try {
+    const GameToken = getTokenParameters('gameToken');
+    const result = await axios.get(`${BaseUrl}/minigames/statistics`,
+      { params: { ...filters }, headers: { GameToken } }
+    );
+
+    //##################################################
+    const comparativeMiniGames = (result.data.data) ? result.data.data : [];
+    const flowDataSelectedPatient = [];
+    const flowDataPatients = [];
+
+    for (const element of comparativeMiniGames) {
+      if (element.pacientId === context.patientId) {
+        element.maxFlows.sort((first, second) => (first.sessionNumber > second.sessionNumber));
+        flowDataSelectedPatient.push(element);
+      } else {
+        element.maxFlows.sort((first, second) => (first.sessionNumber >= second.sessionNumber) ? 1 : -1);
+        flowDataPatients.push(element);
+      }
+    }
+    // ajustar lógica de montagem dos dados
+    //##################################################
+    const flowData = { flows: {} };
+    let flowDataPac = { sessoes: flowDataSelectedPatient[0].maxFlows.length, flows: [] };
+    flowDataPatients.map(function (element) {
+      for (let index = 0; index < element.maxFlows.length; index++) {
+        if (flowData.flows[index]) {
+          flowData.flows[index] = [element.maxFlows[index].flow];
+        } else {
+          flowData.flows[index] = [flowData.flows[index], element.maxFlows[index].flow];
+        }
+      }
+    });
+    for (let index = 0; index < flowDataSelectedPatient[0].maxFlows.length; index++) {
+      flowDataPac.flows.push(flowDataSelectedPatient[0].maxFlows[index].flow);
+    }
+    let quartilSuperiorExp = [];
+    let quartilInferiorExp = [];
+    for (const [key, value] of Object.entries(flowData.flows)) {
+      value.sort(function (a, b) { return a - b; });
+      quartilSuperiorExp.push(quantile(value, .75));
+      quartilInferiorExp.push(quantile(value, .25));
+    }
+    for (let i = 1; i < quartilSuperiorExp.length - 1; i++) {
+      if (quartilSuperiorExp[i] == undefined && quartilSuperiorExp[i - 1] != undefined && quartilSuperiorExp[i + 1] != undefined) {
+        quartilSuperiorExp[i] = quartilSuperiorExp[i - 1] + quartilSuperiorExp[i + 1];
+      };
+    };
+    for (let i = 1; i < quartilInferiorExp.length - 1; i++) {
+      if (quartilInferiorExp[i] == undefined && quartilInferiorExp[i - 1] != undefined && quartilInferiorExp[i + 1] != undefined) {
+        quartilInferiorExp[i] = quartilInferiorExp[i - 1] + quartilInferiorExp[i + 1];
+      };
+    };
+
+    let teste = [];
+    for (let i = 0; i < flowDataPac.sessoes; i++) {
+      teste.push({
+        xAxisPosition: i + 1,
+        expectedValues_A: quartilInferiorExp[i] || 0,
+        expectedValues_B: quartilInferiorExp[i] || 0,
+        flowValue: flowDataPac.flows[i] || 0,
+      })
+    }
+    //##################################################
+    console.log('##############################')
+    console.log(teste)
+    console.log('##############################')
+
+    return teste;
+  } catch (error) {
+    console.log(error)
+    context.addNotification('error', extractMessage(error, ''));
+    throw 'erro';
+  } finally {
+    context.setLoading(false);
+  }
+}
+//##################################################
+function quantile(array, quartile) {
+  const pos = (array.length - 1) * quartile;
+  const base = Math.floor(pos);
+  const rest = pos - base;
+  if (array[base + 1] !== undefined) {
+    return array[base] + rest * (array[base + 1] - array[base]);
+  } else {
+    return array[base];
+  }
+};
+//##################################################
+
 export {
   getGeneralStatisticsDataFromTheMiniGame,
+  getMiniGameComparative,
 };

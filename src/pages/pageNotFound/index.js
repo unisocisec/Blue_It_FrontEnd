@@ -24,7 +24,7 @@ const PageNotFound = () => {
 				Parece que você tentou acessar uma página que não existe...
 			</Typography>
 
-			<MaterialLink to={pathRoutes.LOGIN} variant="h5" component={Link}>
+			<MaterialLink to={pathRoutes.INFORMATION_PANEL} variant="h5" component={Link}>
 				Voltar a página principal
 			</MaterialLink>
 		</Box>

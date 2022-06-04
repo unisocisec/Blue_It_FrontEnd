@@ -1,34 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Bar } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Box from "@mui/material/Box";
 
-const MiniGamesGraph = ({ data, tableLegend_X, tableLegend_Y, typeGraph }) => {
+const MiniGamesGraphResults = ({ data, tableLegend_X, tableLegend_Y, typeGraph }) => {
   const [calibration_100Hide, setCalibration_100Hide] = useState(false);
   const [calibration_50Hide, setCalibration_50Hide] = useState(false);
   const [calibration_25Hide, setCalibration_25Hide] = useState(false);
 
   useEffect(() => {
-    if (typeGraph && !document.getElementsByClassName('recharts-legend-item legend-item-1').length) {
-      setTimeout(() => setOnclickGraph(), 1000);
-    } else if (typeGraph) {
-      setOnclickGraph();
-    } else {
-      setCalibration_100Hide(false);
-      setCalibration_50Hide(false);
-      setCalibration_25Hide(false);
-    }
-  }, [calibration_100Hide, calibration_50Hide, calibration_25Hide, typeGraph]);
+    setCalibration_100Hide(false);
+    setCalibration_50Hide(false);
+    setCalibration_25Hide(false);
+  }, [typeGraph]);
 
-  const setOnclickGraph = () => {
-    if (document.getElementsByClassName('recharts-legend-item legend-item-1').length) {
-      document.getElementsByClassName('recharts-legend-item legend-item-1')[0].onclick = () => setCalibration_100Hide(!calibration_100Hide)
-    }
-    if (document.getElementsByClassName('recharts-legend-item legend-item-2').length) {
-      document.getElementsByClassName('recharts-legend-item legend-item-2')[0].onclick = () => setCalibration_50Hide(!calibration_50Hide)
-    }
-    if (document.getElementsByClassName('recharts-legend-item legend-item-3').length) {
-      document.getElementsByClassName('recharts-legend-item legend-item-3')[0].onclick = () => setCalibration_25Hide(!calibration_25Hide)
+  const enableAndDisable = (event) => {
+    if (event.dataKey === 'calibration_100') {
+      setCalibration_100Hide(!calibration_100Hide);
+    } else if (event.dataKey === 'calibration_50') {
+      setCalibration_50Hide(!calibration_50Hide);
+    } else if (event.dataKey === 'calibration_25') {
+      setCalibration_25Hide(!calibration_25Hide);
     }
   }
 
@@ -50,7 +42,7 @@ const MiniGamesGraph = ({ data, tableLegend_X, tableLegend_Y, typeGraph }) => {
           <XAxis dataKey="sessionDate" tickLine={false} />
           <YAxis label={{ value: tableLegend_Y, angle: -90, position: 'insideLeft', fill: 'black', opacity: 0.5 }} tickLine={false} />
           <Tooltip />
-          <Legend />
+          <Legend onClick={enableAndDisable} />
           <Line type="monotone" dataKey="flowValue" name={tableLegend_X} stroke="#11192A" activeDot={{ r: 8 }} />
           {typeGraph && (
             <>
@@ -65,4 +57,4 @@ const MiniGamesGraph = ({ data, tableLegend_X, tableLegend_Y, typeGraph }) => {
   );
 };
 
-export default MiniGamesGraph;
+export default MiniGamesGraphResults;
