@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import { ComposedChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, Legend, Bar } from 'recharts';
 import { Box } from "@mui/material";
+import './style.css'
 
 const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, viewType, unitOfMeasurement }) => {
   const [expectedValuesHide, setExpectedValuesHide] = useState(false);
+  const [equalRatioSelectedPatientsHide, setEqualRatioSelectedPatientsHide] = useState(false);
+  const [maxPercentageHide, setMaxPercentageHide] = useState(false);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -33,13 +36,19 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, vie
     return null;
   };
 
+  const handleLegendClick = (key) => {
+    if (key === setDataKey("expectedValues_A")) setExpectedValuesHide(!expectedValuesHide)
+    if (key === "scoreComp") setEqualRatioSelectedPatientsHide(!equalRatioSelectedPatientsHide)
+    if (key === "maxsCore") setMaxPercentageHide(!maxPercentageHide)
+  }
+
   const renderLegend = (props) => (
     <ul className="recharts-default-legend" style={{ padding: '0px', margin: '0px', display: 'flex', textAlign: 'center', justifyContent: 'center', }}>
       {props.payload.map((entry, index) => (
         (entry.value !== setDataKey("expectedValues_B")) && (
           <li
-            onClick={() => (entry.dataKey === setDataKey("expectedValues_A")) ? setExpectedValuesHide(!expectedValuesHide) : {}}
-            className={`recharts-legend-item legend-item-${index}`}
+            onClick={() => handleLegendClick(entry.dataKey)}
+            className={`recharts-legend-item legend-item-${index} legend`}
             style={{ display: 'flex', marginRight: '10px' }}
             key={`item-${index}`}>
             <LinearScaleIcon />
@@ -120,12 +129,14 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, vie
                 name='Razão Comum de Pacientes Selecionados'
                 barSize={20}
                 fill="#413ea0"
+                hide={equalRatioSelectedPatientsHide}
               />
               <Bar
                 dataKey="maxsCore"
                 name='Porcentagem máxima'
                 barSize={20}
                 fill="#ff0303"
+                hide={maxPercentageHide}
               />
             </>
           )}

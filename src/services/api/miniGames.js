@@ -142,10 +142,6 @@ const getMiniGameComparative = async (context, filters) => {
         flowValue: flowDataPac.flows[i] || 0,
       })
     }
-    //##################################################
-    console.log('##############################')
-    console.log(teste)
-    console.log('##############################')
 
     return teste;
   } catch (error) {
