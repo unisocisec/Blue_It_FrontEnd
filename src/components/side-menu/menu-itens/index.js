@@ -72,7 +72,7 @@ const MenuItens = () => {
         <Typography
           variant="subtitle1"
           sx={{
-            marginLeft: 2,
+            marginLeft: 4,
             marginBottom: 0.5,
             fontSize: 14,
             opacity: 0.25,
@@ -85,7 +85,7 @@ const MenuItens = () => {
           title="Painel geral"
           icon={<DashboardIcon sx={{ fontSize: 17 }} />}
           submenus={[
-            { title: "Painel de Informações", path: pathRoutes.INFORMATION_PANEL, icon: <DeviceHubIcon sx={{ fontSize: 17 }} /> },
+            { title: "Informações", path: pathRoutes.INFORMATION_PANEL, icon: <DeviceHubIcon sx={{ fontSize: 17 }} /> },
           ]}
         />
 
@@ -93,7 +93,7 @@ const MenuItens = () => {
         <Typography
           variant="subtitle1"
           sx={{
-            marginLeft: 2,
+            marginLeft: 4,
             marginBottom: 0.5,
             fontSize: 14,
             opacity: 0.25,
@@ -135,7 +135,7 @@ const MenuItens = () => {
               variant="subtitle1"
               sx={{
                 marginTop: 2,
-                marginLeft: 2,
+                marginLeft: 4,
                 marginBottom: 0.5,
                 fontSize: 14,
                 opacity: 0.25,
@@ -145,7 +145,7 @@ const MenuItens = () => {
               Sistema
             </Typography>
             <MenuItemTemplate
-              title="Config do Jogo"
+              title="Configuração do jogo"
               icon={<SportsEsportsIcon sx={{ fontSize: 17 }} />}
               submenus={[
                 { title: "Criar", path: pathRoutes.GAME_CONFIGURATION_CREATE, icon: <AddIcon sx={{ fontSize: 17 }} /> },

@@ -1,5 +1,5 @@
 const Constants = {
-    DRAWER_WIDTH: 280
+    DRAWER_WIDTH: 290
 }
 
 export default Constants
