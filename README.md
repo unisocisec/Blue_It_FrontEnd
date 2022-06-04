@@ -25,11 +25,15 @@ nvm install 16.15.0
 ```
 npm install
 ```
-4. Rode o Script de Start:
+4. Crie um arquivo chamado _config.js em [Blue_It_FrontEnd\src\providers](https://github.com/unisocisec/Blue_It_FrontEnd/tree/master/src/providers) com a seguintes informações:
+```javascript
+export const  BaseUrl = "http://localhost:7071/api";
+```
+5. Rode o Script de Start:
 ```
 npm start
 ```
-5. Pronto, o Blue_It_FrontEnd estará ativo. Para acessá-lo utilize a rota http://localhost:3000
+6. Pronto, o Blue_It_FrontEnd estará ativo. Para acessá-lo utilize a rota http://localhost:3000
 
 ### Repositórios GitHub - Código fonte
 - Aplicação (BackEnd) [Blue_It_BackEnd](https://github.com/unisocisec/Blue_It_BackEnd)
