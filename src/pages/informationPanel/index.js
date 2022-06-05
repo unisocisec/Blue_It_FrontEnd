@@ -1,18 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from '@mui/material/Typography';
+import PersonIcon from '@mui/icons-material/Person';
+import ScaleIcon from '@mui/icons-material/Scale';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import WcIcon from '@mui/icons-material/Wc';
+import EventIcon from '@mui/icons-material/Event';
+import ElevatorIcon from '@mui/icons-material/Elevator';
+import NotesIcon from '@mui/icons-material/Notes';
 
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-
-
-import { useMyContext } from "../../providers/MyContext";
-import { getPatientInformation } from '../../services/api/informationPanel';
+import {useMyContext} from "../../providers/MyContext";
+import {getPatientInformation} from '../../services/api/informationPanel';
+import BlueCard from "./blue-card";
+import GreenCard from "./green-card";
+import YellowCard from "./yellow-card";
+import RedCard from "./red-card";
 
 
 const InformationPanel = () => {
@@ -23,7 +26,8 @@ const InformationPanel = () => {
     try {
       const newPatientData = await getPatientInformation(context);
       setPatientData([...newPatientData]);
-    } catch (error) { }
+    } catch (error) {
+    }
   };
 
   useEffect(() => {
@@ -38,61 +42,74 @@ const InformationPanel = () => {
         flexDirection: "column",
       }}
     >
-      <Typography variant="h2" sx={{ fontSize: 20 }}>
-        Painel de Informações
+      <Typography variant="h2" sx={{fontSize: 25, color: '#11192A'}}>
+        Informações gerais
       </Typography>
-      <Box
-        sx={{
-          marginTop: 5,
-          display: "flex",
-          alignItems: 'center',
-          flexDirection: "column",
-        }}
-      >
-        <Paper
-          elevation={24}
-          sx={{
-            marginBottom: 5,
-            backgroundColor: "white",
-          }}
-        >
-          <Box
-            sx={{
-              padding: 2,
-              alignItems: "center",
-              justifyContent: "flex-start",
-              backgroundColor: '#F9FAFC',
-              borderBottom: "1px solid #E9EAED",
-            }}
-          >
-            <Typography variant="h6" sx={{ color: "#11192A", fontSize: 17 }}>
-              Dados Gerais
-            </Typography>
-          </Box>
-          <Box sx={{
-            padding: 2,
-            display: "flex",
-            alignItems: 'flex-start',
-            flexDirection: "column",
-          }}>
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 300, width: '30vw' }} aria-label="custom pagination table" >
-                <TableBody>
-                  {patientData.map(elem => (
-                    <TableRow key={elem.fieldName} style={{ border: 'solid 3px #11192A' }}>
-                      <TableCell component="th" scope="row" style={{ color: '#11192A', background: 'white' }}>
-                        {elem.fieldName}
-                      </TableCell>
-                      <TableCell style={{ width: 160, color: '#11192A', background: 'white' }} align="right">
-                        {elem.fieldValue}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
-        </Paper>
+
+      <Box sx={{
+        marginTop: 2,
+        display: "flex",
+        maxWidth: 1700,
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+      }}>
+        {patientData.map(patient => {
+          if (patient.fieldName === 'Nome') {
+            return (<BlueCard title={patient.fieldName}
+                              content={patient.fieldValue}
+                              icon={<PersonIcon sx={{fontSize: 70, color: '#123996'}}/>}
+            />)
+          }
+
+          if (patient.fieldName === 'Sexo') {
+            return (<GreenCard title={patient.fieldName}
+                               content={patient.fieldValue}
+                               icon={<WcIcon sx={{fontSize: 70, color: '#123996'}}/>}
+            />)
+          }
+
+          if (patient.fieldName === 'Peso') {
+            return (<BlueCard title={patient.fieldName}
+                              content={patient.fieldValue}
+                              icon={<ScaleIcon sx={{fontSize: 70, color: '#123996'}}/>}
+            />)
+          }
+
+          if (patient.fieldName === 'Condição') {
+            return (<YellowCard title={patient.fieldName}
+                              content={patient.fieldValue}
+                              icon={<LocalHospitalIcon sx={{fontSize: 70, color: '#7B4F01'}}/>}
+            />)
+          }
+
+          if (patient.fieldName === 'Data de Nascimento') {
+            return (<RedCard title={patient.fieldName}
+                                content={patient.fieldValue}
+                                icon={<EventIcon sx={{fontSize: 70, color: '#7A0C2E'}}/>}
+            />)
+          }
+
+          if (patient.fieldName === 'Altura') {
+            return (<GreenCard title={patient.fieldName}
+                             content={patient.fieldValue}
+                             icon={<ElevatorIcon sx={{fontSize: 70, color: '#123996'}}/>}
+            />)
+          }
+
+          if (patient.fieldName === 'Observações') {
+            return (<YellowCard title={patient.fieldName}
+                                content={patient.fieldValue}
+                                icon={<NotesIcon sx={{fontSize: 70, color: '#7B4F01'}}/>}
+            />)
+          }
+
+          return (<GreenCard title={patient.fieldName}
+                             content={patient.fieldValue}
+                             icon={<PersonIcon sx={{fontSize: 70, color: '#123996'}}/>}
+          />)
+
+
+        })}
       </Box>
     </Box>
   );
