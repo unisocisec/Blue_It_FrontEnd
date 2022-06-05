@@ -46,8 +46,8 @@ const MiniGamesGraphResults = ({ data, tableLegend_X, tableLegend_Y, typeGraph }
           <Line type="monotone" dataKey="flowValue" name={tableLegend_X} stroke="#0080ff" activeDot={{ r: 8 }} />
           {typeGraph && (
             <>
-              <Line type="monotone" dataKey="calibration_100" name='100% da calibração' stroke="#5FFA01" activeDot={{ r: 8 }} hide={calibration_100Hide} />
-              <Line type="monotone" dataKey="calibration_50" name='75% da calibração' stroke="#FADA00" activeDot={{ r: 8 }} hide={calibration_50Hide} />
+              <Line type="monotone" dataKey="calibration_100" name='100% da calibração' stroke="rgb(50 116 10)" activeDot={{ r: 8 }} hide={calibration_100Hide} />
+              <Line type="monotone" dataKey="calibration_50" name='75% da calibração' stroke="#413ea0" activeDot={{ r: 8 }} hide={calibration_50Hide} />
               <Line type="monotone" dataKey="calibration_25" name='50% da calibração' stroke="#FA9D00" activeDot={{ r: 8 }} hide={calibration_25Hide} />
             </>
           )}
