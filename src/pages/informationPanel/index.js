@@ -42,7 +42,7 @@ const InformationPanel = () => {
         flexDirection: "column",
       }}
     >
-      <Typography variant="h2" sx={{fontSize: 25, color: '#11192A'}}>
+      <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px" }}>
         Informações gerais
       </Typography>
 

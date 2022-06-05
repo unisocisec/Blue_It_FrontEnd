@@ -40,7 +40,7 @@ const GameParameterCard = ({ gameParameter, index=null, selectNeighborInformatio
         flex: 'auto',
         boxSizing: 'border-box',
         minWidth: 0,
-        maxWidth: 600,
+        maxWidth: 750,
         backgroundColor: "white",
         color: "black",
         marginBottom: 5,

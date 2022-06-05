@@ -163,9 +163,10 @@ const GameConfigurationCreatePage = () => {
         alignItems: "center"
       }}
     >
-      <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px" }}>
-        Criação de Configuração de Jogo
+      <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px", color: '#11192A' }}>
+        Configuração de jogo para o paciente
       </Typography>
+
       <Box
         sx={{
           flex: 'auto',
@@ -427,7 +428,7 @@ const GameConfigurationCreatePage = () => {
         </Button>
       </Box>
       <Typography variant="h2" sx={{ mt: 4, fontSize: 20, fontWeight: "bold", letterSpacing: "1px" }}>
-        Recomendações de IA
+        Recomendações criadas pela Inteligência Artificial
       </Typography>
       <Box
         sx={{
@@ -435,7 +436,7 @@ const GameConfigurationCreatePage = () => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
-          flexFlow: "wrap",
+          flexFlow: "wrap"
         }}
       >
         {gameParameterNeighborInformations.map((gameParameterNeighborInformation, index) => (

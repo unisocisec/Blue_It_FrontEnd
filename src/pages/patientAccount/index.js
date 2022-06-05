@@ -97,7 +97,7 @@ const PatientAccount = () => {
         flexDirection: "column",
       }}
     >
-      <Typography variant="h2" sx={{ fontSize: 20 }} >
+      <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px", marginBottom: 1 }} >
         Conta do Paciente
       </Typography>
       <Container component="main" maxWidth="xs">

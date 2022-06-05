@@ -32,12 +32,12 @@ const DevicesPage = () => {
         flexDirection: "column",
       }}
     >
-      <Typography variant="h2" sx={{ fontSize: 20 }}>
+      <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px", marginBottom: 1 }}>
         Instrumentos calibrados
       </Typography>
       <Box
         sx={{
-          marginTop: 5,
+          marginTop: 2,
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",

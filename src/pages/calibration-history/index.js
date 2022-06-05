@@ -79,7 +79,7 @@ const CalibrationHistoryPage = () => {
         flexDirection: "column",
       }}
     >
-      <Typography variant="h2" sx={{ fontSize: 20 }}>
+      <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px" }}>
         Histórico de calibrações
       </Typography>
       <Box className={classes.container}>

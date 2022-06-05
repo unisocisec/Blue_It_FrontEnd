@@ -95,7 +95,7 @@ const ResultPage = () => {
 
   return (
     <>
-      <Typography variant="h2" sx={{ fontSize: 20 }}>
+      <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px", marginBottom: 1, marginTop: 1 }}>
         Resultados na plataforma
       </Typography>
       <Box sx={{ marginTop: 4, display: "flex", flexWrap: "wrap" }}>

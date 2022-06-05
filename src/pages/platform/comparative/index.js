@@ -154,7 +154,7 @@ const PlatformComparative = () => {
 
 	return (
 		<>
-			<Typography variant="h2" sx={{ fontSize: 20 }}>
+			<Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px", marginBottom: 1, marginTop: 1}}>
 				Plataforma - Comparativos
 			</Typography>
 			<Box

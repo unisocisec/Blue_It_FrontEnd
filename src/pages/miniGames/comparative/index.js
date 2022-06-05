@@ -121,7 +121,7 @@ const MiniGamesComparative = () => {
 
   return (
     <>
-      <Typography variant="h2" sx={{ fontSize: 20 }}>
+      <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px", marginTop: 1, marginBottom: 2 }}>
         Minigames - Comparativos
       </Typography>
 
