@@ -6,6 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
+import logo from '../../images/favicon.png'
 
 import AccountMenu from '../accountMenu';
 import { pathRoutes } from "../../providers/Routes.jsx";
@@ -35,10 +36,11 @@ const Header = ({ offset, handleMenuButton }) => {
           variant="h6"
           component={Link}
           to={pathRoutes.INFORMATION_PANEL}
-          sx={{ color: 'black', textDecoration: 'none' }}
+          sx={{ color: '#11192A', textDecoration: 'none' }}
         >
           I Blue It
         </Typography>
+        <img style={{height: 20, marginLeft: 20}} src={logo}/>
         <Box sx={{ flexGrow: 1 }} />
         <AccountMenu />
       </Toolbar>
