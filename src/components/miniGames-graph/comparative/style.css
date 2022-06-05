@@ -1,0 +1,4 @@
+.legend:hover {
+    font-weight: bold;
+    cursor: pointer;
+}

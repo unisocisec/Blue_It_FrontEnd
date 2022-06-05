@@ -72,10 +72,10 @@ const MenuItens = () => {
         <Typography
           variant="subtitle1"
           sx={{
-            marginLeft: 4,
+            marginLeft: 3.5,
             marginBottom: 0.5,
             fontSize: 14,
-            opacity: 0.25,
+            opacity: 0.45,
             fontWeight: "bold",
           }}
         >
@@ -93,10 +93,10 @@ const MenuItens = () => {
         <Typography
           variant="subtitle1"
           sx={{
-            marginLeft: 4,
+            marginLeft: 3.5,
             marginBottom: 0.5,
             fontSize: 14,
-            opacity: 0.25,
+            opacity: 0.45,
             fontWeight: "bold",
           }}
         >
@@ -135,10 +135,10 @@ const MenuItens = () => {
               variant="subtitle1"
               sx={{
                 marginTop: 2,
-                marginLeft: 4,
+                marginLeft: 3.5,
                 marginBottom: 0.5,
                 fontSize: 14,
-                opacity: 0.25,
+                opacity: 0.45,
                 fontWeight: "bold",
               }}
             >

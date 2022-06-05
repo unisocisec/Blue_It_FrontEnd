@@ -115,6 +115,7 @@ const PlatformComparative = () => {
 				fromBirthday: `${moment().format('YYYY') - finalAge}-12-31`,
 			}
 			const graphData = await getPlatformComparative(context, filters, visualization);
+			//console.log(graphData);
 			setGraphData([...graphData]);
 			if (!graphData.length) {
 				context.addNotification('error', 'Não existe histórico para os filtros selecionados.');

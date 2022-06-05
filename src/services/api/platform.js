@@ -248,7 +248,7 @@ const getPlatformComparative = async (context, filters, visualization) => {
     //     passoy: null,
     //     PosFlagY: 50,
     //   };
-    
+
 
     // case 'ratio':
     //   plotObj = {
@@ -283,10 +283,7 @@ const getPlatformComparative = async (context, filters, visualization) => {
 
     //   plotbar(plotObj);
     // }
-    //##################################################
-    console.log('##############################')
-    console.log(teste)
-    console.log('##############################')
+
     return teste;
   } catch (error) {
     console.log(error)
