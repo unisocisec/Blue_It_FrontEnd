@@ -10,7 +10,7 @@ const getPlatformComparative = async (context, filters, visualization) => {
   context.setLoading(true);
   try {
     const GameToken = getTokenParameters('gameToken');
-    const result = await axios.get(`${BaseUrl}/plataforms/statistics`,
+    const result = await axios.get(`${BaseUrl()}/plataforms/statistics`,
       { params: { ...filters }, headers: { GameToken } }
     );
 

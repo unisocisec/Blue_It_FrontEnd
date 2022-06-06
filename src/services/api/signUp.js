@@ -8,7 +8,7 @@ import { extractMessage } from '../../components/notification';
 const requestRegisterUsers = async (context, userData) => {
   context.setLoading(true);
   try {
-    const result = await axios.post(`${BaseUrl}/register`, userData);
+    const result = await axios.post(`${BaseUrl()}/register`, userData);
     context.addNotification('success', extractMessage(result, ''));
   } catch (error) {
     context.addNotification('error', extractMessage(error, ''));

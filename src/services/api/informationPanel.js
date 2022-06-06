@@ -21,7 +21,7 @@ const getPatientInformation = async (context) => {
   context.setLoading(true);
   try {
     const GameToken = getTokenParameters('gameToken');
-    const result = await axios.get(`${BaseUrl}/pacients/${context.patientId}`, { headers: { GameToken } });
+    const result = await axios.get(`${BaseUrl()}/pacients/${context.patientId}`, { headers: { GameToken } });
     const patientInformation = result.data.data;
     const newPatientData = [];
     if (patientInformation) {

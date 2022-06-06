@@ -6,7 +6,7 @@ import { getTokenParameters } from '../../providers/sessionStorage';
 const fetchGameParameterNeighbor = async (pacientId) => {
   const gameToken = getTokenParameters('gameToken');
   try {
-    const result = await axios.get(`${BaseUrl}/gameParameterNeighborInformation`, {
+    const result = await axios.get(`${BaseUrl()}/gameParameterNeighborInformation`, {
       headers: { 
         gameToken,
         'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ const fetchGameParameterNeighbor = async (pacientId) => {
 const getGameParameter = async (pacientId) => {
   const gameToken = getTokenParameters('gameToken');
   try {
-    const result = await axios.get(`${BaseUrl}/gameparameter`, {
+    const result = await axios.get(`${BaseUrl()}/gameparameter`, {
       headers: { 
         "gametoken": gameToken,
         'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const createGameParameter = async (context, gameParameter) => {
   context.setLoading(true);
   const gameToken = getTokenParameters('gameToken');
   try {
-    const result = await axios.post(`${BaseUrl}/gameparameter`, gameParameter, {
+    const result = await axios.post(`${BaseUrl()}/gameparameter`, gameParameter, {
       headers: { 
         gameToken,
         'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
   context.setLoading(true);
   try {
     const GameToken = getTokenParameters('gameToken');
-    const result = await axios.get(`${BaseUrl}/pacients/${context.patientId}/minigames`,
+    const result = await axios.get(`${BaseUrl()}/pacients/${context.patientId}/minigames`,
       { params: { sort: 'asc', ...filters }, headers: { GameToken } }
     );
 
@@ -33,7 +33,7 @@ const getGeneralStatisticsDataFromTheMiniGame = async (context, filters, typeGra
     }
 
     if (typeGraph) {
-      const resultCalibrations = await axios.get(`${BaseUrl}/pacients/${context.patientId}/calibrations`,
+      const resultCalibrations = await axios.get(`${BaseUrl()}/pacients/${context.patientId}/calibrations`,
         { params: { sort: 'asc', ...filters }, headers: { GameToken } }
       );
       const calibrationsData = (resultCalibrations.data.data) ? resultCalibrations.data.data : [];
@@ -83,7 +83,7 @@ const getMiniGameComparative = async (context, filters) => {
   context.setLoading(true);
   try {
     const GameToken = getTokenParameters('gameToken');
-    const result = await axios.get(`${BaseUrl}/minigames/statistics`,
+    const result = await axios.get(`${BaseUrl()}/minigames/statistics`,
       { params: { ...filters }, headers: { GameToken } }
     );
 

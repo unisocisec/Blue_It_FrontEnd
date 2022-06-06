@@ -9,7 +9,7 @@ const fetchResults = async (patientId, device, visualization) => {
 
   try {
     const response = await axios.get(
-      `${BaseUrl}/pacients/${patientId}/plataforms/statistics?sort=asc&gameDevice=${device}`,
+      `${BaseUrl()}/pacients/${patientId}/plataforms/statistics?sort=asc&gameDevice=${device}`,
       {
         headers: { gameToken },
       }
@@ -30,7 +30,7 @@ const fetchPointsAndLevelsAndPlays = async (patientId) => {
 
   try {
     const response = await axios.get(
-      `${BaseUrl}/pacients/${patientId}`,
+      `${BaseUrl()}/pacients/${patientId}`,
       {
         headers: { gameToken },
       }

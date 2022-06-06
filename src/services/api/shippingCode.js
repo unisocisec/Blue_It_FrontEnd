@@ -12,7 +12,7 @@ const requestGenerateShippingCode = async (context) => {
   context.setLoading(true);
   try {
     const userId = await getTokenParameters('userId');
-    const result = await axios.post(`${BaseUrl}/token`, { userId });
+    const result = await axios.post(`${BaseUrl()}/token`, { userId });
     updateAuthenticationData('gameToken', result.data.data.gameToken);
   } catch (error) {
     context.addNotification('error', extractMessage(error, ''));

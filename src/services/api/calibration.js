@@ -8,7 +8,7 @@ const fetchDevices = async (pacientId) => {
   const gameToken = getTokenParameters('gameToken');
 
   try {
-    const result = await axios.get(`${BaseUrl}/pacients/${pacientId}`, {
+    const result = await axios.get(`${BaseUrl()}/pacients/${pacientId}`, {
       headers: { gameToken },
     });
 
@@ -36,7 +36,7 @@ const fetchHistory = async (device, exercise, patientId) => {
   const gameToken = getTokenParameters('gameToken');
 
   try {
-    const result = await axios.get(`${BaseUrl}/pacients/${patientId}/calibrations?sort=asc&gameDevice=${device}&calibrationExercise=${exercise}`, {
+    const result = await axios.get(`${BaseUrl()}/pacients/${patientId}/calibrations?sort=asc&gameDevice=${device}&calibrationExercise=${exercise}`, {
       headers: { gameToken }
     })
     return result.data.data.map(point => ({

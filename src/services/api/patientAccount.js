@@ -12,7 +12,7 @@ const getPatientAccount = async (context) => {
   try {
     if(context.patientId){
       const GameToken = getTokenParameters('gameToken');
-      const result = await axios.get(`${BaseUrl}/pacients/${context.patientId}/account`, { headers: { GameToken } });
+      const result = await axios.get(`${BaseUrl()}/pacients/${context.patientId}/account`, { headers: { GameToken } });
       return result.data.data
     }
     context.addNotification('error', 'Nenhum paciente selecionados')
