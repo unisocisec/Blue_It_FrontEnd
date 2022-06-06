@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Typography from '@mui/material/Typography';
 import PersonIcon from '@mui/icons-material/Person';
 import ScaleIcon from '@mui/icons-material/Scale';

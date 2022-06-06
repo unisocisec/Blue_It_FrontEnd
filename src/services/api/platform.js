@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-throw-literal */
 import axios from 'axios';
 
@@ -33,12 +34,12 @@ const getPlatformComparative = async (context, filters, visualization) => {
     let flowDataPac = { sessoes: flowDataSelectedPatient[0].maxFlowsPerSession.length, insFlows: [], expFlows: [], Score: [], ScoreRatio: [] };
     let flowData = { insFlows: {}, expFlows: {}, score: {}, scoreRatio: {} };
 
-    flowDataPatients.map(function (element) {
+    for (const element of flowDataPatients) {
       for (let index = 0; index < element.maxFlowsPerSession.length; index++) {
-        if (flowData.expFlows[index] == undefined) {
+        if (!flowData.expFlows[index]) {
           flowData.expFlows[index] = [];
         }
-        if (flowData.insFlows[index] == undefined) {
+        if (!flowData.insFlows[index]) {
           flowData.insFlows[index] = [];
         }
 
@@ -48,9 +49,9 @@ const getPlatformComparative = async (context, filters, visualization) => {
 
       flowData.score = element.plataformInfo.map(x => ({ fase: x.phase, level: x.level, value: x.maxScore }));
       flowData.scoreRatio = element.plataformInfo.map(x => ({ fase: x.phase, level: x.level, value: x.scoreRatio }));
-    });
+    }
 
-    if (flowData.score[0] == undefined) { flowData.score = []; };
+    if (!flowData.score[0]) { flowData.score = []; };
     //DADO FAKE COMPARATIVO SCORE
     //for(let i=0;i<30;i++){
 
@@ -58,7 +59,7 @@ const getPlatformComparative = async (context, filters, visualization) => {
     // } //usando random para gerar dados aleatórios de fase, sessão e pontuação para comparação com o paciente analisado
     //fim dados fake
 
-    if (flowData.scoreRatio[0] == undefined) { flowData.scoreRatio = []; };
+    if (!flowData.scoreRatio[0]) { flowData.scoreRatio = []; };
     //DADO FAKE COMPARATIVO RAZÂO
     //for(let i=0;i<30;i++){
 
@@ -72,15 +73,15 @@ const getPlatformComparative = async (context, filters, visualization) => {
       flowDataPac.insFlows.push(flowDataSelectedPatient[0].maxFlowsPerSession[index].maxInsFlow);
 
       for (let i = 1; i <= 3; i++) {
-        if (flowDataSelectedPatient[0].plataformInfo[index].phase == i) {
+        if (flowDataSelectedPatient[0].plataformInfo[index].phase === i) {
           for (let j = 1; j <= 9; j++) {
-            if (flowDataSelectedPatient[0].plataformInfo[index].level == j) {
+            if (flowDataSelectedPatient[0].plataformInfo[index].level === j) {
               let a = (9 * (i - 1)) + (j - 1);
-              if (flowDataPac.Score[a] == undefined || flowDataPac.Score[a] == "") { flowDataPac.Score[a] = 0; };
+              if (!flowDataPac.Score[a]) { flowDataPac.Score[a] = 0; };
               if (flowDataPac.Score[a] < flowDataSelectedPatient[0].plataformInfo[index].maxScore) {
                 flowDataPac.Score[a] = flowDataSelectedPatient[0].plataformInfo[index].maxScore;
               }
-              if (flowDataPac.ScoreRatio[a] == undefined || flowDataPac.ScoreRatio[a] == "") { flowDataPac.ScoreRatio[a] = 0; };
+              if (!flowDataPac.ScoreRatio[a]) { flowDataPac.ScoreRatio[a] = 0; };
               if (flowDataPac.ScoreRatio[a] < 100 * flowDataSelectedPatient[0].plataformInfo[index].scoreRatio) {
                 flowDataPac.ScoreRatio[a] = 100 * flowDataSelectedPatient[0].plataformInfo[index].scoreRatio;
               }
@@ -93,19 +94,19 @@ const getPlatformComparative = async (context, filters, visualization) => {
     //alocando vetores com todos os dados separando por fase e por level, e então retirando a mediana destes valores
     let somascore = [];
     let scoreMediana = [];
-    flowData.score.map(function (element) {
+    for (const element of flowData.score) {
       for (let i = 1; i <= 3; i++) {
-        if (element.fase == i) {
+        if (element.fase === i) {
           for (let j = 1; j <= 9; j++) {
-            if (element.level == j) {
+            if (element.level === j) {
               let a = (9 * (i - 1)) + (j - 1);
-              if (somascore[a] == undefined || somascore[a] == "") {
+              if (!somascore[a]) {
                 somascore[a] = [];
                 somascore[a].push(element.value);
               } else {
                 somascore[a].push(element.value);
               }
-              if (scoreMediana[a] == undefined || scoreMediana[a] == "") {
+              if (!scoreMediana[a]) {
                 scoreMediana[a] = 0;
               }
               scoreMediana[a] = quartile(somascore[a], .50);
@@ -113,14 +114,14 @@ const getPlatformComparative = async (context, filters, visualization) => {
           }
         }
       }
-    });
+    }
 
     //como podem haver levels se dado algum (embora se espera que não aconteça), isso irá alocar valores nulos nessas posições dos
     //vetores, para que o highchart não plote os dados em posições erradas, e assim também limitando a apresentação do comparativo
     //ao tamanho dos dados do paciente.
     let scoreMedianautil = [];
     for (let a = 0; a < flowDataPac.Score.length; a++) {
-      if (scoreMediana[a] == undefined || scoreMediana[a] == "") {
+      if (!scoreMediana[a]) {
         scoreMedianautil[a] = "";
       } else {
         scoreMedianautil[a] = scoreMediana[a];
@@ -130,19 +131,19 @@ const getPlatformComparative = async (context, filters, visualization) => {
     //alocando vetores com todos os dados separando por fase e por level, e então retirando a mediana destes valores
     let somascoreRatio = [];
     let scoreRatioMediana = [];
-    flowData.scoreRatio.map(function (element) {
+    for (const element of flowData.scoreRatio) {
       for (let i = 1; i <= 3; i++) {
-        if (element.fase == i) {
+        if (element.fase === i) {
           for (let j = 1; j <= 9; j++) {
-            if (element.level == j) {
+            if (element.level === j) {
               let a = (9 * (i - 1)) + (j - 1);
-              if (somascoreRatio[a] == undefined || somascoreRatio[a] == "") {
+              if (!somascoreRatio[a]) {
                 somascoreRatio[a] = [];
                 somascoreRatio[a].push(element.value);
               } else {
                 somascoreRatio[a].push(element.value);
               }
-              if (scoreRatioMediana[a] == undefined || scoreRatioMediana[a] == "") {
+              if (!scoreRatioMediana[a]) {
                 scoreRatioMediana[a] = 0;
               }
               scoreRatioMediana[a] = quartile(somascoreRatio[a], .50);
@@ -150,7 +151,7 @@ const getPlatformComparative = async (context, filters, visualization) => {
           }
         }
       }
-    });
+    }
 
     //for(let i=0;i<5;i++){
     //flowDataPac.ScoreRatio.push((Math.random() * 100));}      //DADO FAKE PACIENTE RAZÂO
@@ -160,7 +161,7 @@ const getPlatformComparative = async (context, filters, visualization) => {
     //ao tamanho dos dados do paciente.
     let scoreRatioMedianautil = [];
     for (let a = 0; a < flowDataPac.ScoreRatio.length; a++) {
-      if (scoreRatioMediana[a] == undefined || scoreRatioMediana[a] == "") {
+      if (!scoreRatioMediana[a]) {
         scoreRatioMedianautil[a] = "";
       } else {
         scoreRatioMedianautil[a] = scoreRatioMediana[a];
@@ -184,23 +185,23 @@ const getPlatformComparative = async (context, filters, visualization) => {
     }
 
     for (let i = 1; i < quartilSuperiorExp.length - 1; i++) {
-      if (quartilSuperiorExp[i] == undefined && quartilSuperiorExp[i - 1] != undefined && quartilSuperiorExp[i + 1] != undefined) {
+      if (!quartilSuperiorExp[i] && !!quartilSuperiorExp[i - 1] && !!quartilSuperiorExp[i + 1]) {
         quartilSuperiorExp[i] = quartilSuperiorExp[i - 1] + quartilSuperiorExp[i + 1];
       };
     };
     for (let i = 1; i < quartilInferiorExp.length - 1; i++) {
-      if (quartilInferiorExp[i] == undefined && quartilInferiorExp[i - 1] != undefined && quartilInferiorExp[i + 1] != undefined) {
+      if (!quartilInferiorExp[i] && !!quartilInferiorExp[i - 1] && !!quartilInferiorExp[i + 1]) {
         quartilInferiorExp[i] = quartilInferiorExp[i - 1] + quartilInferiorExp[i + 1];
       };
     };
 
     for (let i = 1; i < quartilSuperiorIns.length - 1; i++) {
-      if (quartilSuperiorIns[i] == undefined && quartilSuperiorIns[i - 1] != undefined && quartilSuperiorIns[i + 1] != undefined) {
+      if (!quartilSuperiorIns[i] && !!quartilSuperiorIns[i - 1] && !!quartilSuperiorIns[i + 1]) {
         quartilSuperiorIns[i] = quartilSuperiorIns[i - 1] + quartilSuperiorIns[i + 1];
       };
     };
     for (let i = 1; i < quartilInferiorIns.length - 1; i++) {
-      if (quartilInferiorIns[i] == undefined && quartilInferiorIns[i - 1] != undefined && quartilInferiorIns[i + 1] != undefined) {
+      if (!quartilInferiorIns[i] && !!quartilInferiorIns[i - 1] && !!quartilInferiorIns[i + 1]) {
         quartilInferiorIns[i] = quartilInferiorIns[i - 1] + quartilInferiorIns[i + 1];
       };
     };

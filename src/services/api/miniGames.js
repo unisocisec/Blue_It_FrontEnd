@@ -1,3 +1,5 @@
+/* eslint-disable no-throw-literal */
+/* eslint-disable no-unused-vars */
 import axios from 'axios';
 import moment from "moment";
 
@@ -103,7 +105,7 @@ const getMiniGameComparative = async (context, filters) => {
     //##################################################
     const flowData = { flows: {} };
     let flowDataPac = { sessoes: flowDataSelectedPatient[0].maxFlows.length, flows: [] };
-    flowDataPatients.map(function (element) {
+    for (const element of flowDataPatients) {
       for (let index = 0; index < element.maxFlows.length; index++) {
         if (flowData.flows[index]) {
           flowData.flows[index] = [element.maxFlows[index].flow];
@@ -111,7 +113,7 @@ const getMiniGameComparative = async (context, filters) => {
           flowData.flows[index] = [flowData.flows[index], element.maxFlows[index].flow];
         }
       }
-    });
+    }
     for (let index = 0; index < flowDataSelectedPatient[0].maxFlows.length; index++) {
       flowDataPac.flows.push(flowDataSelectedPatient[0].maxFlows[index].flow);
     }
@@ -123,12 +125,12 @@ const getMiniGameComparative = async (context, filters) => {
       quartilInferiorExp.push(quantile(value, .25));
     }
     for (let i = 1; i < quartilSuperiorExp.length - 1; i++) {
-      if (quartilSuperiorExp[i] == undefined && quartilSuperiorExp[i - 1] != undefined && quartilSuperiorExp[i + 1] != undefined) {
+      if (!quartilSuperiorExp[i] && !!quartilSuperiorExp[i - 1]  && quartilSuperiorExp[i + 1]) {
         quartilSuperiorExp[i] = quartilSuperiorExp[i - 1] + quartilSuperiorExp[i + 1];
       };
     };
     for (let i = 1; i < quartilInferiorExp.length - 1; i++) {
-      if (quartilInferiorExp[i] == undefined && quartilInferiorExp[i - 1] != undefined && quartilInferiorExp[i + 1] != undefined) {
+      if (!quartilInferiorExp[i] && !!quartilInferiorExp[i - 1]  && !!quartilInferiorExp[i + 1]) {
         quartilInferiorExp[i] = quartilInferiorExp[i - 1] + quartilInferiorExp[i + 1];
       };
     };
