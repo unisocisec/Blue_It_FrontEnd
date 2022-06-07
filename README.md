@@ -35,6 +35,8 @@ npm start
 ```
 6. Pronto, o Blue_It_FrontEnd estará ativo. Para acessá-lo utilize a rota http://localhost:3000
 
+Avisto: Verifique se o arquivo *.htaccess* está no diretório raiz do seu servidor web!
+
 ### Repositórios GitHub - Código fonte
 - Aplicação (BackEnd) [Blue_It_BackEnd](https://github.com/unisocisec/Blue_It_BackEnd)
 - Interface gráfica (FrontEnd) [Blue_It_FrontEnd](https://github.com/unisocisec/blue_It_front)
