@@ -175,7 +175,7 @@ const PlatformGraphComparative = ({ tableLegend_Y, tableLegend_X, graphData, vie
         (entry.value !== setDataKey("expectedValues_B")) && (
           <li
             onClick={() => handleLegendClick(entry.dataKey)}
-            className={`recharts-legend-item legend-item-${index} legend`}
+            className={`recharts-legend-item legend-item-${index}  ${(entry.dataKey !== 'flowValue_Bar' && entry.dataKey !== setDataKey("flowValue") && expectedValuesHide) ? 'inactive' : ''} ${(!expectedValuesHide && entry.dataKey !== 'flowValue_Bar' && entry.dataKey !== setDataKey("flowValue")) ? 'legend' : ''}`}
             style={{ display: 'flex', marginRight: '10px' }}
             key={`item-${index}`}>
             {

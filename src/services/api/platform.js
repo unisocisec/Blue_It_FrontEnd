@@ -31,7 +31,7 @@ const getPlatformComparative = async (context, filters, visualization) => {
 
     // ajustar lógica de montagem dos dados
     //##################################################
-    let flowDataPac = { sessoes: flowDataSelectedPatient[0].maxFlowsPerSession.length, insFlows: [], expFlows: [], Score: [], ScoreRatio: [] };
+    let flowDataPac = { sessoes: (flowDataSelectedPatient[0].length) ? flowDataSelectedPatient[0].maxFlowsPerSession.length : 0, insFlows: [], expFlows: [], Score: [], ScoreRatio: [] };
     let flowData = { insFlows: {}, expFlows: {}, score: {}, scoreRatio: {} };
 
     for (const element of flowDataPatients) {
@@ -67,23 +67,24 @@ const getPlatformComparative = async (context, filters, visualization) => {
     // } //usando random para gerar dados aleatórios de fase, sessão e pontuação para comparação com o paciente analisado
     //fim dados fake
 
-
-    for (let index = 0; index < flowDataSelectedPatient[0].maxFlowsPerSession.length; index++) {
-      flowDataPac.expFlows.push(flowDataSelectedPatient[0].maxFlowsPerSession[index].maxExpFlow);
-      flowDataPac.insFlows.push(flowDataSelectedPatient[0].maxFlowsPerSession[index].maxInsFlow);
-
-      for (let i = 1; i <= 3; i++) {
-        if (flowDataSelectedPatient[0].plataformInfo[index].phase === i) {
-          for (let j = 1; j <= 9; j++) {
-            if (flowDataSelectedPatient[0].plataformInfo[index].level === j) {
-              let a = (9 * (i - 1)) + (j - 1);
-              if (!flowDataPac.Score[a]) { flowDataPac.Score[a] = 0; };
-              if (flowDataPac.Score[a] < flowDataSelectedPatient[0].plataformInfo[index].maxScore) {
-                flowDataPac.Score[a] = flowDataSelectedPatient[0].plataformInfo[index].maxScore;
-              }
-              if (!flowDataPac.ScoreRatio[a]) { flowDataPac.ScoreRatio[a] = 0; };
-              if (flowDataPac.ScoreRatio[a] < 100 * flowDataSelectedPatient[0].plataformInfo[index].scoreRatio) {
-                flowDataPac.ScoreRatio[a] = 100 * flowDataSelectedPatient[0].plataformInfo[index].scoreRatio;
+    if(flowDataSelectedPatient.length){
+      for (let index = 0; index < flowDataSelectedPatient[0].maxFlowsPerSession.length; index++) {
+        flowDataPac.expFlows.push(flowDataSelectedPatient[0].maxFlowsPerSession[index].maxExpFlow);
+        flowDataPac.insFlows.push(flowDataSelectedPatient[0].maxFlowsPerSession[index].maxInsFlow);
+  
+        for (let i = 1; i <= 3; i++) {
+          if (flowDataSelectedPatient[0].plataformInfo[index].phase === i) {
+            for (let j = 1; j <= 9; j++) {
+              if (flowDataSelectedPatient[0].plataformInfo[index].level === j) {
+                let a = (9 * (i - 1)) + (j - 1);
+                if (!flowDataPac.Score[a]) { flowDataPac.Score[a] = 0; };
+                if (flowDataPac.Score[a] < flowDataSelectedPatient[0].plataformInfo[index].maxScore) {
+                  flowDataPac.Score[a] = flowDataSelectedPatient[0].plataformInfo[index].maxScore;
+                }
+                if (!flowDataPac.ScoreRatio[a]) { flowDataPac.ScoreRatio[a] = 0; };
+                if (flowDataPac.ScoreRatio[a] < 100 * flowDataSelectedPatient[0].plataformInfo[index].scoreRatio) {
+                  flowDataPac.ScoreRatio[a] = 100 * flowDataSelectedPatient[0].plataformInfo[index].scoreRatio;
+                }
               }
             }
           }
@@ -285,11 +286,13 @@ const getPlatformComparative = async (context, filters, visualization) => {
     //   plotbar(plotObj);
     // }
 
-    return teste;
+    // return teste;
+    return [{}];
   } catch (error) {
-    console.log(error)
-    context.addNotification('error', extractMessage(error, ''));
-    throw 'erro';
+    // console.log(error)
+    // context.addNotification('error', extractMessage(error, ''));
+    // throw 'erro';
+    return [{}];
   } finally {
     context.setLoading(false);
   }

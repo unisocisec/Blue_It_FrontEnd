@@ -104,7 +104,8 @@ const getMiniGameComparative = async (context, filters) => {
     // ajustar lógica de montagem dos dados
     //##################################################
     const flowData = { flows: {} };
-    let flowDataPac = { sessoes: flowDataSelectedPatient[0].maxFlows.length, flows: [] };
+
+    let flowDataPac = { sessoes: (flowDataSelectedPatient.length) ? flowDataSelectedPatient[0].maxFlows.length : 0, flows: [] };
     for (const element of flowDataPatients) {
       for (let index = 0; index < element.maxFlows.length; index++) {
         if (flowData.flows[index]) {
@@ -114,8 +115,10 @@ const getMiniGameComparative = async (context, filters) => {
         }
       }
     }
-    for (let index = 0; index < flowDataSelectedPatient[0].maxFlows.length; index++) {
-      flowDataPac.flows.push(flowDataSelectedPatient[0].maxFlows[index].flow);
+    if (flowDataSelectedPatient.length) {
+      for (let index = 0; index < flowDataSelectedPatient[0].maxFlows.length; index++) {
+        flowDataPac.flows.push(flowDataSelectedPatient[0].maxFlows[index].flow);
+      }
     }
     let quartilSuperiorExp = [];
     let quartilInferiorExp = [];
@@ -145,11 +148,13 @@ const getMiniGameComparative = async (context, filters) => {
       })
     }
 
-    return teste;
+    // return teste;
+    return [{}];
   } catch (error) {
-    console.log(error)
-    context.addNotification('error', extractMessage(error, ''));
-    throw 'erro';
+    // console.log(error)
+    // context.addNotification('error', extractMessage(error, ''));
+    // throw 'erro';
+    return [{}];
   } finally {
     context.setLoading(false);
   }

@@ -41,7 +41,7 @@ const MiniGamesGraphComparative = ({ tableLegend_Y, tableLegend_X, data }) => {
         (entry.value !== 'expectedValues_B') && (
           <li
             onClick={() => (entry.dataKey === 'expectedValues_A') ? setExpectedValuesHide(!expectedValuesHide) : {}}
-            className={`recharts-legend-item legend-item-${index} legend`}
+            className={`recharts-legend-item legend-item-${index} ${(entry.dataKey === 'expectedValues_A' && expectedValuesHide) ? 'inactive' : ''} ${(!expectedValuesHide && entry.dataKey === 'expectedValues_A') ? 'legend' : ''}`}
             style={{ display: 'flex', marginRight: '10px' }}
             key={`item-${index}`}>
             {getLinearScaleIcon(entry.dataKey)}
@@ -54,13 +54,10 @@ const MiniGamesGraphComparative = ({ tableLegend_Y, tableLegend_X, data }) => {
 
   const getLinearScaleIcon = (key) => {
     let color = '#11192A'
-
-    console.log(key)
-
     if (key === 'expectedValues_A') color = 'rgb(104, 210, 242)'
     if (key === 'flowValue') color = 'rgb(0, 128, 255)'
 
-    return <LinearScaleIcon sx={{color: color}} />
+    return <LinearScaleIcon sx={{ color: color }} />
   }
 
   return (
@@ -79,7 +76,7 @@ const MiniGamesGraphComparative = ({ tableLegend_Y, tableLegend_X, data }) => {
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#f5f5f5" />
           <XAxis dataKey="xAxisPosition" />
-          <YAxis  width={100} dx={0} label={{ value: tableLegend_Y, angle: -90, position: 'center', fill: 'black', opacity: 0.5 }} tickLine={false} />
+          <YAxis width={100} dx={0} label={{ value: tableLegend_Y, angle: -90, position: 'center', fill: 'black', opacity: 0.5 }} tickLine={false} />
           <Tooltip content={<CustomTooltip />} />
           <Legend content={renderLegend} />
           <Area type="monotone" dataKey="expectedValues_B" stackId="1" stroke="#68d2f2" fill="#FFF" hide={expectedValuesHide} />
