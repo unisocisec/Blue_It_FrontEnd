@@ -39,6 +39,7 @@ const divider = (
 const MenuItens = () => {
   const context = useMyContext();
   const [permission] = useState(getTokenParameters('role') === "Administrator");
+  const [openCategoryPosition, setOpenCategoryPosition] = useState(0);
 
   useEffect(() => {
     if (!permission) setPatientAccount()
@@ -82,6 +83,9 @@ const MenuItens = () => {
           Dashboard
         </Typography>
         <MenuItemTemplate
+          position={1}
+          openCategoryPosition={openCategoryPosition}
+          setOpenCategoryPosition={setOpenCategoryPosition}
           title="Painel geral"
           icon={<DashboardIcon sx={{ fontSize: 17 }} />}
           submenus={[
@@ -103,6 +107,9 @@ const MenuItens = () => {
           Gráficos
         </Typography>
         <MenuItemTemplate
+          position={2}
+          openCategoryPosition={openCategoryPosition}
+          setOpenCategoryPosition={setOpenCategoryPosition}
           title="Calibração"
           icon={<ScaleIcon sx={{ fontSize: 17 }} />}
           submenus={[
@@ -111,6 +118,9 @@ const MenuItens = () => {
           ]}
         />
         <MenuItemTemplate
+          position={3}
+          openCategoryPosition={openCategoryPosition}
+          setOpenCategoryPosition={setOpenCategoryPosition}
           title="Minigames"
           icon={<SportsEsportsIcon sx={{ fontSize: 17 }} />}
           submenus={[
@@ -119,6 +129,9 @@ const MenuItens = () => {
           ]}
         />
         <MenuItemTemplate
+          position={4}
+          openCategoryPosition={openCategoryPosition}
+          setOpenCategoryPosition={setOpenCategoryPosition}
           title="Plataforma"
           icon={<ExtensionIcon sx={{ fontSize: 17 }} />}
           submenus={[
@@ -145,6 +158,9 @@ const MenuItens = () => {
               Sistema
             </Typography>
             <MenuItemTemplate
+              position={5}
+              openCategoryPosition={openCategoryPosition}
+              setOpenCategoryPosition={setOpenCategoryPosition}
               title="Configuração do jogo"
               icon={<SportsEsportsIcon sx={{ fontSize: 17 }} />}
               submenus={[
@@ -152,6 +168,9 @@ const MenuItens = () => {
               ]}
             />
             <MenuItemTemplate
+              position={6}
+              openCategoryPosition={openCategoryPosition}
+              setOpenCategoryPosition={setOpenCategoryPosition}
               title="Paciente"
               icon={<PersonIcon sx={{ fontSize: 17 }} />}
               submenus={[

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -8,11 +8,12 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
-const MenuItemTemplate = ({ title, icon, submenus }) => {
-  const [open, setOpen] = React.useState(false);
-
+const MenuItemTemplate = ({ position, openCategoryPosition, setOpenCategoryPosition, title, icon, submenus }) => {
+  const location = useLocation();
+ 
   const handleClick = () => {
-    setOpen(!open);
+    const newPosition = (openCategoryPosition === position) ? 0 : position;
+    setOpenCategoryPosition(newPosition);
   };
 
   return (
@@ -25,28 +26,27 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
             width: 260,
             height: 50,
             backgroundColor: "#11192A",
-          },
-
-          {
+          }, {
             "&:hover": {
               backgroundColor: "rgba(195,195,195,0.45)",
             },
           },
         ]}
+        selected={(submenus.findIndex(elem => elem.path === location.pathname) > -1)}
         onClick={handleClick}
       >
         <ListItemIcon sx={{ color: "white", opacity: 0.7, minWidth: 30 }}>
           {icon}
         </ListItemIcon>
         <ListItemText sx={{ opacity: 0.75 }} primary={title} />
-        {open ? (
+        {(openCategoryPosition === position) ? (
           <ExpandLess sx={{ opacity: 0.7, fontSize: 20 }} />
         ) : (
           <ExpandMore sx={{ opacity: 0.7, fontSize: 20 }} />
         )}
       </ListItemButton>
 
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={(openCategoryPosition === position)} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {submenus.map((submenu) => {
             return (
@@ -54,6 +54,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
                 component={Link}
                 to={submenu.path}
                 key={`submenus${submenu.path}`}
+                selected={(submenu.path === location.pathname)}
                 sx={[
                   {
                     margin: "auto",
@@ -61,9 +62,7 @@ const MenuItemTemplate = ({ title, icon, submenus }) => {
                     width: 200,
                     height: 45,
                     backgroundColor: "#11192A",
-                  },
-
-                  {
+                  }, {
                     "&:hover": {
                       backgroundColor: "rgba(195,195,195,0.45)",
                     },
