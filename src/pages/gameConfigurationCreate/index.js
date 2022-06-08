@@ -160,7 +160,9 @@ const GameConfigurationCreatePage = () => {
         flexDirection: "column",
         alignContent: "center",
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "center",
+        marginLeft: { xs: -2, md: 0 },
+        marginRight: { xs: -2, md: 0 }
       }}
     >
       <Typography variant="h2" sx={{ fontSize: 20, fontWeight: "bold", letterSpacing: "1px", color: '#11192A' }}>
@@ -181,7 +183,7 @@ const GameConfigurationCreatePage = () => {
           flexWrap: "wrap",
           alignContent: "center",
           flexDirection: "row",
-          justifyContent: "space-around"
+          justifyContent: "space-around",
         }}
         component="form"
         onSubmit={handleSubmit}
@@ -290,7 +292,7 @@ const GameConfigurationCreatePage = () => {
           }}
         >
           <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TextField sx={{ width: '90%' }} required label="Incremento performance - Altura" margin="normal" type='number' name="heightIncrement" id='heightIncrement' color="borderInput" inputProps={{ step: "0.1" }} InputProps={{ classes: { input: classes.input } }} value={heightIncrement}
+            <TextField sx={{ width: '90%' }} required label="Incremento performance (Altura)" margin="normal" type='number' name="heightIncrement" id='heightIncrement' color="borderInput" inputProps={{ step: "0.1" }} InputProps={{ classes: { input: classes.input } }} value={heightIncrement}
               onChange={(e) => maxAndMinInput(setHeightIncrement, e, 1, 0)} />
           </Box>
         </Box>
@@ -308,7 +310,7 @@ const GameConfigurationCreatePage = () => {
           }}
         >
           <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TextField sx={{ width: '90%' }} required label="Número de elevações necessárias - Altura" margin="normal" type='number' name="heightUpThreshold" id='heightUpThreshold' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={heightUpThreshold}
+            <TextField sx={{ width: '90%' }} required label="Elevações necessárias (Altura)" margin="normal" type='number' name="heightUpThreshold" id='heightUpThreshold' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={heightUpThreshold}
               onChange={(e) => maxAndMinInput(setHeightUpThreshold, e, 5, 0)} />
           </Box>
         </Box>
@@ -326,7 +328,7 @@ const GameConfigurationCreatePage = () => {
           }}
         >
           <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TextField sx={{ width: '90%' }} required label="Número de descida necessárias - Altura" margin="normal" type='number' name="heightDownThreshold" id='heightDownThreshold' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={heightDownThreshold}
+            <TextField sx={{ width: '90%' }} required label="Descidas necessárias (Altura)" margin="normal" type='number' name="heightDownThreshold" id='heightDownThreshold' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={heightDownThreshold}
               onChange={(e) => maxAndMinInput(setHeightDownThreshold, e, 5, 0)} />
           </Box>
         </Box>
@@ -344,7 +346,7 @@ const GameConfigurationCreatePage = () => {
           }}
         >
           <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TextField sx={{ width: '90%' }} required label="Incremento performance - Tamanho" margin="normal" type='number' name="sizeIncrement" id='sizeIncrement' color="borderInput" inputProps={{ step: "0.1" }} InputProps={{ classes: { input: classes.input } }} value={sizeIncrement}
+            <TextField sx={{ width: '90%' }} required label="Incremento performance (Tamanho)" margin="normal" type='number' name="sizeIncrement" id='sizeIncrement' color="borderInput" inputProps={{ step: "0.1" }} InputProps={{ classes: { input: classes.input } }} value={sizeIncrement}
               onChange={(e) => maxAndMinInput(setSizeIncrement, e, 1, 0)} />
           </Box>
         </Box>
@@ -362,7 +364,7 @@ const GameConfigurationCreatePage = () => {
           }}
         >
           <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TextField sx={{ width: '90%' }} required label="Número de elevações necessárias - Tamanho" margin="normal" type='number' name="sizeUpThreshold" id='sizeUpThreshold' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={sizeUpThreshold}
+            <TextField sx={{ width: '90%' }} required label="Elevações necessárias (Tamanho)" margin="normal" type='number' name="sizeUpThreshold" id='sizeUpThreshold' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={sizeUpThreshold}
               onChange={(e) => maxAndMinInput(setSizeUpThreshold, e, 5, 0)} />
           </Box>
         </Box>
@@ -380,7 +382,7 @@ const GameConfigurationCreatePage = () => {
           }}
         >
           <Box sx={{ width: '100%', display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TextField sx={{ width: '90%' }} required label="Número de descida necessárias - Tamanho" margin="normal" type='number' name="sizeDownThreshold" id='sizeDownThreshold' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={sizeDownThreshold}
+            <TextField sx={{ width: '90%' }} required label="Descidas necessárias (Tamanho)" margin="normal" type='number' name="sizeDownThreshold" id='sizeDownThreshold' color="borderInput" inputProps={{ step: "0.5" }} InputProps={{ classes: { input: classes.input } }} value={sizeDownThreshold}
               onChange={(e) => maxAndMinInput(setSizeDownThreshold, e, 5, 0)} />
           </Box>
         </Box>
@@ -428,7 +430,7 @@ const GameConfigurationCreatePage = () => {
         </Button>
       </Box>
       <Typography variant="h2" sx={{ mt: 4, fontSize: 20, fontWeight: "bold", letterSpacing: "1px" }}>
-        Recomendações criadas pela Inteligência Artificial
+        Recomendações criadas pela IA
       </Typography>
       <Box
         sx={{

@@ -7,14 +7,13 @@ import "@fontsource/roboto/700.css";
 import reportWebVitals from "./reportWebVitals";
 import CssBaseline from "@mui/material/CssBaseline";
 import App from "./app";
-import { MyContext } from "./providers/MyContext";
-
+import {MyContext} from "./providers/MyContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <MyContext>
-      <CssBaseline />
-      <App />
+      <CssBaseline/>
+      <App/>
     </MyContext>
   </React.StrictMode>,
   document.getElementById("root")

@@ -7,7 +7,7 @@ const PermanentDrawer = ({ width, children }) => {
       variant="permanent"
       sx={[
         {
-          display: { xs: "none", sm: "block" },
+          display: { xs: "none", md: "block" },
           "& .MuiDrawer-paper": { boxSizing: "border-box", width },
         },
       ]}

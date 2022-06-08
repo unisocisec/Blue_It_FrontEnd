@@ -8,11 +8,11 @@ const BlueCard = ({title, content, icon}) => {
       <Card
         sx={{
           borderRadius: 5,
-          width: 354,
+          width: 360,
           height: 238,
           backgroundColor: "#D1E9FC",
           color: "#5A5C69",
-          margin: 3
+          margin: 3,
         }}
         elevation={5}
       >

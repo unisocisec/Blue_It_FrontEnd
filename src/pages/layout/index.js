@@ -16,7 +16,7 @@ function LayoutPage(props) {
     <>
       <Box
         component="nav"
-        sx={{ width: { sm: Constants.DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
+        sx={{ width: { md: Constants.DRAWER_WIDTH }, flexShrink: { md: 0 } }}
         aria-label="mailbox folders"
       >
         <TemporaryDrawer
@@ -40,7 +40,7 @@ function LayoutPage(props) {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${Constants.DRAWER_WIDTH}px)` },
+          width: { sm: `calc(100% - ${Constants.DRAWER_WIDTH}px)` }
         }}
       >
         <Toolbar />

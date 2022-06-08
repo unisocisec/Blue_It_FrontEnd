@@ -40,11 +40,12 @@ const GameParameterCard = ({ gameParameter, index=null, selectNeighborInformatio
         flex: 'auto',
         boxSizing: 'border-box',
         minWidth: 0,
-        maxWidth: 750,
+        maxWidth: 700,
         backgroundColor: "white",
         color: "black",
         marginBottom: 5,
-        marginRight: 8
+        marginRight: { xs:0, lg: 1 },
+        marginLeft: { xs:0, lg: 1 }
       }}
       elevation={24}
     >
@@ -57,67 +58,67 @@ const GameParameterCard = ({ gameParameter, index=null, selectNeighborInformatio
         />
         <MeasureBox
           isLeft={false}
-          title='Fase:'
+          title='Fase'
           Idname = {`phase${index}`}
           value={`${gameParameter.phase ? gameParameter.phase.toFixed(0) : ''}`}
         />
         <MeasureBox
           isLeft={true}
-          title='Nivel do Estágio:'
+          title='Nivel do Estágio'
           Idname = {`stageId${index}`}
           value={`${gameParameter.stageId ? gameParameter.stageId.toFixed(0) : ''}`}
         />
         <MeasureBox
           isLeft={false}
-          title='Level:'
+          title='Level'
           Idname = {`level${index}`}
           value={`${gameParameter.level ? gameParameter.level.toFixed(0) : ''}`}
         />
         <MeasureBox
           isLeft={true}
-          title='Loops:'
+          title='Loops'
           Idname = {`Loops${index}`}
           value={`${gameParameter.Loops ? gameParameter.Loops.toFixed(0) : ''}`}
         />
         <MeasureBox
           isLeft={false}
-          title='Velocidade dos Objetos:'
+          title='Velocidade dos Objetos'
           Idname = {`objectSpeedFactor${index}`}
           value={`${gameParameter.ObjectSpeedFactor ? gameParameter.ObjectSpeedFactor.toFixed(2) : ''}`}
         />
         <MeasureBox
           isLeft={true}
-          title='Incremento performance - Altura:'
+          title='Incremento performance (Altura)'
           Idname = {`heightIncrement${index}`}
           value={`${gameParameter.HeightIncrement ? gameParameter.HeightIncrement.toFixed(2) : ''}`}
         />
         <MeasureBox
           isLeft={false}
-          title='Número de elevações necessárias - Altura:'
+          title='Número de elevações necessárias (Altura)'
           Idname = {`heightUpThreshold${index}`}
           value={`${gameParameter.HeightUpThreshold ? gameParameter.HeightUpThreshold.toFixed(2) : ''}`}
         />
         <MeasureBox
           isLeft={true}
-          title='Número de descida necessárias - Altura:'
+          title='Número de descida necessárias (Altura)'
           Idname = {`heightDownThreshold${index}`}
           value={`${gameParameter.HeightDownThreshold ? gameParameter.HeightDownThreshold.toFixed(2) : ''}`}
         />
         <MeasureBox
           isLeft={false}
-          title='Incremento performance - Tamanho:'
+          title='Incremento performance (Tamanho)'
           Idname = {`sizeIncrement${index}`}
           value={`${gameParameter.SizeIncrement ? gameParameter.SizeIncrement.toFixed(2) : ''}`}
         />
         <MeasureBox
           isLeft={true}
-          title='Número de elevações necessárias - Tamanho:'
+          title='Número de elevações necessárias (Tamanho)'
           Idname = {`sizeUpThreshold${index}`}
           value={`${gameParameter.SizeUpThreshold ? gameParameter.SizeUpThreshold.toFixed(2) : ''}`}
         />
         <MeasureBox
           isLeft={false}
-          title='Número de descida necessárias - Tamanho:'
+          title='Número de descida necessárias (Tamanho)'
           Idname = {`sizeDownThreshold${index}`}
           value={`${gameParameter.SizeDownThreshold ? gameParameter.SizeDownThreshold.toFixed(2) : ''}`}
         />
