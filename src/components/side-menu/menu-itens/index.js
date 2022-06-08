@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import SelectComponent from "../../select"
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
@@ -16,10 +16,8 @@ import { Typography } from "@mui/material";
 import MenuItemTemplate from "./menu-item-template";
 import AddIcon from '@mui/icons-material/Add';
 
-import { useMyContext } from "../../../providers/MyContext";
 import SelectPatient from "./select-patient";
 import { pathRoutes } from "../../../providers/Routes";
-import { getTokenParameters } from '../../../providers/sessionStorage';
 
 
 
@@ -36,19 +34,8 @@ const divider = (
   />
 );
 
-const MenuItens = () => {
-  const context = useMyContext();
-  const [permission] = useState(getTokenParameters('role') === "Administrator");
+const MenuItens = ({ permission, patientList}) => {
   const [openCategoryPosition, setOpenCategoryPosition] = useState(0);
-
-  useEffect(() => {
-    if (!permission) setPatientAccount()
-  }, []);
-
-  const setPatientAccount = async () => {
-    context.setPatientId(getTokenParameters('pacientId'));
-    context.setPatientName(getTokenParameters('fullname'));
-  }
 
   return (
     <>
@@ -59,7 +46,7 @@ const MenuItens = () => {
             <Avatar
               sx={{ width: 65, height: 65, margin: "auto", marginBottom: 1 }}
             />
-            <SelectPatient />
+            <SelectPatient patientList={patientList} />
             <Typography
               variant="body2"
               sx={{ textAlign: "center", color: "white", opacity: 0.7 }}
