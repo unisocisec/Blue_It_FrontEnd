@@ -21,7 +21,7 @@ const TemporaryDrawer = ({
         keepMounted: true, // Better open performance on mobile.
       }}
       sx={{
-        display: { xs: "block", sm: "none" },
+        display: { xs: "block", md: "none" },
         "& .MuiDrawer-paper": { boxSizing: "border-box", width },
       }}
     >

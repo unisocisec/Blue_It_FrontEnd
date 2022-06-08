@@ -18,8 +18,8 @@ const Header = ({ offset, handleMenuButton }) => {
       position="fixed"
       sx={{
         backgroundColor: 'white',
-        width: { sm: `calc(100% - ${offset}px)` },
-        ml: { sm: `${offset}px` },
+        width: { md: `calc(100% - ${offset}px)` },
+        ml: { md: `${offset}px` },
       }}
     >
       <Toolbar>
@@ -27,7 +27,7 @@ const Header = ({ offset, handleMenuButton }) => {
           aria-label="open drawer"
           edge="start"
           onClick={handleMenuButton}
-          sx={{ mr: 2, display: { sm: "none" }, color: '#11192A' }}
+          sx={{ mr: 2, display: { md: "none" }, color: '#11192A' }}
         >
           <MenuIcon />
         </IconButton>

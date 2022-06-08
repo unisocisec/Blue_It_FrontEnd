@@ -8,23 +8,24 @@ import expIcon from "../../images/expiration.png"
 import frequecyIcon from "../../images/frequency.png"
 import stopWatchPrimaryIcon from "../../images/stopwatch-primary.png"
 
-const DeviceCard = ({ historyCalibration }) => {
+const DeviceCard = ({historyCalibration}) => {
   return (
     <Paper
       sx={{
         flex: 'auto',
         boxSizing: 'border-box',
         minWidth: 0,
-        maxWidth: 800,
+        maxWidth: 600,
         backgroundColor: "white",
         color: "black",
-        marginBottom: 5,
-        marginRight: 3
+        marginBottom: 3,
+        marginRight: { xs: -2, md: 0, lg: 1 },
+        marginLeft: { xs: -2, md: 0, lg: 1 }
       }}
       elevation={24}
     >
-      <DeviceCardHeader title={historyCalibration.name ? historyCalibration.name : 'Sem Nome'} />
-      <Box sx={{ display: 'flex', flexFlow: 'wrap' }}>
+      <DeviceCardHeader title={historyCalibration.name ? historyCalibration.name : 'Sem Nome'}/>
+      <Box sx={{display: 'flex', flexFlow: 'wrap'}}>
         <MeasureBox
           isLeft={true}
           title='Pico expiratório'
