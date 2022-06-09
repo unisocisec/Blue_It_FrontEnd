@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const GameConfigurationCreatePage = () => {
-  const pageContext = useMyContext()
+  const context = useMyContext()
   const [gameParameterNeighborInformations, setGameParameterNeighborInformations] = useState([]);
 
   const classes = useStyles();
@@ -61,19 +61,19 @@ const GameConfigurationCreatePage = () => {
       }
     }
     async function getGameParameterNeighbor() {
-      pageContext.setLoading(true);
-      const pacientGameParameteResult = await getGameParameter(pageContext.patientId)
+      context.setLoading(true);
+      const pacientGameParameteResult = await getGameParameter(context.patientId)
       setInputsPacientGameParameter(pacientGameParameteResult.data.data[0])
-      const result = await fetchGameParameterNeighbor(pageContext.patientId);
+      const result = await fetchGameParameterNeighbor(context.patientId);
       setGameParameterNeighborInformations([...result.data.data]);
-      pageContext.setLoading(false);
+      context.setLoading(false);
     };
-    if (pageContext.patientId) {
+    if (context.patientId) {
       getGameParameterNeighbor();
     }
-  }, [pageContext.patientId]);
+  }, [context.patientId]);
 
-  if (!pageContext.patientId) {
+  if (!context.patientId) {
     return (<Typography variant="h2" sx={{ fontSize: 20 }}>Um paciente precisa ser selecionado!</Typography>);
   }
 
@@ -102,12 +102,13 @@ const GameConfigurationCreatePage = () => {
     setSizeUpThreshold(document.getElementById(`sizeUpThreshold${index}`).innerText);
     setSizeDownThreshold(document.getElementById(`sizeDownThreshold${index}`).innerText);
     setGameScript(document.getElementById(`gameScript${index}`)?.innerText?.replace(" ", "\n"));
+    context.addNotification('success',  'Configurações selecionadas');
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!pageContext.patientId) {
-      pageContext.addNotification('error', 'Nenhum paciente selecionados')
+    if (!context.patientId) {
+      context.addNotification('error', 'Nenhum paciente selecionados')
     } else {
       try {
         const gameScriptEdit = document?.getElementById('gameScript')?.value?.split("\n")?.map(function (template) {
@@ -119,7 +120,7 @@ const GameConfigurationCreatePage = () => {
           }
         })
         const gameParameter = {
-          pacientId: pageContext.patientId,
+          pacientId: context.patientId,
           "stageId": stageId,
           "phase": phase,
           "level": level,
@@ -133,8 +134,8 @@ const GameConfigurationCreatePage = () => {
           "gameScript": gameScriptEdit,
           "Loops": Loops,
         };
-        await createGameParameter(pageContext, gameParameter)
-        pageContext.addNotification('success', 'Salvo com Sucesso');
+        await createGameParameter(context, gameParameter)
+        context.addNotification('success', 'Salvo com Sucesso');
       } catch (error) { }
     };
   }

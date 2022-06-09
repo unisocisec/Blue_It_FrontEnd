@@ -87,6 +87,7 @@ const PatientAccount = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(`Usuário: ${user} Senha: ${password}`);
+    context.addNotification('success',  'Usuário e Senha copiados');
   }
 
   return (

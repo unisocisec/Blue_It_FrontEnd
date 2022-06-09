@@ -37,6 +37,7 @@ const ShippingCode = () => {
 
 	const copyToClipboard = () => {
 		navigator.clipboard.writeText(gameToken);
+		context.addNotification('success',  'Código copiado');
 	}
 
 	const generateShippingCode = async () => {

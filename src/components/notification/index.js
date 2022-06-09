@@ -32,19 +32,25 @@ const Notification = () => {
 
   return (
     <div style={{
-      zIndex: '1',
       position: 'fixed',
       marginTop: '1vh',
+      width: '100vw',
       zIndex: '9998',
       right: '0',
-      left: '0',
       top: '0',
     }}>
       < Box sx={{
         display: 'flex',
         justifyContent: 'flex-end',
       }}>
-        <Stack sx={{ width: '30%', minWidth: 390 }} spacing={1}>
+        <Stack sx={{ display: { xs: "block", md: "none" }, width: '100%' }} spacing={1}>
+          {notification.map((elem, index) => (
+            <Alert key={index} variant="filled" severity={elem.type}>
+              {elem.message}
+            </Alert>
+          ))}
+        </Stack>
+        <Stack sx={{ display: { xs: "none", md: "block" }, position: 'fixed', width: '30%' }} spacing={1}>
           {notification.map((elem, index) => (
             <Alert key={index} variant="filled" severity={elem.type}>
               {elem.message}
