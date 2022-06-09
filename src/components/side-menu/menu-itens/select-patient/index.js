@@ -40,7 +40,7 @@ const SelectPatient = ({ patientList = []}) => {
     const patient = patientList.find(elem => elem.id === patientId);
     context.setPatientName(patient.name);
     context.setPatientBirthDate(patient.birthDate);
-    context.setPatientId(patientId)
+    context.setPatientId(patientId);
   }
 
   return (

@@ -16,9 +16,8 @@ import { Typography } from "@mui/material";
 import MenuItemTemplate from "./menu-item-template";
 import AddIcon from '@mui/icons-material/Add';
 
-import SelectPatient from "./select-patient";
 import { pathRoutes } from "../../../providers/Routes";
-
+import SelectPatient from "./select-patient";
 
 
 const divider = (
@@ -34,7 +33,7 @@ const divider = (
   />
 );
 
-const MenuItens = ({ permission, patientList}) => {
+const MenuItens = ({ permission, patientList }) => {
   const [openCategoryPosition, setOpenCategoryPosition] = useState(0);
 
   return (
@@ -46,7 +45,9 @@ const MenuItens = ({ permission, patientList}) => {
             <Avatar
               sx={{ width: 65, height: 65, margin: "auto", marginBottom: 1 }}
             />
-            <SelectPatient patientList={patientList} />
+            <SelectPatient
+              patientList={patientList}
+            />
             <Typography
               variant="body2"
               sx={{ textAlign: "center", color: "white", opacity: 0.7 }}

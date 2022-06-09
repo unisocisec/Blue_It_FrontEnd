@@ -5,17 +5,17 @@ import Constants from "../../utils/contants";
 import { Outlet } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+
+import { useMyContext } from "../../providers/MyContext";
 import Header from "../../components/header";
 import TemporaryDrawer from "../../components/side-menu/temporary-drawer";
 import PermanentDrawer from "../../components/side-menu/permanent-drawer";
 import MenuItens from "../../components/side-menu/menu-itens";
-
 import { getTokenParameters } from '../../providers/sessionStorage';
-import { useMyContext } from "../../providers/MyContext";
 import { fetchAll } from "../../services/api/patient";
 
 
-function LayoutPage(props) {
+function LayoutPage() {
   const context = useMyContext();
   const [permission] = useState(getTokenParameters('role') === "Administrator");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -53,10 +53,18 @@ function LayoutPage(props) {
           open={mobileOpen}
           onCloseCallback={() => setMobileOpen(!mobileOpen)}
         >
-          <MenuItens permission={permission} patientList={patientList} />
+          <MenuItens
+            permission={permission}
+            patientList={patientList}
+          />
         </TemporaryDrawer>
-        <PermanentDrawer width={Constants.DRAWER_WIDTH} >
-          <MenuItens permission={permission} patientList={patientList} />
+        <PermanentDrawer
+          width={Constants.DRAWER_WIDTH}
+        >
+          <MenuItens
+            permission={permission}
+            patientList={patientList}
+          />
         </PermanentDrawer> 
       </Box>
     </>
