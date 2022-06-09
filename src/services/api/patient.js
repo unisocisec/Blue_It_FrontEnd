@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import { BaseUrl } from '../../providers/_config';
 import { getTokenParameters } from '../../providers/sessionStorage';
-
 import { extractMessage } from '../../components/notification';
+
 
 const fetchAll = async (context) => {
   context.setLoading(true);
