@@ -27,6 +27,12 @@ const MenuItemTemplate = ({ position, openCategoryPosition, setOpenCategoryPosit
             height: 50,
             backgroundColor: "#11192A",
           }, {
+            "&.Mui-selected":{
+              backgroundColor: "#243761",
+            },
+            "&.Mui-selected:hover":{
+              backgroundColor: "rgba(195,195,195,0.45)",
+            },
             "&:hover": {
               backgroundColor: "rgba(195,195,195,0.45)",
             },
@@ -63,6 +69,12 @@ const MenuItemTemplate = ({ position, openCategoryPosition, setOpenCategoryPosit
                     height: 45,
                     backgroundColor: "#11192A",
                   }, {
+                    "&.Mui-selected":{
+                      backgroundColor: "#243761",
+                    },
+                    "&.Mui-selected:hover":{
+                      backgroundColor: "rgba(195,195,195,0.45)",
+                    },
                     "&:hover": {
                       backgroundColor: "rgba(195,195,195,0.45)",
                     },

@@ -39,8 +39,12 @@ const Header = ({ offset, handleMenuButton }) => {
           sx={{ color: '#11192A', textDecoration: 'none' }}
         >
           I Blue It
+          <img
+            alt='Logo'
+            src={logo}
+            style={{ height: 20, marginLeft: 10 }}
+          />
         </Typography>
-        <img style={{height: 20, marginLeft: 20}} src={logo}/>
         <Box sx={{ flexGrow: 1 }} />
         <AccountMenu />
       </Toolbar>
