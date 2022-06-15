@@ -133,7 +133,7 @@ const PatientAccount = () => {
                 id='password'
                 color="borderInput"
                 InputProps={{ classes: { input: classes.input } }}
-                value={user}
+                value={password}
               />
             </Box>
 
