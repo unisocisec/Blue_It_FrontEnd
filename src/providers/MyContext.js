@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 

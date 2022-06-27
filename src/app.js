@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
 import Loading from "./components/loading/index";
 import Notification from "./components/notification";
 import CssBaseline from "@mui/material/CssBaseline";
 import AssemblyOfRoutes from "./components/AssemblyOfRoutes";
+import { setTimezone } from "./providers/preferences";
 
 
 const theme = createTheme({
@@ -41,6 +42,10 @@ const theme = createTheme({
 });
 
 const App = () => {
+  useEffect(() => {
+    setTimezone()
+  }, []);
+
   return (
     <>
       <Loading />

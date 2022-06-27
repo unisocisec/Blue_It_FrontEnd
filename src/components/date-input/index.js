@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as React from "react";
 import {
   createStyles,
@@ -6,12 +7,8 @@ import {
 } from "@mui/styles";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-
-import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ptBR from "date-fns/locale/pt-BR";
 import { Typography } from "@mui/material";
-registerLocale("ptBR", ptBR);
 
 // source: https://codesandbox.io/s/6rx8p?file=/demo.tsx:3138-3168
 const CssTextField = withStyles({
